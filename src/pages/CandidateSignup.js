@@ -1,10 +1,13 @@
 import React from 'react';
+import {Button} from 'flowbite-react';
 import Usignup from '../components/UndergraduateSignupForm';
 import Psignup from '../components/PostGraduateSignupForm';
+import AuthStatBar from '../components/AuthStatBar';
 
 function CandidateSignup() {
   return (
-    <div>CandidateSignup
+    <div>
+      <AuthStatBar/>
       <Usignup/>
       <Psignup/>
     </div>
