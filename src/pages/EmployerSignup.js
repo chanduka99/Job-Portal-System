@@ -1,9 +1,9 @@
 import React from 'react';
-import Esignup from '../components/EmployerSignupForm'
+import Esignup from '../components/EmployerSignupForm';
 
 function EmployerSignup() {
   return (
-    <div>EmployerSignup
+    <div>
         <Esignup/>
     </div>
 

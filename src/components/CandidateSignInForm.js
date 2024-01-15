@@ -1,10 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Radio, Label, TextInput } from "flowbite-react";
+import React from 'react';
+import {Radio,Label,TextInput} from 'flowbite-react';
+import {Link} from 'react-router-dom';
 
-function UndergraduateSignupForm() {
+function CandidateSignInForm() {
   const containerStyle = {
-    width: "50vw",
+    width: "30vw",
     // height: "80vh",
     marginTop: "30px",
     borderRadius: `8px`,
@@ -16,10 +16,10 @@ function UndergraduateSignupForm() {
     <div className="flex justify-center ">
       <div style={containerStyle} className="relative">
         <div className="flex justify-center">
-          <h1 className="text-2xl font-semibold mt-4 ">SignUp</h1>
+          <h1 className="text-2xl font-semibold mt-4 ">Sign in</h1>
         </div>
         {/* Radio Buttons */}
-        <fieldset className="flex max-w-md justify-around mt-6  ">
+        <fieldset className="flex  justify-around mt-6  ">
           <div className="flex gap-2 items-center ">
             <Radio id="underGraduate" value="Under Graduate"></Radio>
             <Label htmlfor="underGraduate" className="text-secondary text-opacity-80">Under Graduate</Label>
@@ -31,80 +31,36 @@ function UndergraduateSignupForm() {
           </div>
         </fieldset>
 
-        <div className="md:grid grid-cols-2 ">
-          {/* first column */}
-          <div>
-            <TextInput
-              id="firstName"
-              placeholder="First Name"
-              required
-              shadow
-              className=" mx-8 mt-6 "
-            />
-            <TextInput
-              id="indexNo"
-              placeholder="Index No"
-              required
-              shadow
-              className=" mx-8 mt-6 "
-            />
+        <div >
+          <div >
+            {/* Email and Password */}
             <TextInput
               id="email"
               placeholder="Email"
               type="email"
               required
               shadow
-              className=" mx-8 mt-6 "
+              className=" mx-8 mt-12 "
             />
+           
             <TextInput
-              id="setPassword"
-              placeholder="Set Password"
+              id="password"
+              placeholder="Password"
+              type='password'
               required
               shadow
-              className=" mx-8 mt-6 "
-            />
-            <TextInput
-              id="confirmPassword"
-              placeholder="Confirm Password"
-              required
-              shadow
-              className=" mx-8 mt-6 "
-            />
-          </div>
-
-          {/* second column */}
-          <div>
-            <TextInput
-              id="lasttName"
-              placeholder="Last Name"
-              required
-              shadow
-              className=" mx-8 mt-6 "
-            />
-            <TextInput
-              id="faculty"
-              placeholder="Faculty"
-              required
-              shadow
-              className=" mx-8 mt-6 "
-            />
-            <TextInput
-              id="department"
-              placeholder="Department"
-              required
-              shadow
-              className=" mx-8 mt-6 "
+              className=" mx-8 mt-12 "
             />
           </div>
         </div>
         {/* Register Button */}
         <div className="px-8">
-          <Link to={"/find-job/get-started/confirm-email"}>
+          <Link to={"/find-job/c-dashboard-jobs-feed"}>
             <button
               type="button"
               className=" mt-9 text-2xl text-white text- w-full h-12 rounded-[5px] bg-[#9445FF]"
             >
-              Register
+              Sign in
             </button>
           </Link>
         </div>
@@ -118,12 +74,12 @@ function UndergraduateSignupForm() {
         {/* Sign in option */}
         <div className="justify-center text-center px-8 py-5">
           <p className=" text-secondary text-opacity-50">
-            Have an account? <div className="inline-block"><Link><p className="text-[#9445FF]">Sign in</p></Link></div>
+            No account? <div className="inline-block"><Link to={"/find-job/get-started"}><p className="text-[#9445FF]">Sign up</p></Link></div>
           </p>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default UndergraduateSignupForm;
+export default CandidateSignInForm

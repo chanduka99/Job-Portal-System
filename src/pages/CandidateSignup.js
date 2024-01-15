@@ -1,7 +1,6 @@
 import React from 'react';
 import {Button} from 'flowbite-react';
-import Usignup from '../components/UndergraduateSignupForm';
-import Psignup from '../components/PostGraduateSignupForm';
+import Csignup from '../components/CandidateSignupForm';
 import ConfirmEmail from '../components/EmailConfirmation';
 import AuthStatBar from '../components/AuthStatBar';
 import CandAccountSetup from '../components/CandidateAccountSetupForm';
@@ -10,7 +9,7 @@ function CandidateSignup() {
   return (
     <div>
       <AuthStatBar/>
-      <Usignup/>
+      <Csignup/>
     </div>
     
 
