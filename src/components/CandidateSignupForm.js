@@ -118,7 +118,7 @@ function UndergraduateSignupForm() {
         {/* Sign in option */}
         <div className="justify-center text-center px-8 py-5">
           <p className=" text-secondary text-opacity-50">
-            Have an account? <div className="inline-block"><Link to={"/Clogin"}><p className="text-[#9445FF]">Sign in</p></Link></div>
+            Have an account? <div className="inline-block"><Link to={"/find-job/Clogin"}><p className="text-[#9445FF]">Sign in</p></Link></div>
           </p>
         </div>
       </div>

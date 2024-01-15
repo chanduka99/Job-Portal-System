@@ -15,7 +15,7 @@ function App() {
       <Route path="/" element={<Landing/>}/>
       <Route path="/find-job" element={<CHome/>}/>
       <Route path="/find-job/get-started" element={<CSignup/>}/>
-      <Route path="/Clogin" element={<CSingin/>}/>
+      <Route path="/find-job/Clogin" element={<CSingin/>}/>
       <Route path="/find-job/get-started/confirm-email" element={<CEmailConfirm/>}/>
       <Route path="/find-job/get-started/confirm-email/c-account-setup" element={<CAccountSetup/>}/>
       <Route path="/find-job/get-started/confirm-email/c-account-setup/c-dashboard-jobs-feed" element={<CDashboardJobsFeed/>}/>
