@@ -4,6 +4,7 @@ import Landing from './pages/Landing';
 import CHome from './pages/CandidateHome';
 import EHome from './pages/EmployerHome';
 import CSignup from './pages/CandidateSignup';
+import CSingin from './pages/CandidateSignIn';
 import ESignup from './pages/EmployerSignup';
 import CAccountSetup from './pages/CandidateAccountSetup';
 import CEmailConfirm from './pages/CandidateEmailConfirm';
@@ -14,9 +15,11 @@ function App() {
       <Route path="/" element={<Landing/>}/>
       <Route path="/find-job" element={<CHome/>}/>
       <Route path="/find-job/get-started" element={<CSignup/>}/>
+      <Route path="/Clogin" element={<CSingin/>}/>
       <Route path="/find-job/get-started/confirm-email" element={<CEmailConfirm/>}/>
       <Route path="/find-job/get-started/confirm-email/c-account-setup" element={<CAccountSetup/>}/>
       <Route path="/find-job/get-started/confirm-email/c-account-setup/c-dashboard-jobs-feed" element={<CDashboardJobsFeed/>}/>
+      <Route path="/find-job/c-dashboard-jobs-feed" element={<CDashboardJobsFeed/>}/>
       <Route path="/post-job" element={<EHome/>}/>
       <Route path="/post-job/get-started" element={<ESignup/>}/>
     </Routes>

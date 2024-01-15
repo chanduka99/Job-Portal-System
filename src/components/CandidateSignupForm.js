@@ -19,7 +19,7 @@ function UndergraduateSignupForm() {
           <h1 className="text-2xl font-semibold mt-4 ">SignUp</h1>
         </div>
         {/* Radio Buttons */}
-        <fieldset className="flex max-w-md justify-around mt-6  ">
+        <fieldset className="flex  justify-around mt-6  ">
           <div className="flex gap-2 items-center ">
             <Radio id="underGraduate" value="Under Graduate"></Radio>
             <Label htmlfor="underGraduate" className="text-secondary text-opacity-80">Under Graduate</Label>
@@ -118,7 +118,7 @@ function UndergraduateSignupForm() {
         {/* Sign in option */}
         <div className="justify-center text-center px-8 py-5">
           <p className=" text-secondary text-opacity-50">
-            Have an account? <div className="inline-block"><Link><p className="text-[#9445FF]">Sign in</p></Link></div>
+            Have an account? <div className="inline-block"><Link to={"/Clogin"}><p className="text-[#9445FF]">Sign in</p></Link></div>
           </p>
         </div>
       </div>
