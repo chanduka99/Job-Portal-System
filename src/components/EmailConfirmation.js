@@ -19,7 +19,7 @@ function EmailConfirmation() {
 
 
       {/* only for testing remember to  remove this after writing the logice */}
-      <Link to={"/find-job/get-started/confirm-email/c-account-setup"}>
+      <Link to={"/post-job/get-started/confirm-email/e-account-setup"}>
       <div style={containerStyle} className="p-2 relative">
         <img src={EmailConfirm} className="absolute  w-32  -top-16 inset-x-28 m-auto " alt="No internet"/>
 
