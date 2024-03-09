@@ -2,13 +2,12 @@ import React from 'react';
 import Cnavbar from '../components/CandidateNavbar';
 import CSidebar from '../components/CandidateSideBar';
 
-function DashboardJobFeed() {
+function CandidateDashboardJobFeed() {
   return (
-    <div>
-        <Cnavbar/>
-        <CSidebar/>
-    </div>
+          <div>
+            dashboardJobFeed
+          </div>
   )
 }
 
-export default DashboardJobFeed
+export default CandidateDashboardJobFeed;

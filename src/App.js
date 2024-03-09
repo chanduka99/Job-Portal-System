@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import './App.css';
 import Landing from './pages/Landing';
 import CHome from './pages/CandidateHome';
@@ -10,11 +11,32 @@ import ESignin from './pages/EmployerSignIn';
 import CAccountSetup from './pages/CandidateAccountSetup';
 import EAccountSetup from "./pages/EmployerAccountSetup";
 import CEmailConfirm from './pages/CandidateEmailConfirm';
-import CDashboardJobsFeed from './pages/DashboardJobFeed'
-import EDashboardJobsFeed from './pages/DashboardJobFeed'
+import CDashboardJobsFeed from './pages/CandidateDashboardJobFeed'
+import EDashboardJobsFeed from './pages/CandidateDashboardJobFeed'
 import EEmailConfirm from "./pages/EmployerEmailConfirm";
+import CSideBar from "./components/CandidateSideBar";
+import IsSideBar from "./components/IsSideBar";
+import CNavbar from "./components/CandidateNavbar";
+import ENavbar from "./components/EmployerNavbar";
+import CDahsboardBookmarks from "./pages/CandidateDashboardBookmarks";
+import CDashboardChat from "./pages/CandidateDashboardChat";
+import CDashboardProfile from "./pages/CandidateDashboardProfile";
+import CDashboardReviews from "./pages/CandidateDashboardReviews";
+import CDashboardSettings from "./pages/CandidateDashboardSettings";
+
 function App() {
   return (
+    <BrowserRouter >
+    {/* <isCNavbar> */}
+    {/* <CNavbar/> */}
+    {/* </isCNavbar> */}
+    {/* <isENavbar> */}
+    {/* <ENavbar/> */}
+    {/* </isENavbar> */}
+    <div className="flex">
+    <IsSideBar>
+      <CSideBar/>
+    </IsSideBar>
     <Routes>
       <Route path="/" element={<Landing/>}/>
       <Route path="/find-job" element={<CHome/>}/>
@@ -24,6 +46,11 @@ function App() {
       <Route path="/find-job/get-started/confirm-email/c-account-setup" element={<CAccountSetup/>}/>
       <Route path="/find-job/get-started/confirm-email/c-account-setup/c-dashboard-jobs-feed" element={<CDashboardJobsFeed/>}/>
       <Route path="/find-job/c-dashboard-jobs-feed" element={<CDashboardJobsFeed/>}/>
+      <Route path="/find-job/c-dashboard-profile" element={<CDashboardProfile/>}/>
+      <Route path="/find-job/c-dashboard-bookmarks" element={<CDahsboardBookmarks/>}/>
+      <Route path="/find-job/c-dashboard-chat" element={<CDashboardChat/>}/>
+      <Route path="/find-job/c-dashboard-reviews" element={<CDashboardReviews/>}/>
+      <Route path="/find-job/c-dashboard-settings" element={<CDashboardSettings/>}/>
       <Route path="/post-job" element={<EHome/>}/>
       <Route path="/post-job/Elogin" element={<ESignin/>}/>
       <Route path="/post-job/get-started" element={<ESignup/>}/>
@@ -32,6 +59,9 @@ function App() {
       <Route path="/post-job/get-started/confirm-email/e-account-setup/e-dashboard-jobs-feed" element={<EDashboardJobsFeed/>}/>
       <Route path="/post-job/e-dashboard-jobs-feed" element={<EDashboardJobsFeed/>}/>
     </Routes>
+    </div>
+    </BrowserRouter> 
+
   );
 }
 
