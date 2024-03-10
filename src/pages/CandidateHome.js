@@ -10,7 +10,6 @@ function CandidateHome() {
   const Cpic = findJob;
   return (
     <div>
-      <Cnavbar/>
       <div className=' flex mt-24 px-4'>
         {/* column 1 */}
         <div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import AuthStatBar from '../components/AuthStatBar';
-import EEmailConfirm from '../components/EmailConfirmation';
+import EEmailConfirm from '../components/CEmailConfirmation';
 
 function EmployerEmailConfirm() {
   return (

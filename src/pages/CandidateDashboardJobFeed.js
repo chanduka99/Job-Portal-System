@@ -5,7 +5,7 @@ import CSidebar from '../components/CandidateSideBar';
 function CandidateDashboardJobFeed() {
   return (
           <div>
-            dashboardJobFeed
+            EdashboardJobFeed
           </div>
   )
 }

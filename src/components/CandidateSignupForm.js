@@ -22,12 +22,12 @@ function UndergraduateSignupForm() {
         <fieldset className="flex  justify-around mt-6  ">
           <div className="flex gap-2 items-center ">
             <Radio id="underGraduate" value="Under Graduate"></Radio>
-            <Label htmlfor="underGraduate" className="text-secondary text-opacity-80">Under Graduate</Label>
+            <Label htmlFor="underGraduate" className="text-secondary text-opacity-80">Under Graduate</Label>
           </div>
 
           <div className="flex gap-2 items-center ">
             <Radio id="postGraduate" value="Post Graduate"></Radio>
-            <Label htmlfor="postGraduate" className="text-secondary text-opacity-80">Post Graduate</Label>
+            <Label htmlFor="postGraduate" className="text-secondary text-opacity-80">Post Graduate</Label>
           </div>
         </fieldset>
 

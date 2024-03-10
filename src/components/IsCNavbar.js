@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-function IsSideBar({ children }) {
-  const [show, setShow] = useState(false);
+function IsCNavBar({ children }) {
+  const [show, setshow] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
     switch (location.pathname) {
+      case "/find-job":
       case "/find-job/c-dashboard-jobs-feed":
       case "/find-job/get-started/confirm-email/c-account-setup/c-dashboard-jobs-feed":
       case "/find-job/c-dashboard-profile":
@@ -14,10 +15,10 @@ function IsSideBar({ children }) {
       case "/find-job/c-dashboard-chat":
       case "/find-job/c-dashboard-reviews":
       case "/find-job/c-dashboard-settings":
-        setShow(true);
+        setshow(true);
         break;
       default:
-        setShow(false);
+        setshow(false);
     }
   }, [location.pathname]);
 
@@ -26,4 +27,4 @@ function IsSideBar({ children }) {
   );
 }
 
-export default IsSideBar;
+export default IsCNavBar;
