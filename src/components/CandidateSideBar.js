@@ -3,12 +3,12 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import profile from '../assets/candidate/sidebar/profile.svg';
 import search from '../assets/candidate/sidebar/search.svg';
-import bookmark from '../assets/candidate/sidebar/Bookmard icon gray.svg'
-import chat from '../assets/candidate/sidebar/chat.svg'
-import review from '../assets/candidate/sidebar/review.svg'
-import settings from '../assets/candidate/sidebar/settings.svg'
-import menuBar from '../assets/candidate/sidebar/menubar.svg'
-import logout from '../assets/candidate/sidebar/logout.svg'
+import bookmark from '../assets/candidate/sidebar/Bookmard icon gray.svg';
+import chat from '../assets/candidate/sidebar/chat.svg';
+import review from '../assets/candidate/sidebar/review.svg';
+import settings from '../assets/candidate/sidebar/settings.svg';
+import menuBar from '../assets/candidate/sidebar/menubar.svg';
+import logout from '../assets/candidate/sidebar/logout.svg';
 
 function CandidateSideBar() {
     const containerStyle = "p-2 rounded-[5px] mt-[4vh] flex place-items-center gap-5 hover:bg-[rgba(255,255,255,0.18)] duration-300  text-white text-opacity-60 text-base tracking-wider hover:text-white"

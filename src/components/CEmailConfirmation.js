@@ -18,8 +18,8 @@ function EmailConfirmation() {
 
 
 
-      {/* only for testing remember to  remove this after writing the logice */}
-      <Link to={"/post-job/get-started/confirm-email/e-account-setup"}>
+      {/* only for testing remember to  remove this wrap with Link after writing the logice */}
+      <Link to={"/find-job/get-started/confirm-email/c-account-setup"}>
       <div style={containerStyle} className="p-2 relative">
         <img src={EmailConfirm} className="absolute  w-32  -top-16 inset-x-28 m-auto " alt="No internet"/>
 
@@ -31,14 +31,14 @@ function EmailConfirmation() {
           </p>
         </div>
         <div className=" bg-[#F2F5F8] rounded-[8px] flex justify-between p-6 text-sm">
-          <p className=" text-secondary text-opacity-60">
+          <div className=" text-secondary text-opacity-60">
             Didn't get the email?
             <Link to={"/find-job"}>
               <div className="inline-block text-[#9445FF]">
                 <p>Email link again</p>
               </div>
             </Link>
-          </p>
+          </div>
           <div>
             <Link to={"/find-job"}>
               <p className="text-[#9445FF]">Return to Home</p>

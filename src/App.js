@@ -16,6 +16,7 @@ import EDashboardJobsFeed from './pages/CandidateDashboardJobFeed'
 import EEmailConfirm from "./pages/EmployerEmailConfirm";
 import CSideBar from "./components/CandidateSideBar";
 import IsSideBar from "./components/IsSideBar";
+import IsCNavbar from "./components/IsCNavbar";
 import CNavbar from "./components/CandidateNavbar";
 import ENavbar from "./components/EmployerNavbar";
 import CDahsboardBookmarks from "./pages/CandidateDashboardBookmarks";
@@ -27,9 +28,9 @@ import CDashboardSettings from "./pages/CandidateDashboardSettings";
 function App() {
   return (
     <BrowserRouter >
-    {/* <isCNavbar> */}
-    {/* <CNavbar/> */}
-    {/* </isCNavbar> */}
+    <IsCNavbar>
+      <CNavbar/>
+    </IsCNavbar>
     {/* <isENavbar> */}
     {/* <ENavbar/> */}
     {/* </isENavbar> */}

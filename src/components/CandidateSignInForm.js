@@ -73,9 +73,9 @@ function CandidateSignInForm() {
         </div>
         {/* Sign in option */}
         <div className="justify-center text-center px-8 py-5">
-          <p className=" text-secondary text-opacity-50">
+          <div className=" text-secondary text-opacity-50">
             No account? <div className="inline-block"><Link to={"/find-job/get-started"}><p className="text-[#9445FF]">Sign up</p></Link></div>
-          </p>
+          </div>
         </div>
       </div>
     </div>
