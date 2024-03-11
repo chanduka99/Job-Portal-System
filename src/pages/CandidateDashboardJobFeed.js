@@ -15,7 +15,7 @@ function CandidateDashboardJobFeed() {
       </div>
       <dig className="col-span-1 sm:col-span-3">
         <Search />
-        <div className="grid grid-cols-1 sm:grid-cols-2 max-h-[92vh] overflow-y-auto gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 max-h-[92vh] overflow-y-auto gap-y-2">
           <JobCard
             image={temperoryCompanyLogo}
             companyName="99x"
@@ -130,7 +130,7 @@ function CandidateDashboardJobFeed() {
           />
         </div>
       </dig>
-      <div className=" sm:col-span-2 max-h-[92vh] overflow-y-auto w-full ">
+      <div className=" sm:col-span-2 max-h-[92vh] overflow-y-auto w-full  ">
         <JobDescriptor
           image={temperoryCompanyLogo}
           companyName="99x"

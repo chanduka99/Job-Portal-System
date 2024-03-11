@@ -35,7 +35,7 @@ function JobCard(props) {
   };
 
   const containerStyle3 = {
-    width: "40px",
+    // width: "50%",
     height: "30px",
     // marginTop: "30px",
     borderRadius: `12px`,
@@ -50,8 +50,8 @@ function JobCard(props) {
   };
 
   return (
-    <div className="flex justify-around  ">
-      <div style={containerStyle} className="p-3">
+    <div className=" flex justify-evenly w-full ">
+      <div style={containerStyle} className="p-3 w-full">
         {/* badge,company name    bookmark,rating */}
         <div className="flex justify-between overflow-hidden">
           {/* badge and company name */}
@@ -77,7 +77,7 @@ function JobCard(props) {
             </div>
             {/* rating */}
             <div style={containerStyle3}>
-              <h1 className="mt-1 text-secondary text-opacity-80 text-sm ">
+              <h1 className="mt-1.5 text-secondary text-opacity-80 text-xs ">
                 {rating}
               </h1>
             </div>

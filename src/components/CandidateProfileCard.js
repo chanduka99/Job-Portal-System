@@ -4,24 +4,108 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import profilpic from '../assets/Registration/profilepic.svg'
 
-function CandidateAccountSetupForm() {
-    const [openModal, setOpenModal] = useState(false);
-    const [email, setEmail] = useState('');
+function CandidateProfileCard() {
+    const aboutMe = "3rd Year Undergradute Faculty of Engineering."
+    const firstName = "Kaveesha";
+    const lastName = "Chanduka";
+    const contactNum = "+9407234234234";
+    const  faculty = "Faculty of Engineering";
+    const graduatingYear = "31 Aug 2026";
+    const country = "Sri Lanka";
+    const city = "Galle";
+    const jobPreferences = ["Java Developer","Back-End Developer","Front-End Developer"];
 
-    function onCloseModal() {
-      setOpenModal(false);
-      setEmail('');
-    }
+    const containerStyle1 = {
+        // maxwidth:"70vw",
+        marginTop:"8px",
+        borderRadius: "8px",
+        border:"1px solid rgba(92,101,117,0.23)",
+        boxShadow:"0 0 21px 1px rgba(0,0,0,0.12)",
 
-    const containerStyle = {
+      };
+      const containerStyle = {
         width:"100vh",
         marginTop:"30px",
         borderRadius: "8px",
         border:"1px solid rgba(92,101,117,0.23)",
         boxShadow:"0 0 21px 1px rgba(0,0,0,0.12)",
       };
+
+      const [openModal, setOpenModal] = useState(false);
+    
+      function onCloseModal() {
+        setOpenModal(false);
+      }
+
+
   return (
     <div className=' flex justify-center mb-6'>
+        <div style={containerStyle1} className='p-8'>
+            <div className='md:grid grid-cols-2 my-6 gap-12 text-primary'>
+                <img src={profilpic} className='w-48'/>
+                {/* About me */}
+                <div
+                id='aboutMe'
+                className=' mt-14 items- h-28'
+                >
+                    {aboutMe}
+                </div>
+                <div>
+                    {/* first name */}
+                    <div className='mt-6'
+                    id='firstName'
+                    >{"Name : " + firstName + " " + lastName}</div>
+
+                    {/* Faculty */}
+                    <div className='mt-6'
+                    id='faculty'
+                    >{"Faculty : " +faculty}</div>
+
+                    {/* Country */}
+                    <div className='mt-6'
+                    id='country'
+                    >{"Country : " +country}</div>
+                </div>
+                <div>
+                    {/* city */}
+                    <div className='mt-6'
+                    id='city'
+                    >{"City : "+city}</div>
+                    {/* contact number */}
+                    <div className='mt-6'
+                    id='cotactNumber'
+                    >{"Tel : "+contactNum}</div>
+                    {/* Graduating/Graduated year */}
+                    <div className='mt-6'>
+                        {"Graduating/Graduated Year : " + graduatingYear}
+                    </div>
+                    
+                </div>
+            </div>
+
+            {/* Job Preferneces */}
+            <div className=' mt-12'>
+                <h1 className='text-xl font-black'>Job Preferneces</h1>
+                {jobPreferences.map((elm)=><Badge className='text-base w-1/2 mt-6 bg-[#F2F5F8] text-secondary text-opacity-80'>{elm}</Badge>)}
+
+                {/* Edit button */}
+                <div className=" flex justify-end  ">
+                        <button
+                        type="button"
+                        className=" mt-9 text-xl  text-white text- w-32 h-10 rounded-[5px] bg-[#9445FF]"
+                        onClick={() => setOpenModal(true)}
+                        >
+                        Edit
+                        </button>
+                </div>
+            </div>
+        </div>
+        {/* popup modal to edit the details */}
+        <Modal show={openModal}  onClose={onCloseModal} popup>
+        <Modal.Header />
+        <Modal.Body>
+          <div className='max-h-[60vh] overflow-y-auto max-w-[70vw]'>
+          <div className=' flex justify-center mb-6'>
         <div style={containerStyle} className='p-8'>
             <div className='flex gap-12 items-center'>
                 <h1 className='font-black text-xl'>Info</h1>
@@ -94,45 +178,25 @@ function CandidateAccountSetupForm() {
                     Front-End Developer
                 </Badge>
 
-                {/* Add Button */}
-                <div>
-                    <Button onClick={() => setOpenModal(true)} className='mt-6 text-secondary bg-[#F2F5F8]'>+ Add</Button>
-                        <Modal show={openModal} size="md" onClose={onCloseModal} popup>
-                        <Modal.Header />
-                        <Modal.Body>
-                        <div className="space-y-6">
-                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Add your Job Prefernece</h3>
-                            <div>
-
-                            </div>
-                            <div>
-                            <TextInput id="jobPreference"   />
-                            </div>
-
-                            <div className="w-full">
-                            <Button>Add</Button>
-                            </div>
-                        </div>
-                        </Modal.Body>
-                    </Modal>
-
-                </div>
-
                 {/* Finish button */}
                 <div className=" flex justify-end  ">
-                    <Link to={"/find-job/get-started/confirm-email/c-account-setup/c-dashboard-jobs-feed"}>
                         <button
                         type="button"
                         className=" mt-9 text-xl  text-white text- w-32 h-10 rounded-[5px] bg-[#9445FF]"
                         >
                         Finish
                         </button>
-                    </Link>
                 </div>
             </div>
         </div>
     </div>
+            
+
+          </div>
+        </Modal.Body>
+      </Modal>
+    </div>
   )
 }
 
-export default CandidateAccountSetupForm
+export default CandidateProfileCard;

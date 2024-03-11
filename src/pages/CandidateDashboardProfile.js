@@ -1,9 +1,14 @@
-import React from 'react'
+import React from 'react';
+import CandidateProfileCard from '../components/CandidateProfileCard';
 
 function CandidateDashboardProfile() {
   return (
-    <div>CandidateDashboardProfile</div>
+    <div className=' flex justify-center w-full'>
+      <div className='  max-h-[92vh] overflow-y-auto '>
+        <CandidateProfileCard/>
+      </div>
+    </div>
   )
 }
 
-export default CandidateDashboardProfile;
+export default CandidateDashboardProfile
