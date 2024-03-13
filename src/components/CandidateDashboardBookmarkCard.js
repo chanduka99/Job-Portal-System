@@ -4,7 +4,7 @@ import { Radio, Label, TextInput, Checkbox, Badge } from "flowbite-react";
 import filter from "../assets/candidate/dashboard/filter.svg";
 import bookmarkIcon from "../assets/jobcard/bookmark.png";
 import locationIcon from "../assets/jobcard/location.png";
-function JobCard(props) {
+function bookmarkCard(props) {
   const image = props.image;
   const companyName = props.companyName;
   const rating = props.rating;
@@ -108,4 +108,4 @@ function JobCard(props) {
   );
 }
 
-export default JobCard;
+export default bookmarkCard;

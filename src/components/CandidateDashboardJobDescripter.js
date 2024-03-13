@@ -95,16 +95,16 @@ function JobDescriptor(props) {
           </div>
         </div>
         {/* apply and add to favourites buttons*/}
-        <div className="flex justify-around gap-2 mt-8 mb-10">
+        <div className="md:flex justify-around gap-2 mt-8 mb-10">
           <button
               type="button"
-              className="text-xs px-4 py-2 text-white  rounded-[5px] bg-[#9445FF] w-1/2 "
+              className=" block text-xs px-4 py-2 text-white  rounded-[5px] bg-[#9445FF] w-1/2 mt-1 md:mt-0 "
             >
               Apply
-            </button>
+          </button>
           <button
               type="button"
-              className="text-xs px-4 py-2 text-white  rounded-[5px] bg-[#FFB800] w-1/2 "
+              className=" block text-xs px-4 py-2 text-white  rounded-[5px] bg-[#FFB800] w-1/2  mt-1 md:mt-0"
             >
               Add to Favourites
             </button>

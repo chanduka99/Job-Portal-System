@@ -9,8 +9,6 @@ function EmployerHome() {
   const Epic = postJob;
   return (
     <div>
-      <Enavbar/>
-
       <div className='flex mt-24 px-4'>
 
         <div>

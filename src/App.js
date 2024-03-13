@@ -12,11 +12,12 @@ import CAccountSetup from './pages/CandidateAccountSetup';
 import EAccountSetup from "./pages/EmployerAccountSetup";
 import CEmailConfirm from './pages/CandidateEmailConfirm';
 import CDashboardJobsFeed from './pages/CandidateDashboardJobFeed'
-import EDashboardJobsFeed from './pages/CandidateDashboardJobFeed'
+import EDashboardJobsFeed from './pages/EmployerDashboardJobFeed'
 import EEmailConfirm from "./pages/EmployerEmailConfirm";
 import CSideBar from "./components/CandidateSideBar";
-import IsSideBar from "./components/IsSideBar";
+import IsCSideBar from "./components/IsCSideBar";
 import IsCNavbar from "./components/IsCNavbar";
+import IsENavbar from "./components/IsENavbar";
 import CNavbar from "./components/CandidateNavbar";
 import ENavbar from "./components/EmployerNavbar";
 import CDahsboardBookmarks from "./pages/CandidateDashboardBookmarks";
@@ -31,13 +32,14 @@ function App() {
     <IsCNavbar>
       <CNavbar/>
     </IsCNavbar>
-    {/* <isENavbar> */}
-    {/* <ENavbar/> */}
-    {/* </isENavbar> */}
+    <IsENavbar>
+      <ENavbar/>
+    </IsENavbar>
     <div className="flex">
-    <IsSideBar>
+    <IsCSideBar>
       <CSideBar/>
-    </IsSideBar>
+    </IsCSideBar>
+
     <Routes>
       <Route path="/" element={<Landing/>}/>
       <Route path="/find-job" element={<CHome/>}/>

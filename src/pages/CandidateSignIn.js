@@ -5,7 +5,7 @@ import CSingin from '../components/CandidateSignInForm';
 function CandidateSIgnIn() {
 
   return (
-    <div>
+    <div className='w-screen'>
       <CSingin/>
     </div>
   )

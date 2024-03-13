@@ -184,7 +184,7 @@ function CandidateProfileCard() {
                         type="button"
                         className=" mt-9 text-xl  text-white text- w-32 h-10 rounded-[5px] bg-[#9445FF]"
                         >
-                        Finish
+                        Save
                         </button>
                 </div>
             </div>
