@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 function EmployerNavbar() {
   return (
-    <div className=' flex bg-gradient-to-r from-[#9345ffd5] to-[#512194] text-white justify-evenly font-extrabold text-xl'>
+    <div className=' p-2 flex bg-gradient-to-r from-[#9345ffd5] to-[#512194] h-[6vh] text-white text-opacity-80  justify-between font-extrabold text-xl rounded-[5px] place-items-center'>
         <div className=" group transition  hover:text-white ">
             <Link to={"/"}>
                 <button>
@@ -22,7 +22,7 @@ function EmployerNavbar() {
             <span className={`block max-w-0 group-hover:max-w-full transition-all bg-white h-[0.2vh] duration-500 `}/>
         </div>
         <div className=" group transition  hover:text-white ">
-        <Link to={"/"}>
+        <Link to={"/post-job/post-a-job"}>
                 <button>
                     Post
                 </button>

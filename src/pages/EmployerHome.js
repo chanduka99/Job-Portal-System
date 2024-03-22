@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Enavbar from '../components/EmployerNavbar';
 import postJob from '../assets/emloyer/postJob2.svg';
 
 function EmployerHome() {
