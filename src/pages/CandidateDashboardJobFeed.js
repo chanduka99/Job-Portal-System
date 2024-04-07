@@ -1,138 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
 import Cnavbar from "../components/CandidateNavbar";
 import CSidebar from "../components/CandidateSideBar";
 import Filter from "../components/CandidateDashboardFilter";
 import Search from "../components/CandidateDashboardSearch";
 import JobCard from "../components/CandidateDashboardJobCard";
 import JobDescriptor from "../components/CandidateDashboardJobDescripter";
-import temperoryCompanyLogo from "../assets/99x.png";
-import temperoryCompanyLogo2 from "../assets/dialog.png";
 function CandidateDashboardJobFeed() {
+
+
+  //need to fetch the data  from the database HERE I JUST HARD CODED IT. fetcht the data from the database and putinsid this array with useState hook
+  const [jobs,setJobs] = useState([
+    {image: "https://99x.io/images/logo-99x-main.png",companyName: "99x" , rating: "4.2", jobTitle: "Java Developer" , location: "Colombo"},
+    {image: "https://99x.io/images/logo-99x-main.png",companyName: "99x" , rating: "4.2", jobTitle: "Java Developer" , location: "Colombo"},
+    {image: "https://99x.io/images/logo-99x-main.png",companyName: "99x" , rating: "4.2", jobTitle: "Java Developer" , location: "Colombo"},
+    {image: "https://99x.io/images/logo-99x-main.png",companyName: "99x" , rating: "4.2", jobTitle: "Java Developer" , location: "Colombo"},
+    {image: "https://99x.io/images/logo-99x-main.png",companyName: "99x" , rating: "4.2", jobTitle: "Java Developer" , location: "Colombo"},
+    {image: "https://99x.io/images/logo-99x-main.png",companyName: "99x" , rating: "4.2", jobTitle: "Java Developer" , location: "Colombo"},
+    {image: "https://99x.io/images/logo-99x-main.png",companyName: "99x" , rating: "4.2", jobTitle: "Java Developer" , location: "Colombo"},
+    {image: "https://99x.io/images/logo-99x-main.png",companyName: "99x" , rating: "4.2", jobTitle: "Java Developer" , location: "Colombo"},
+    {image: "https://99x.io/images/logo-99x-main.png",companyName: "99x" , rating: "4.2", jobTitle: "Java Developer" , location: "Colombo"},
+    {image: "https://e7.pngegg.com/pngimages/514/56/png-clipart-dialog-axiata-axiata-group-xl-axiata-colombo-dialog-broadband-networks-dialog-axiata-angle-rectangle.png",companyName: "Dialog" , rating: "4.2", jobTitle: "Java Developer" , location: "Galle"},
+    {image: "https://e7.pngegg.com/pngimages/514/56/png-clipart-dialog-axiata-axiata-group-xl-axiata-colombo-dialog-broadband-networks-dialog-axiata-angle-rectangle.png",companyName: "Dialog" , rating: "4.2", jobTitle: "Java Developer" , location: "Galle"},
+    {image: "https://e7.pngegg.com/pngimages/514/56/png-clipart-dialog-axiata-axiata-group-xl-axiata-colombo-dialog-broadband-networks-dialog-axiata-angle-rectangle.png",companyName: "Dialog" , rating: "4.2", jobTitle: "Java Developer" , location: "Galle"},
+    {image: "https://e7.pngegg.com/pngimages/514/56/png-clipart-dialog-axiata-axiata-group-xl-axiata-colombo-dialog-broadband-networks-dialog-axiata-angle-rectangle.png",companyName: "Dialog" , rating: "4.2", jobTitle: "Java Developer" , location: "Galle"},
+    {image: "https://e7.pngegg.com/pngimages/514/56/png-clipart-dialog-axiata-axiata-group-xl-axiata-colombo-dialog-broadband-networks-dialog-axiata-angle-rectangle.png",companyName: "Dialog" , rating: "4.2", jobTitle: "Java Developer" , location: "Galle"},
+    {image: "https://e7.pngegg.com/pngimages/514/56/png-clipart-dialog-axiata-axiata-group-xl-axiata-colombo-dialog-broadband-networks-dialog-axiata-angle-rectangle.png",companyName: "Dialog" , rating: "4.2", jobTitle: "Java Developer" , location: "Galle"},
+    {image: "https://e7.pngegg.com/pngimages/514/56/png-clipart-dialog-axiata-axiata-group-xl-axiata-colombo-dialog-broadband-networks-dialog-axiata-angle-rectangle.png",companyName: "Dialog" , rating: "4.2", jobTitle: "Java Developer" , location: "Galle"},
+
+  ]);
+
+
   return (
     <div className="p-2 grid grid-cols-1  sm:grid-cols-6  gap-2 ">
       <div className="grid sm:cols-span-2">
         <Filter />
       </div>
-      <dig className="col-span-1 sm:col-span-3">
+      <div className="col-span-1 sm:col-span-3">
         <Search />
         <div className="grid grid-cols-1 sm:grid-cols-2 max-h-[92vh] overflow-y-auto gap-y-2">
-          <JobCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
+          {jobs.map((job)=><JobCard 
+          image = {job.image}
+          companyName = {job.companyName}
+          rating = {job.rating}
+          jobTitle = {job.jobTitle}
+          location = {job.location}
           />
-          <JobCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo2}
-            companyName="Dialog"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo2}
-            companyName="Dialog"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo2}
-            companyName="Dialog"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo2}
-            companyName="Dialog"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo2}
-            companyName="Dialog"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo2}
-            companyName="Dialog"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo2}
-            companyName="Dialog"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
+          )}
         </div>
-      </dig>
+      </div>
       <div className=" sm:col-span-2 max-h-[92vh] overflow-y-auto w-full  ">
         <JobDescriptor
-          image={temperoryCompanyLogo}
+          image="https://99x.io/images/logo-99x-main.png"
           companyName="99x"
           jobTitle="Java Developer"
           country="Sri Lanka"

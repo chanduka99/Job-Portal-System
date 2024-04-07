@@ -9,10 +9,20 @@ import review from '../assets/candidate/sidebar/review.svg';
 import settings from '../assets/candidate/sidebar/settings.svg';
 import menuBar from '../assets/candidate/sidebar/menubar.svg';
 import logout from '../assets/candidate/sidebar/logout.svg';
+import {auth} from "../firebase/config";
+import { signOut } from 'firebase/auth';
 
 function CandidateSideBar() {
     const containerStyle = "p-2 rounded-[5px] mt-[4vh] flex place-items-center gap-5 hover:bg-[rgba(255,255,255,0.18)] duration-300  text-white text-opacity-60 text-base tracking-wider hover:text-white"
     const [pressed, setPressed] = useState(false);
+
+    const logOut = async()=>{
+        try{
+            await signOut(auth);
+        }catch(error){
+            console.log(error);
+        }
+    }
 
   return (
     <div className='my-1'>
@@ -92,14 +102,17 @@ function CandidateSideBar() {
             </div>
 
             <div className='absolute bottom-4'>
-            <div className={`${containerStyle}`}>
-                <div className='w-8'>
-                    <img src={logout} alt='log out'/>
-                </div>
-                    <h1 className={`${pressed? 'block':'hidden'}`}>Logout</h1>
+                <Link to={"/find-job"}>
+                    <button onClick={logOut}>
+                        <div className={`${containerStyle}`}>
+                        <div className='w-8'>
+                            <img src={logout} alt='log out'/>
+                        </div>
+                            <h1 className={`${pressed? 'block':'hidden'}`}>Logout</h1>
+                        </div>
+                    </button>
+                </Link>
             </div>
-            </div>
-
         </div>
     </div>
   )
