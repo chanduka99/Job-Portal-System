@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, } from 'react';
 import {Radio,Label,TextInput} from 'flowbite-react';
-import {Link} from 'react-router-dom';
+import {Link,useNavigate} from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'sonner';
 
@@ -9,10 +9,13 @@ function CandidateSignInForm() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const [loading,setLoading] = useState(false);
+  const navigate = useNavigate();
+
   //using the AuthContext's Signup function
-  const {SignIn} = useAuth();
+  const {SignIn,currentUser} = useAuth();
 
  async function handleSignIn(){
+
     try{
       setLoading(true);
       await SignIn(emailRef.current.value,passwordRef.current.value);
@@ -21,8 +24,8 @@ function CandidateSignInForm() {
         style: {
           background: '#4DE318',
           color: '#FFFFFF',
-        },
-      });
+        }});
+        navigate('/find-job/c-dashboard-jobs-feed', { replace: true});
     }catch{
       toast.error('Invalid Login Credentials', {
         position: 'top-right',
@@ -90,16 +93,14 @@ function CandidateSignInForm() {
         </div>
         {/* Sign in Button */}
         <div className="px-8">
-          {/* <Link to={"/find-job/c-dashboard-jobs-feed"}> */}
             <button
               type="button"
               className=" mt-9 text-2xl text-white text- w-full h-12 rounded-[5px] bg-[#9445FF]"
-              onClick={handleSignIn}
               disabled ={loading}
+              onClick={handleSignIn}
             >
               Sign in
             </button>
-          {/* </Link> */}
         </div>
         {/* User Agreement */}
         <div className="justify-center text-center px-8 pt-5">

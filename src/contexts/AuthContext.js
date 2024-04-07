@@ -16,6 +16,7 @@ export function useAuth(){
 
 export function AuthProvider({children}) {
   const [currentUser,setCurrentUser] = useState();
+  const [loading,setLoading] = useState(true);
 
   //signUp user
  function SignUp(email,password){
@@ -48,8 +49,9 @@ export function AuthProvider({children}) {
 useEffect(()=>{
   const unsubscribe = auth.onAuthStateChanged(user=>{
     console.log(user);
-    setCurrentUser(user)
-  })
+    setCurrentUser(user);
+    setLoading(false);
+  },[])
 
   console.log("i am inside AuthContext");
 
@@ -69,7 +71,7 @@ useEffect(()=>{
 
   return (
     <AuthContext.Provider value = {value}>
-      {children}
+      {!loading && children}
     </AuthContext.Provider>
   )
 }

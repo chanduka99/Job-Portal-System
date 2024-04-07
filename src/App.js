@@ -31,6 +31,7 @@ import CDashboardSettings from "./pages/CandidateDashboardSettings";
 import EDashboardProfile from "./pages/EmployerDashboardProfile";
 import EJobPostPage from "./pages/EmployerJobPostPage";
 import { AuthProvider } from "./contexts/AuthContext";
+import CandidateProtectedRoute from "./components/CandidateProtectedRoute";
 
 function App() {
   return (
@@ -54,15 +55,15 @@ function App() {
               <Route path="/find-job" element={<CHome/>}/>
               <Route path="/find-job/get-started" element={<CSignup/>}/>
               <Route path="/find-job/Clogin" element={<CSingin/>}/>
-              <Route path="/find-job/get-started/confirm-email" element={<CEmailConfirm/>}/>
-              <Route path="/find-job/get-started/confirm-email/c-account-setup" element={<CAccountSetup/>}/>
-              <Route path="/find-job/get-started/confirm-email/c-account-setup/c-dashboard-jobs-feed" element={<CDashboardJobsFeed/>}/>
-              <Route path="/find-job/c-dashboard-jobs-feed" element={<CDashboardJobsFeed/>}/>
-              <Route path="/find-job/c-dashboard-profile" element={<CDashboardProfile/>}/>
-              <Route path="/find-job/c-dashboard-bookmarks" element={<CDahsboardBookmarks/>}/>
-              <Route path="/find-job/c-dashboard-chat" element={<CDashboardChat/>}/>
-              <Route path="/find-job/c-dashboard-reviews" element={<CDashboardReviews/>}/>
-              <Route path="/find-job/c-dashboard-settings" element={<CDashboardSettings/>}/>
+              <Route path="/find-job/get-started/confirm-email" element={<CandidateProtectedRoute> <CEmailConfirm/> </CandidateProtectedRoute>}/>
+              <Route path="/find-job/get-started/confirm-email/c-account-setup" element={<CandidateProtectedRoute> <CAccountSetup/> </CandidateProtectedRoute>}/>
+              <Route path="/find-job/get-started/confirm-email/c-account-setup/c-dashboard-jobs-feed" element={<CandidateProtectedRoute> <CDashboardJobsFeed/> </CandidateProtectedRoute>}/>
+              <Route path="/find-job/c-dashboard-jobs-feed" element={<CandidateProtectedRoute> <CDashboardJobsFeed/> </CandidateProtectedRoute>}/>
+              <Route path="/find-job/c-dashboard-profile" element={<CandidateProtectedRoute> <CDashboardProfile/> </CandidateProtectedRoute>}/>
+              <Route path="/find-job/c-dashboard-bookmarks" element={<CandidateProtectedRoute> <CDahsboardBookmarks/> </CandidateProtectedRoute>}/>
+              <Route path="/find-job/c-dashboard-chat" element={<CandidateProtectedRoute> <CDashboardChat/> </CandidateProtectedRoute>}/>
+              <Route path="/find-job/c-dashboard-reviews" element={<CandidateProtectedRoute> <CDashboardReviews/> </CandidateProtectedRoute> }/>
+              <Route path="/find-job/c-dashboard-settings" element={<CandidateProtectedRoute> <CDashboardSettings/> </CandidateProtectedRoute>}/>
               <Route path="/post-job" element={<EHome/>}/>
               <Route path="/post-job/post-a-job" element={<EJobPostPage/>}/>
               <Route path="/post-job/Elogin" element={<ESignin/>}/>
