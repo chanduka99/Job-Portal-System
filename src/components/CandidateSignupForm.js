@@ -1,11 +1,70 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Radio, Label, TextInput } from "flowbite-react";
 import {createUserWithEmailAndPassword} from "firebase/auth";
-import {auth} from "../firebase/config.js"
+import {auth} from "../firebase/config.js";
+import {useAuth} from "../contexts/AuthContext.js";
+import {toast} from 'sonner';
+import {db} from '../firebase/config';
+import { doc, setDoc } from "firebase/firestore"; 
 
 function UndergraduateSignupForm() {
+  const firstNameRef = useRef();
+  const lastNameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const confirmPasswordRef = useRef();
+  const indedNoRef = useRef();
+  const facultyRef = useRef();
+  const departmentRef = useRef();
+  const [employeeStatus,setEmployeeStatus] = useState("UnderGraduate");
+  const [loading,setLoading] = useState(false);
+  const navigate = useNavigate();
+  const {SignUp,currentUser} = useAuth();
 
+  async function handleRegister(){
+    setLoading(true)
+    if(passwordRef.current.value != confirmPasswordRef.current.value){
+      toast.error('Passwords do not match', {
+        position: 'top-right',
+        style: {
+          background: '#FF3538',
+          color: '#FFFFFF',
+        },
+      });
+    }else{
+      try{
+        await SignUp(emailRef.current.value,passwordRef.current.value);
+        //creating a users collection and storing info of the signUp
+        await setDoc(doc(db, "users", currentUser.email), {
+          type:"employee",
+          employeeStatus:employeeStatus,
+          firstName:firstNameRef.current.value,
+          lastName:lastNameRef.current.value,
+          indedNo:indedNoRef.current.value,
+          faculty:facultyRef.current.value,
+          department:departmentRef.current.value
+        });
+        toast.success('Successfully SignedUp', {
+          position: 'top-right',
+          style: {
+            background: '#4DE318',
+            color: '#FFFFFF',
+          }});
+          navigate("/find-job/get-started/confirm-email",{replaced:true});
+      }catch(error){
+        toast.error('Error Occured', {
+          position: 'top-right',
+          style: {
+            background: '#FF3538',
+            color: '#FFFFFF',
+          },
+        });
+      }
+    }
+
+    setLoading(false);
+  }
 
 
   const containerStyle = {
@@ -26,12 +85,12 @@ function UndergraduateSignupForm() {
         {/* Radio Buttons */}
         <fieldset className="flex  justify-around mt-6  ">
           <div className="flex gap-2 items-center ">
-            <Radio id="underGraduate" value="Under Graduate"></Radio>
-            <Label htmlFor="underGraduate" className="text-secondary text-opacity-80">Under Graduate</Label>
+            <Radio id="underGraduate" value="UnderGraduate" name="employeeStatus" defaultChecked onChange={(e)=>setEmployeeStatus(e.target.vlaue)}></Radio>
+            <Label htmlFor="underGraduate" className="text-secondary text-opacity-80"  >Under Graduate</Label>
           </div>
 
           <div className="flex gap-2 items-center ">
-            <Radio id="postGraduate" value="Post Graduate"></Radio>
+            <Radio id="postGraduate" value="PostGraduate" name="employeeStatus" onChange={(e)=>setEmployeeStatus(e.target.vlaue)}></Radio>
             <Label htmlFor="postGraduate" className="text-secondary text-opacity-80">Post Graduate</Label>
           </div>
         </fieldset>
@@ -45,6 +104,7 @@ function UndergraduateSignupForm() {
               required
               shadow
               className=" mx-8 mt-6 "
+              ref={firstNameRef}
             />
             <TextInput
               id="indexNo"
@@ -52,6 +112,7 @@ function UndergraduateSignupForm() {
               required
               shadow
               className=" mx-8 mt-6 "
+              ref ={indedNoRef}
             />
             <TextInput
               id="email"
@@ -60,20 +121,25 @@ function UndergraduateSignupForm() {
               required
               shadow
               className=" mx-8 mt-6 "
+              ref={emailRef}
             />
             <TextInput
               id="setPassword"
               placeholder="Set Password"
+              type="password"
               required
               shadow
               className=" mx-8 mt-6 "
+              ref={passwordRef}
             />
             <TextInput
               id="confirmPassword"
               placeholder="Confirm Password"
+              type="password"
               required
               shadow
               className=" mx-8 mt-6 "
+              ref={confirmPasswordRef}
             />
           </div>
 
@@ -85,6 +151,7 @@ function UndergraduateSignupForm() {
               required
               shadow
               className=" mx-8 mt-6 "
+              ref={lastNameRef}
             />
             <TextInput
               id="faculty"
@@ -92,6 +159,7 @@ function UndergraduateSignupForm() {
               required
               shadow
               className=" mx-8 mt-6 "
+              ref={facultyRef}
             />
             <TextInput
               id="department"
@@ -99,19 +167,22 @@ function UndergraduateSignupForm() {
               required
               shadow
               className=" mx-8 mt-6 "
+              ref={departmentRef}
             />
           </div>
         </div>
         {/* Register Button */}
         <div className="px-8">
-          <Link to={"/find-job/get-started/confirm-email"}>
+          {/* <Link to={"/find-job/get-started/confirm-email"}> */}
             <button
               type="button"
               className=" mt-9 text-2xl text-white text- w-full h-12 rounded-[5px] bg-[#9445FF]"
+              onClick={handleRegister}
+              disabled = {loading}
             >
               Register
             </button>
-          </Link>
+          {/* </Link> */}
         </div>
         {/* User Agreement */}
         <div className="justify-center text-center px-8 pt-5">

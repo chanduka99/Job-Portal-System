@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import profile from '../assets/candidate/sidebar/profile.svg';
 import search from '../assets/candidate/sidebar/search.svg';
 import bookmark from '../assets/candidate/sidebar/Bookmard icon gray.svg';
@@ -15,12 +15,15 @@ import { signOut } from 'firebase/auth';
 function CandidateSideBar() {
     const containerStyle = "p-2 rounded-[5px] mt-[4vh] flex place-items-center gap-5 hover:bg-[rgba(255,255,255,0.18)] duration-300  text-white text-opacity-60 text-base tracking-wider hover:text-white"
     const [pressed, setPressed] = useState(false);
-
+    const navigate = useNavigate();
+    
     const logOut = async()=>{
         try{
             await signOut(auth);
+            navigate("/find-job")
         }catch(error){
             console.log(error);
+            navigate("/find-job")
         }
     }
 
@@ -102,7 +105,7 @@ function CandidateSideBar() {
             </div>
 
             <div className='absolute bottom-4'>
-                <Link to={"/find-job"}>
+                {/* <Link to={"/find-job"}> */}
                     <button onClick={logOut}>
                         <div className={`${containerStyle}`}>
                         <div className='w-8'>
@@ -111,7 +114,7 @@ function CandidateSideBar() {
                             <h1 className={`${pressed? 'block':'hidden'}`}>Logout</h1>
                         </div>
                     </button>
-                </Link>
+                {/* </Link> */}
             </div>
         </div>
     </div>

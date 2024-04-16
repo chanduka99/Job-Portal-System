@@ -12,12 +12,15 @@ function CandidateSignInForm() {
   const navigate = useNavigate();
 
   //using the AuthContext's Signup function
-  const {SignIn,currentUser} = useAuth();
+  const {SignIn} = useAuth();
 
  async function handleSignIn(){
 
     try{
       setLoading(true);
+      
+      //need to do check if the signed in user is truly an candidate.bcoz even for a employer the signIn of firebase works
+
       await SignIn(emailRef.current.value,passwordRef.current.value);
       toast.success('Successfully Logged In', {
         position: 'top-right',

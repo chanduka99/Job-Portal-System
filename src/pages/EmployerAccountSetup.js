@@ -6,7 +6,9 @@ function EmployerAccountSetup() {
   return (
     <div>
         <AuthStatBar/>
-        <EAccountSetup/>
+        <div className='max-h-[92vh] overflow-auto'>
+          <EAccountSetup/>
+        </div>
     </div>
   )
 }
