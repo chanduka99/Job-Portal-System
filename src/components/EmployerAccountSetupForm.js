@@ -33,13 +33,7 @@ function EmployerAccountSetupForm() {
                 city:cityRef.current.value,
                 websiteUrl:websiteUrlRef.current.value,
                 contactNumber:contactNumberRef.current.value,
-                // aboutMe:"details[0]",
-                // companyName:"dsafsa",
-                // cordinatorName:"details[2]",
-                // country:"details[3]",
-                // city:"details[4]",
-                // websiteUrl:"details[5]",
-                // contactNumber:"details[6]"
+                postedJobs:[],
               });
               toast.success('Details Added Successfully', {
                 position: 'top-right',

@@ -38,7 +38,7 @@ function EmployerProfileCard() {
 
   return (
     <div className=' flex justify-center mb-6'>
-        <div style={containerStyle1} className='p-8'>
+        <div style={containerStyle1} className='p-8 max-w-[70vh] '>
             <div className='md:grid grid-cols-2 my-6 gap-12 text-primary'>
                 <img src={profilpic} className='w-48'/>
                 {/* About me */}
