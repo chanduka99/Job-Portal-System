@@ -76,15 +76,15 @@ function JobCard(props) {
               />
             </div>
             {/* rating */}
-            <div style={containerStyle3}>
+            {/* <div style={containerStyle3}>
               <h1 className="mt-1.5 text-secondary text-opacity-80 text-xs ">
                 {rating}
               </h1>
-            </div>
+            </div> */}
           </div>
         </div>
         {/* job title */}
-        <h1 className="font-semibold  text-secondary mt-6 mb-1">{jobTitle}</h1>
+        <h1 className="font-semibold  text-secondary mt-6 mb-1 flex">{jobTitle}</h1>
         {/* location and apply button */}
         <div className=" md:flex justify-between">
           {/* location icon */}
