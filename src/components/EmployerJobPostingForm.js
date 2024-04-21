@@ -19,6 +19,7 @@ function EmployerJobPostingForm() {
     const jobDescriptionRef = useRef();
     const jobResponsibilitesRef = useRef();
     const knowledgeAndExperienceRef = useRef();
+    const jobTitleRef = useRef();
     const navigate = useNavigate();
     const {currentUser} = useAuth();
 
@@ -28,6 +29,7 @@ function EmployerJobPostingForm() {
       setLoading(true);
       console.log(currentUser.email);
       try{
+        
         PostJob({
           employerEmail:currentUser.email,
           jobTimeType:jobTimeType,
@@ -37,6 +39,7 @@ function EmployerJobPostingForm() {
           city:cityRef.current.value,
           address:addressRef.current.value,
           contactEmail:contactEmailRef.current.value,
+          jobTitle:jobTitleRef.current.value,
           jobDescription:jobDescriptionRef.current.value,
           jobResponsibilites:jobResponsibilitesRef.current.value,
           knowledgeAndExperience:knowledgeAndExperienceRef.current.value,
@@ -250,6 +253,16 @@ function EmployerJobPostingForm() {
 
           {/* second column */}
           <div>
+
+          <TextInput
+              id="jobTitle"
+              placeholder="Job Title"
+              required = {true}
+              shadow
+              className=" mx-8 mt-6 "
+              ref={jobTitleRef}
+            />
+
             <TextInput
               id="description"
               placeholder="Job Description"

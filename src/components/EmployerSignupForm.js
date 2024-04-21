@@ -3,8 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Radio, Label, TextInput } from "flowbite-react";
 import {useAuth} from '../contexts/AuthContext';
 import {toast} from 'sonner';
-import {db} from '../firebase/config';
-import { doc, setDoc } from "firebase/firestore"; 
+import { SignUpUserSetup } from '../firebase/EmployerDB';
 
 function EmployerSignupForm() {
   const {SignUp, currentUser} = useAuth();
@@ -30,11 +29,8 @@ function EmployerSignupForm() {
     }else{
       try{
         await SignUp(emailRef.current.value,passwordRef.current.value);
-        //creating a users collection and storing info of the signUp
-        await setDoc(doc(db, "users", currentUser.email), {
-          type:"employer",
-          employerStatus:employerStatus
-        });
+        //creating a user with employerName,and employerStatus in the users collection
+        SignUpUserSetup(emailRef.current.value,companyNameRef.current.value,employerStatus); 
         toast.success('Successfully SignedUp', {
           position: 'top-right',
           style: {
@@ -50,8 +46,8 @@ function EmployerSignupForm() {
             color: '#FFFFFF',
           },
         });
+        console.log(error);
       }
-
     }
     setLoading(false);
   }

@@ -16,11 +16,11 @@ function EmployerSideBar() {
     const containerStyle = "p-2 rounded-[5px] mt-[4vh] flex place-items-center gap-5 hover:bg-[rgba(255,255,255,0.18)] duration-300  text-white text-opacity-60 text-base tracking-wider hover:text-white"
     const [pressed, setPressed] = useState(false);
     const navigate = useNavigate();
-    const {signOut} = useAuth();
+    const {LogOut} = useAuth();
 
     const logOut = async()=>{
         try{
-            await signOut(auth);
+            LogOut();
             navigate("/post-job")
         }catch(error){
             console.log(error);

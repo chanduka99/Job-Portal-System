@@ -1,10 +1,22 @@
 import {db} from './config';
-import { collection, addDoc,doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore"; 
+import { collection, addDoc,doc, updateDoc, arrayUnion, arrayRemove, getDoc , setDoc  } from "firebase/firestore"; 
 
 export async function PostJob(jobObj){
     try{
+        //getting the employer name from users collection 
+        const docRef = doc(db, "users", jobObj.employerEmail);
+        const docSnap = await getDoc(docRef);
+        let employerName;
+        if (docSnap.exists()) {
+          let userObj = docSnap.data();
+          employerName = userObj.employerName;
+        } else {
+          // docSnap.data() will be undefined in this case
+          console.log("No such document!");
+        }
         // //adding a job to the job collection 
         const jobRef =   await addDoc(collection(db, "jobs"), {
+            employerName:employerName,
             employerEmail:jobObj.employerEmail,
             jobTimeType:jobObj.jobTimeType,
             jobEmployeeType:jobObj.jobEmployeeType,
@@ -13,6 +25,7 @@ export async function PostJob(jobObj){
             city:jobObj.city,
             address:jobObj.address,
             contactEmail:jobObj.contactEmail,
+            jobTitle:jobObj.jobTitle,
             jobDescription:jobObj.jobDescription,
             jobResponsibilites:jobObj.jobResponsibilites,
             knowledgeAndExperience:jobObj.knowledgeAndExperience,
@@ -30,7 +43,16 @@ export async function PostJob(jobObj){
             postedJobs:arrayUnion(jobRef.id)
           });
 
-    }catch(error){
-        console.log(error);
+    }catch(err){
+        console.log(err.message);
     }
+}
+
+//this function is called inside the handleRegister of EmployerSingupForm 
+export async function SignUpUserSetup(email,name,status){
+  await setDoc(doc(db, "users", email), {
+    employerName:name,
+    type:"employer",
+    employerStatus:status
+  });
 }

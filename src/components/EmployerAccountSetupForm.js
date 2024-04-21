@@ -23,11 +23,11 @@ function EmployerAccountSetupForm() {
     async function handleFinish(){
         try{
             const userRef = doc(db, "users", currentUser.email );
-            var details = [aboutMeRef.current.value, companyNameRef.current.value, cordinatorRef.current.value, countryRef.current.value, cityRef.current.value, websiteUrlRef.current.value, companyNameRef.current.value,]
+            // var details = [aboutMeRef.current.value, companyNameRef.current.value, cordinatorRef.current.value, countryRef.current.value, cityRef.current.value, websiteUrlRef.current.value, companyNameRef.current.value,]
             console.log(currentUser.email);
             await updateDoc(userRef, {
                 aboutMe:aboutMeRef.current.value,
-                companyName:companyNameRef.current.value,
+                employerName:companyNameRef.current.value,
                 cordinatorName:cordinatorRef.current.value,
                 country:countryRef.current.value,
                 city:cityRef.current.value,

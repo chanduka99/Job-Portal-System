@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cnavbar from "../components/CandidateNavbar";
 import CSidebar from "../components/CandidateSideBar";
 import Filter from "../components/CandidateDashboardFilter";
 import Search from "../components/CandidateDashboardSearch";
 import JobCard from "../components/CandidateDashboardJobCard";
 import JobDescriptor from "../components/CandidateDashboardJobDescripter";
+import { GetJobs } from "../firebase/CandidateDB";
 function CandidateDashboardJobFeed() {
 
 
@@ -29,6 +30,12 @@ function CandidateDashboardJobFeed() {
 
   ]);
 
+  useEffect(()=>{
+    var ReturnOfjobsPromise = GetJobs();
+    console.log(ReturnOfjobsPromise.then((jobs)=>{setJobs(jobs)}));
+
+  },[])
+
 
   return (
     <div className="p-2 grid grid-cols-1  sm:grid-cols-6  gap-2 ">
@@ -38,14 +45,14 @@ function CandidateDashboardJobFeed() {
       <div className="col-span-1 sm:col-span-3">
         <Search />
         <div className="grid grid-cols-1 sm:grid-cols-2 max-h-[92vh] overflow-y-auto gap-y-2">
-          {jobs.map((job)=><JobCard 
+          {/* {jobs.map((job)=><JobCard 
           image = {job.image}
           companyName = {job.companyName}
           rating = {job.rating}
           jobTitle = {job.jobTitle}
           location = {job.location}
           />
-          )}
+          )} */}
         </div>
       </div>
       <div className=" sm:col-span-2 max-h-[92vh] overflow-y-auto w-full  ">
