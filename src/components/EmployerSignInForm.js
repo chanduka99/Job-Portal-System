@@ -54,12 +54,12 @@ function EmployerSignInForm() {
             {/* <fieldset className="flex  justify-around mt-6  ">
               <div className="flex gap-2 items-center ">
                 <Radio id="company" value="Company"></Radio>
-                <Label htmlfor="underGraduate" className="text-secondary text-opacity-80">Company</Label>
+                <Label htmlFor="underGraduate" className="text-secondary text-opacity-80">Company</Label>
               </div>
     
               <div className="flex gap-2 items-center ">
                 <Radio id="singleEmployer" value="Single Employer"></Radio>
-                <Label htmlfor="postGraduate" className="text-secondary text-opacity-80">Single Employer</Label>
+                <Label htmlFor="postGraduate" className="text-secondary text-opacity-80">Single Employer</Label>
               </div>
             </fieldset> */}
     

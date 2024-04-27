@@ -73,12 +73,12 @@ function EmployerSignupForm() {
       <fieldset className="flex  justify-around mt-6  ">
         <div className="flex gap-2 items-center ">
           <Radio id="company" value="Company" name='EmployerType' defaultChecked onChange={(e)=>setEmployerStatus(e.target.value)}></Radio>
-          <Label htmlfor="company" className="text-secondary text-opacity-80">Company</Label>
+          <Label htmlFor="company" className="text-secondary text-opacity-80">Company</Label>
         </div>
 
         <div className="flex gap-2 items-center ">
           <Radio id="singleEmployer" value="Single Employer" name='EmployerType' onChange={(e)=>setEmployerStatus(e.target.value)}></Radio>
-          <Label htmlfor="singleEmployer" className="text-secondary text-opacity-80">Single Employer</Label>
+          <Label htmlFor="singleEmployer" className="text-secondary text-opacity-80">Single Employer</Label>
         </div>
       </fieldset>
 

@@ -32,11 +32,13 @@ import EDashboardProfile from "./pages/EmployerDashboardProfile";
 import EJobPostPage from "./pages/EmployerJobPostPage";
 import { AuthProvider } from "./contexts/AuthContext";
 import CandidateProtectedRoute from "./components/CandidateProtectedRoute";
+import { UserProvider } from "./contexts/UserContext";
 
 function App() {
   return (
     <BrowserRouter >
         <AuthProvider>
+          <UserProvider>
           <IsCNavbar>
             <CNavbar/>
           </IsCNavbar>
@@ -76,6 +78,7 @@ function App() {
             </Routes>
             <Toaster />
           </div>
+          </UserProvider>
         </AuthProvider>
 
     </BrowserRouter> 
