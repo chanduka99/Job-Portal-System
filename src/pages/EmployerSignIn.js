@@ -3,7 +3,7 @@ import ESignin from '../components/EmployerSignInForm';
 
 function EmployerSignIn() {
   return (
-    <div>
+    <div className='w-screen'>
       <ESignin/>
     </div>
   )

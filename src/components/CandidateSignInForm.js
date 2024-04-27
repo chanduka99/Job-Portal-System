@@ -1,8 +1,46 @@
-import React from 'react';
+import React, { useRef, useState, } from 'react';
 import {Radio,Label,TextInput} from 'flowbite-react';
-import {Link} from 'react-router-dom';
+import {Link,useNavigate} from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import { toast } from 'sonner';
 
 function CandidateSignInForm() {
+
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const [loading,setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  //using the AuthContext's Signup function
+  const {SignIn} = useAuth();
+
+ async function handleSignIn(){
+
+    try{
+      setLoading(true);
+      
+      //need to do check if the signed in user is truly an candidate.bcoz even for a employer the signIn of firebase works
+
+      await SignIn(emailRef.current.value,passwordRef.current.value);
+      toast.success('Successfully Logged In', {
+        position: 'top-right',
+        style: {
+          background: '#4DE318',
+          color: '#FFFFFF',
+        }});
+        navigate('/find-job/c-dashboard-jobs-feed', { replace: true});
+    }catch{
+      toast.error('Invalid Login Credentials', {
+        position: 'top-right',
+        style: {
+          background: '#FF3538',
+          color: '#FFFFFF',
+        },
+      });
+    }
+    setLoading(false);
+  }
+
   const containerStyle = {
     width: "30vw",
     // height: "80vh",
@@ -22,12 +60,12 @@ function CandidateSignInForm() {
         <fieldset className="flex  justify-around mt-6  ">
           <div className="flex gap-2 items-center ">
             <Radio id="underGraduate" value="Under Graduate"></Radio>
-            <Label htmlfor="underGraduate" className="text-secondary text-opacity-80">Under Graduate</Label>
+            <Label htmlFor="underGraduate" className="text-secondary text-opacity-80">Under Graduate</Label>
           </div>
 
           <div className="flex gap-2 items-center ">
             <Radio id="postGraduate" value="Post Graduate"></Radio>
-            <Label htmlfor="postGraduate" className="text-secondary text-opacity-80">Post Graduate</Label>
+            <Label htmlFor="postGraduate" className="text-secondary text-opacity-80">Post Graduate</Label>
           </div>
         </fieldset>
 
@@ -41,6 +79,8 @@ function CandidateSignInForm() {
               required
               shadow
               className=" mx-8 mt-12 "
+              ref = {emailRef}
+
             />
            
             <TextInput
@@ -50,19 +90,20 @@ function CandidateSignInForm() {
               required
               shadow
               className=" mx-8 mt-12 "
+              ref = {passwordRef}
             />
           </div>
         </div>
-        {/* Register Button */}
+        {/* Sign in Button */}
         <div className="px-8">
-          <Link to={"/find-job/c-dashboard-jobs-feed"}>
             <button
               type="button"
               className=" mt-9 text-2xl text-white text- w-full h-12 rounded-[5px] bg-[#9445FF]"
+              disabled ={loading}
+              onClick={handleSignIn}
             >
               Sign in
             </button>
-          </Link>
         </div>
         {/* User Agreement */}
         <div className="justify-center text-center px-8 pt-5">

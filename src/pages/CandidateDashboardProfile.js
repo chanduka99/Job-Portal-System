@@ -1,5 +1,5 @@
 import React from 'react';
-import CandidateProfileCard from '../components/CandidateProfileCard';
+import CandidateProfileCard from '../components/CandidateDashboardProfileCard';
 
 function CandidateDashboardProfile() {
   return (

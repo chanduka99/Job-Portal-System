@@ -9,15 +9,15 @@ import review from '../assets/candidate/sidebar/review.svg';
 import settings from '../assets/candidate/sidebar/settings.svg';
 import menuBar from '../assets/candidate/sidebar/menubar.svg';
 import logout from '../assets/candidate/sidebar/logout.svg';
-import {auth} from "../firebase/config";
 import { useAuth } from '../contexts/AuthContext';
+import {auth} from '../firebase/config';
 
-function CandidateSideBar() {
+function EmployerSideBar() {
     const containerStyle = "p-2 rounded-[5px] mt-[4vh] flex place-items-center gap-5 hover:bg-[rgba(255,255,255,0.18)] duration-300  text-white text-opacity-60 text-base tracking-wider hover:text-white"
     const [pressed, setPressed] = useState(false);
     const navigate = useNavigate();
     const {LogOut} = useAuth();
-    
+
     const logOut = async()=>{
         try{
             LogOut();
@@ -40,7 +40,7 @@ function CandidateSideBar() {
             </div>
             {/* profile */}
             <div>
-            <Link to={"/find-job/c-dashboard-profile"}>
+            <Link to={"/post-job/e-dashboard-profile"}>
                 <div className= {`${containerStyle}`}>
                     <div className='w-8'>
                         <img id='profile' className= ' hover:fill-white' src={profile} alt='profile'/>
@@ -51,7 +51,7 @@ function CandidateSideBar() {
             </div>
             {/* jobsfeed */}
             <div  >
-                <Link to={"/find-job/c-dashboard-jobs-feed"}>
+                <Link to={"/post-job/e-dashboard-jobs-feed"}>
                 <div className={`${containerStyle}`}>
                 <div className='w-8'>
                     <img src={search} alt='jobfeed'/>
@@ -62,7 +62,7 @@ function CandidateSideBar() {
             </div>
             {/* bookmarks */}
             <div>
-                <Link to={"/find-job/c-dashboard-bookmarks"}>
+                <Link to={""}>
                 <div className={`${containerStyle}`}>
                     <div className='w-8'>
                     <img src={bookmark} alt='bookmarks'/>
@@ -73,7 +73,7 @@ function CandidateSideBar() {
             </div>
             {/* chat */}
             <div>
-                <Link to={"/find-job/c-dashboard-chat"}>
+                <Link to={""}>
                 <div className={`${containerStyle}`}>
                     <div className='w-8'>
                     <img src={chat} alt='chat'/>
@@ -84,7 +84,7 @@ function CandidateSideBar() {
             </div>
             {/* reviews/blog */}
             <div>
-                <Link to={"/find-job/c-dashboard-reviews"}>
+                <Link to={""}>
                 <div className={`${containerStyle}`}>
                     <div className='w-8'>
                     <img src={review} alt='reviews'/>
@@ -95,7 +95,7 @@ function CandidateSideBar() {
             </div>
             {/* settings */}
             <div>
-                <Link to={"/find-job/c-dashboard-settings"}>
+                <Link to={""}>
                 <div className={`${containerStyle}`}>
                     <div className='w-8'>
                     <img src={settings} alt='settings'/>
@@ -106,20 +106,19 @@ function CandidateSideBar() {
             </div>
 
             <div className='absolute bottom-4'>
-                {/* <Link to={"/find-job"}> */}
-                    <button onClick={logOut}>
-                        <div className={`${containerStyle}`}>
-                        <div className='w-8'>
-                            <img src={logout} alt='log out'/>
-                        </div>
-                            <h1 className={`${pressed? 'block':'hidden'}`}>Logout</h1>
-                        </div>
-                    </button>
-                {/* </Link> */}
+                <button onClick={logOut}>
+                    <div className={`${containerStyle}`}>
+                    <div className='w-8'>
+                        <img src={logout} alt='log out'/>
+                    </div>
+                        <h1 className={`${pressed? 'block':'hidden'}`}>Logout</h1>
+                    </div>
+                </button>
             </div>
+
         </div>
     </div>
   )
 }
 
-export default CandidateSideBar
+export default EmployerSideBar

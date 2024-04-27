@@ -1,8 +1,40 @@
-import React from 'react';
+import React ,{useState,useRef}from 'react';
 import {Radio,Label,TextInput} from 'flowbite-react';
-import {Link} from 'react-router-dom';
+import {Link,useNavigate} from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import {toast} from 'sonner';
 
 function EmployerSignInForm() {
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const{loading,setLoading} = useState(false);
+  const {SignIn} =useAuth();
+  const navigate = useNavigate();
+
+  async function handleSignIn(){
+
+    try{
+      await SignIn(emailRef.current.value,passwordRef.current.value);
+
+      //need to do check if the signed in user is truly an employer.bcoz even for a candidate the signIn of firebase works
+      
+      toast.success('Successfully Logged In', {
+        position: 'top-right',
+        style: {
+          background: '#4DE318',
+          color: '#FFFFFF',
+        }});
+        navigate('/post-job/e-dashboard-jobs-feed');
+    }catch(error){
+      toast.error('Invalid Login Credentials', {
+        position: 'top-right',
+        style: {
+          background: '#FF3538',
+          color: '#FFFFFF',
+        },
+      });
+    }
+  }
     const containerStyle = {
         width: "30vw",
         // height: "80vh",
@@ -19,7 +51,7 @@ function EmployerSignInForm() {
               <h1 className="text-2xl font-semibold mt-4 ">Sign in</h1>
             </div>
             {/* Radio Buttons */}
-            <fieldset className="flex  justify-around mt-6  ">
+            {/* <fieldset className="flex  justify-around mt-6  ">
               <div className="flex gap-2 items-center ">
                 <Radio id="company" value="Company"></Radio>
                 <Label htmlfor="underGraduate" className="text-secondary text-opacity-80">Company</Label>
@@ -29,7 +61,7 @@ function EmployerSignInForm() {
                 <Radio id="singleEmployer" value="Single Employer"></Radio>
                 <Label htmlfor="postGraduate" className="text-secondary text-opacity-80">Single Employer</Label>
               </div>
-            </fieldset>
+            </fieldset> */}
     
             <div >
               <div >
@@ -41,6 +73,7 @@ function EmployerSignInForm() {
                   required
                   shadow
                   className=" mx-8 mt-12 "
+                  ref={emailRef}
                 />
                
                 <TextInput
@@ -50,19 +83,22 @@ function EmployerSignInForm() {
                   required
                   shadow
                   className=" mx-8 mt-12 "
+                  ref={passwordRef}
                 />
               </div>
             </div>
             {/* Register Button */}
             <div className="px-8">
-              <Link to={"/post-job/e-dashboard-jobs-feed"}>
+              {/* <Link to={"/post-job/e-dashboard-jobs-feed"}> */}
                 <button
                   type="button"
                   className=" mt-9 text-2xl text-white text- w-full h-12 rounded-[5px] bg-[#9445FF]"
+                  onClick={handleSignIn}
+                  disabled={loading}
                 >
                   Sign in
                 </button>
-              </Link>
+              {/* </Link> */}
             </div>
             {/* User Agreement */}
             <div className="justify-center text-center px-8 pt-5">

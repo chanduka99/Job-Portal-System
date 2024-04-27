@@ -1,8 +1,58 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React, { useRef,useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import { Radio, Label, TextInput } from "flowbite-react";
+import {useAuth} from '../contexts/AuthContext';
+import {toast} from 'sonner';
+import { SignUpUserSetup } from '../firebase/EmployerDB';
 
 function EmployerSignupForm() {
+  const {SignUp, currentUser} = useAuth();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
+  // const employerStatusRef = useRef('');
+  const [employerStatus,setEmployerStatus] = useState('Company');
+  const companyNameRef = useRef();
+  const navigate = useNavigate();
+  const [loading,setLoading] = useState(false);
+
+  async function handleRegister(){
+    setLoading(true)
+    if(passwordRef.current.value != passwordConfirmRef.current.value){
+      toast.error('Passwords do not match', {
+        position: 'top-right',
+        style: {
+          background: '#FF3538',
+          color: '#FFFFFF',
+        },
+      });
+    }else{
+      try{
+        await SignUp(emailRef.current.value,passwordRef.current.value);
+        //creating a user with employerName,and employerStatus in the users collection
+        SignUpUserSetup(emailRef.current.value,companyNameRef.current.value,employerStatus); 
+        toast.success('Successfully SignedUp', {
+          position: 'top-right',
+          style: {
+            background: '#4DE318',
+            color: '#FFFFFF',
+          }});
+          navigate("/post-job/get-started/confirm-email",{replaced:true});
+      }catch(error){
+        toast.error('Error Occured', {
+          position: 'top-right',
+          style: {
+            background: '#FF3538',
+            color: '#FFFFFF',
+          },
+        });
+        console.log(error);
+      }
+    }
+    setLoading(false);
+  }
+
+
   const containerStyle = {
     width: "50vw",
     height: "80vh",
@@ -22,13 +72,13 @@ function EmployerSignupForm() {
       {/* Radio Buttons */}
       <fieldset className="flex  justify-around mt-6  ">
         <div className="flex gap-2 items-center ">
-          <Radio id="company" value="Company"></Radio>
-          <Label htmlfor="underGraduate" className="text-secondary text-opacity-80">Company</Label>
+          <Radio id="company" value="Company" name='EmployerType' defaultChecked onChange={(e)=>setEmployerStatus(e.target.value)}></Radio>
+          <Label htmlfor="company" className="text-secondary text-opacity-80">Company</Label>
         </div>
 
         <div className="flex gap-2 items-center ">
-          <Radio id="singleEmployer" value="Single Employer"></Radio>
-          <Label htmlfor="postGraduate" className="text-secondary text-opacity-80">Single Employer</Label>
+          <Radio id="singleEmployer" value="Single Employer" name='EmployerType' onChange={(e)=>setEmployerStatus(e.target.value)}></Radio>
+          <Label htmlfor="singleEmployer" className="text-secondary text-opacity-80">Single Employer</Label>
         </div>
       </fieldset>
 
@@ -37,46 +87,50 @@ function EmployerSignupForm() {
         <div>
           <TextInput
             id="companyName"
-            placeholder="Company Name"
-            required
+            placeholder="Company/Employer Name"
+            required ={true}
             shadow
             className=" mx-8 mt-6 "
+            ref={companyNameRef}
           />
 
           <TextInput
             id="email"
             placeholder="Email"
             type="email"
-            required
+            required ={true}
             shadow
             className=" mx-8 mt-6 "
+            ref={emailRef}
           />
           <TextInput
             id="setPassword"
             placeholder="Set Password"
-            required
+            required ={true}
             shadow
             className=" mx-8 mt-6 "
+            ref={passwordRef}
           />
           <TextInput
             id="confirmPassword"
             placeholder="Confirm Password"
-            required
+            required ={true}
             shadow
             className=" mx-8 mt-6 "
+            ref={passwordConfirmRef}
           />
         </div>
       </div>
       {/* Register Button */}
       <div className="px-8">
-        <Link to={"/post-job/get-started/confirm-email"}>
           <button
             type="button"
             className=" mt-9 text-2xl text-white text- w-full h-12 rounded-[5px] bg-[#9445FF]"
+            onClick={handleRegister}
+            disabled = {loading}
           >
             Register
           </button>
-        </Link>
       </div>
       {/* User Agreement */}
       <div className="justify-center text-center px-8 pt-5">
