@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext'
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../contexts/UserContext';
 
-function CandidateProtectedRoute({children}) {
+function EmployerProtectedRoute({children}) {
     const {currentUser} = useAuth();
     const {currentUserDetail} = useUser();
     const [loading,setLoading] = useState(false);
@@ -11,14 +11,14 @@ function CandidateProtectedRoute({children}) {
 
     useEffect(()=>{
         setLoading(true);
-      //if the user is not signed in they will be redirected to the candidate sign in page
+      //if the user is not signed in they will be redirected to the Employer sign in page
         if(!currentUser){
-            navigate("/find-job/Clogin");
+            navigate("/post-job/Elogin");
       }else{
-        //to come to the else part means user is signed in.Therefore check if the user is a employee/candidate
-        if(currentUserDetail.type === "employer"){
+        //to come to the else part means user is signed in.Therefore check if the user is a employee/Employer
+        if(currentUserDetail.type === "employee"){
           //if the signed use is a employer.then redirect to  home page
-          navigate('/post-job/e-dashboard-jobs-feed');
+          navigate('/find-job/c-dashboard-jobs-feed');
         }
       }
         setLoading(false);
@@ -31,4 +31,4 @@ function CandidateProtectedRoute({children}) {
   )
 }
 
-export default CandidateProtectedRoute;
+export default EmployerProtectedRoute;

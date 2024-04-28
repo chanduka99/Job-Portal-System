@@ -1,8 +1,8 @@
 import {db} from './config';
-import {storage, ref} from './config';
+import {storage} from './config';
+import {ref,uploadBytes } from "firebase/storage";
 import { collection, addDoc,doc, updateDoc, arrayUnion, arrayRemove,getDocs } from "firebase/firestore"; 
-import { useUser } from '../contexts/UserContext';
-import { useAuth } from '../contexts/AuthContext';
+import { v4 as uuidv4 } from 'uuid';
 
 //get all jobs
 export async function GetJobs(){
@@ -25,23 +25,20 @@ export async function GetJobs(){
 }
 
 // apply for selected job
-export async function ApplyForJob(companyName,email,contactNo,cv,currentUserDetail){
+export async function ApplyForJob(companyName,emailforApplication,contactNo,cv,currentUserDetail,currentEmail){
         
     try{
         //getting the applicant name from users collection 
-        currentUserDetail.then((result)=>console.log(result))
-        
-        // const docRef = doc(db, "users", jobObj.employerEmail);
-        // const docSnap = await getDoc(docRef);
-        // let employerName;
-        // if (docSnap.exists()) {
-        //     let userObj = docSnap.data();
-        //     employerName = userObj.employerName;
-        // } else {
-        //     // docSnap.data() will be undefined in this case
-        //     console.log("No such document!");
-        // }
-        // const cvRef = ref(storage,`employeeCVs/${}`)
+        let currentUserObj;
+        currentUserDetail.then((result)=>{
+            console.log(result);
+            currentUserObj = result;
+        })
+        const cvRef = ref(storage,`employeeCVs/${currentEmail+"->"+companyName+"-"+ uuidv4()}`);
+        uploadBytes(cvRef, cv).then((snapshot) => {
+            console.log('Uploaded a blob or file!');
+          });
+
     }catch(error){
         console.log("ApplyForJob error:",error);
     }

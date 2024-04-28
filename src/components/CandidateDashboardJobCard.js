@@ -22,6 +22,7 @@ function JobCard(props) {
   const emailRef = useRef();
   const contactNoRef = useRef();
   const {currentUserDetail} = useUser();
+  const {currentUser} = useAuth();
 
   function onCloseModal() {
     setOpenModal(false);
@@ -43,7 +44,7 @@ function JobCard(props) {
         },
       });
     }else{
-      ApplyForJob(companyName,emailRef.current.value,contactNoRef.current.value,CVUpload,currentUserDetail);
+      ApplyForJob(companyName,emailRef.current.value,contactNoRef.current.value,CVUpload,currentUserDetail,currentUser.email);
     }
     setLoading(false);
   }

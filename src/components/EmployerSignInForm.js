@@ -1,30 +1,49 @@
 import React ,{useState,useRef}from 'react';
-import {Radio,Label,TextInput} from 'flowbite-react';
+import {TextInput} from 'flowbite-react';
 import {Link,useNavigate} from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import {toast} from 'sonner';
+import { useUser } from "../contexts/UserContext";
 
 function EmployerSignInForm() {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const{loading,setLoading} = useState(false);
-  const {SignIn} =useAuth();
+  const[loading,setLoading] = useState(false);
   const navigate = useNavigate();
+  const { currentUserDetail } = useUser();
+
+    //using the AuthContext's Signup function
+    const { SignIn, LogOut } = useAuth();
 
   async function handleSignIn(){
 
     try{
-      await SignIn(emailRef.current.value,passwordRef.current.value);
+      setLoading(true);
 
-      //need to do check if the signed in user is truly an employer.bcoz even for a candidate the signIn of firebase works
       
-      toast.success('Successfully Logged In', {
-        position: 'top-right',
-        style: {
-          background: '#4DE318',
-          color: '#FFFFFF',
-        }});
-        navigate('/post-job/e-dashboard-jobs-feed');
+      //need to do check if the signed in user is truly an employer.bcoz even for a candidate the signIn of firebase works
+
+      await SignIn(emailRef.current.value,passwordRef.current.value);
+      if (currentUserDetail.type === "employer") {
+        toast.success("Successfully Logged In", {
+          position: "top-right",
+          style: {
+            background: "#4DE318",
+            color: "#FFFFFF",
+          },
+        });
+        navigate("/find-job/c-dashboard-jobs-feed", { replace: true });
+      } else {
+        await LogOut();
+        navigate("/find-job", { replace: true });
+        toast.error("Login as a Candidate", {
+          position: "top-right",
+          style: {
+            background: "#FF3538",
+            color: "#FFFFFF",
+          },
+        });
+      }
     }catch(error){
       toast.error('Invalid Login Credentials', {
         position: 'top-right',
@@ -34,6 +53,7 @@ function EmployerSignInForm() {
         },
       });
     }
+    setLoading(false);
   }
     const containerStyle = {
         width: "30vw",
@@ -87,7 +107,7 @@ function EmployerSignInForm() {
                 />
               </div>
             </div>
-            {/* Register Button */}
+            {/* SignIn Button */}
             <div className="px-8">
               {/* <Link to={"/post-job/e-dashboard-jobs-feed"}> */}
                 <button
