@@ -43,7 +43,9 @@ function UndergraduateSignupForm() {
           lastName:lastNameRef.current.value,
           indedNo:indedNoRef.current.value,
           faculty:facultyRef.current.value,
-          department:departmentRef.current.value
+          department:departmentRef.current.value,
+          appliedJobs:[],
+          bookmarkedJobs:[]
         });
         toast.success('Successfully SignedUp', {
           position: 'top-right',
@@ -60,6 +62,7 @@ function UndergraduateSignupForm() {
             color: '#FFFFFF',
           },
         });
+        console.log(error);
       }
     }
 

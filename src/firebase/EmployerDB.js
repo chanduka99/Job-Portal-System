@@ -35,10 +35,6 @@ export async function PostJob(jobObj){
           console.log(jobRef.id);
           //adding the newly added job under the postedJobs field of the employer
           const userRef = doc(db, "users", jobObj.employerEmail);
-        //   let temp = [userRef.postedJobs];
-        //   console.log("temp first :",temp)
-        //    temp = temp.concat(["12312414"]);
-        //    console.log("temp next :",temp);
           await updateDoc(userRef, {
             postedJobs:arrayUnion(jobRef.id)
           });

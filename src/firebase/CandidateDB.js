@@ -1,6 +1,6 @@
 import {db} from './config';
 import {storage} from './config';
-import {ref,uploadBytes } from "firebase/storage";
+import {getDownloadURL, ref,uploadBytes } from "firebase/storage";
 import { collection, addDoc,doc, updateDoc, arrayUnion, arrayRemove,getDocs } from "firebase/firestore"; 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -25,21 +25,31 @@ export async function GetJobs(){
 }
 
 // apply for selected job
-export async function ApplyForJob(companyName,emailforApplication,contactNo,cv,currentUserDetail,currentEmail){
-        
-    try{
-        //getting the applicant name from users collection 
-        let currentUserObj;
-        currentUserDetail.then((result)=>{
-            console.log(result);
-            currentUserObj = result;
-        })
+export async function ApplyForJob(companyName,emailforApplication,contactNo,cv,currentUserDetail,currentEmail,jobId,employerEmail){
+        //reference to the cv
         const cvRef = ref(storage,`employeeCVs/${currentEmail+"->"+companyName+"-"+ uuidv4()}`);
-        uploadBytes(cvRef, cv).then((snapshot) => {
+        await uploadBytes(cvRef, cv).then(async(snapshot) => {
             console.log('Uploaded a blob or file!');
+            console.log(snapshot.metadata);
+            // creating reference
+            const cvPathRef = ref(storage,`employeeCVs/${snapshot.metadata.name}`);
+            const downloadUrl = await getDownloadURL(ref(storage,`employeeCVs/${snapshot.metadata.name}`))
+            //add the job as "applied jobs" under the candidate's user data
+            const userRef = doc(db,"users", currentEmail);
+            await updateDoc(userRef,{
+                appliedJobs:arrayUnion(jobId)
+            })
+            //add the job as an job application for the relavant company/Employer
+            const employerRef = doc(db,"users", employerEmail);
+            await updateDoc(employerRef,{
+                receivedApplications:arrayUnion({
+                    jobId:jobId,
+                    cv:downloadUrl,
+                    contacEmail:emailforApplication,
+                    contactNo: contactNo,
+
+                    })
+            })
           });
 
-    }catch(error){
-        console.log("ApplyForJob error:",error);
-    }
 }

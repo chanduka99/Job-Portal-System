@@ -48,7 +48,8 @@ function CandidateDashboardJobFeed() {
           experience:job.experienceLevel,
           description:job.jobDescription,
           responsibilities : job.jobResponsibilites ,
-          knowledgeAndExperience :job.knowledgeAndExperience
+          knowledgeAndExperience :job.knowledgeAndExperience,
+          jobId:job.id
     })
   }
 
@@ -65,9 +66,10 @@ function CandidateDashboardJobFeed() {
               <JobCard 
                 image = {"https://99x.io/images/logo-99x-main.png"}
                 companyName = {job.employerName}
-                rating = {job.rating}
+                jobId = {job.id}
                 jobTitle = {job.jobTitle}
                 location = {job.city}
+                employerEmail = {job.employerEmail}
               />
           </button>
           )}

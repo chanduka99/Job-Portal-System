@@ -11,8 +11,10 @@ import { useAuth } from "../contexts/AuthContext";
 import { useUser } from "../contexts/UserContext";
 
 function JobCard(props) {
+  const jobId = props.jobId;
   const image = props.image;
   const companyName = props.companyName;
+  const employerEmail = props.employerEmail;
   const jobTitle = props.jobTitle;
   const location = props.location;
   const [openModal, setOpenModal] = useState(false);
@@ -30,23 +32,74 @@ function JobCard(props) {
 
   function handleApply() {
     setOpenModal(true);
+    console.log("this is from inside the jobCard : ",currentUserDetail)
   }
 
   
-  function handleSubmit(){
-    setLoading(true);
-    if(CVUpload.size/1024 >= 1024){
-      toast.error('file too large', {
-        position: 'top-right',
+  async function handleSubmit(){
+
+    try {
+      //check if a cv is selected
+      if(CVUpload == null){
+        toast.error("Please Select your CV", {
+          position: "top-right",
+          style: {
+            background: "#FF3538",
+            color: "#FFFFFF",
+          },
+        });
+        return;
+      }
+      //check if the text inputs are filled
+      if(emailRef.current.value == "" || contactNoRef.current.value == ""){
+        toast.error("Please fill all details", {
+          position: "top-right",
+          style: {
+            background: "#FF3538",
+            color: "#FFFFFF",
+          },
+        });
+        return;
+      }
+      setLoading(true);
+      if(CVUpload.size/1024 >= 1024){
+        toast.error('file too large', {
+          position: 'top-right',
+          style: {
+            background: '#FF3538',
+            color: '#FFFFFF',
+          },
+        });
+      }else{
+        //send the application if above all conditions are met
+        toast.warning('This may take few seconds,please wait', {
+          position: 'top-right',
+          style: {
+            background: '#FFB800',
+            color: '#FFFFFF',
+          },
+        });
+        await ApplyForJob(companyName,emailRef.current.value,contactNoRef.current.value,CVUpload,currentUserDetail,currentUser.email,jobId,employerEmail);
+        toast.success('Application sent', {
+          position: 'top-right',
+          style: {
+            background: '#4DE318',
+            color: '#FFFFFF',
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(`${error.code}`, {
+        position: "top-right",
         style: {
-          background: '#FF3538',
-          color: '#FFFFFF',
+          background: "#FF3538",
+          color: "#FFFFFF",
         },
       });
-    }else{
-      ApplyForJob(companyName,emailRef.current.value,contactNoRef.current.value,CVUpload,currentUserDetail,currentUser.email);
+    }finally{
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   const containerStyle = {

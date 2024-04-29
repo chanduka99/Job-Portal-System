@@ -3,10 +3,12 @@ import { TextInput,Datepicker,Textarea, Label, Badge,Button ,Modal,Checkbox } fr
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import profilpic from '../assets/Registration/profilepic.svg'
+import { useUser } from '../contexts/UserContext';
 
 function CandidateAccountSetupForm() {
     const [openModal, setOpenModal] = useState(false);
     const [email, setEmail] = useState('');
+    const {currentUserDetail} = useUser();
 
     function onCloseModal() {
       setOpenModal(false);
@@ -26,7 +28,7 @@ function CandidateAccountSetupForm() {
             <div className='flex gap-12 items-center'>
                 <h1 className='font-black text-xl'>Info</h1>
                 <p className=' text-sm text-secondary text-opacity-80'>Set up your account.You can change these settings anytime.
-                    <br/>Data entered here will be used to find job recommendations for you.
+                    {/* <br/>Data entered here will be used to find job recommendations for you. */}
                 </p>
             </div>
             <div className='md:grid grid-cols-2 my-6 gap-12'>
@@ -42,7 +44,9 @@ function CandidateAccountSetupForm() {
                     {/* first name */}
                     <TextInput className='mt-6'
                     id='firstName'
-                    placeholder='First Name'/>
+                    placeholder='First Name'
+                    defaultValue={currentUserDetail.firstName}
+                    />
 
                     {/* second name */}
                     <TextInput className='mt-6'
@@ -81,19 +85,20 @@ function CandidateAccountSetupForm() {
                 </div>
             </div>
 
-            {/* Job Preferneces */}
-            <div className=' mt-12'>
-                <h1 className='text-xl font-black'>Job Preferneces</h1>
-                <Badge className='text-base w-1/2 mt-6 bg-[#F2F5F8] text-secondary text-opacity-80'>
-                    Java Developer
+            {/* Skills */}
+            <h1 className='text-xl font-black mt-12'>Skills</h1>
+            <div className='max-h-[25vh] overflow-auto'>
+                <Badge className='text-base w-1/3 mt-6 bg-[#F2F5F8] text-secondary text-opacity-80'>
+                    Backend Developer
                 </Badge>
-                <Badge className='text-base w-1/2 mt-6 bg-[#F2F5F8] text-secondary text-opacity-80'>
-                    Back-End Developer
+                <Badge className='text-base w-1/3 mt-6 bg-[#F2F5F8] text-secondary text-opacity-80'>
+                    Mobile app Development
                 </Badge>
-                <Badge className='text-base w-1/2 mt-6 bg-[#F2F5F8] text-secondary text-opacity-80'>
-                    Front-End Developer
+                <Badge className='text-base w-1/3 mt-6 bg-[#F2F5F8] text-secondary text-opacity-80'>
+                    Web Developer
                 </Badge>
-
+            </div>
+            <div className='mt-5'>
                 {/* Add Button */}
                 <div>
                     <Button onClick={() => setOpenModal(true)} className='mt-6 text-secondary bg-[#F2F5F8]'>+ Add</Button>

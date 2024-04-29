@@ -21,10 +21,10 @@ function CandidateSideBar() {
     const logOut = async()=>{
         try{
             LogOut();
-            navigate("/post-job")
+            navigate("/find-job")
         }catch(error){
             console.log(error);
-            navigate("/post-job")
+            navigate("/find-job")
         }
     }
 

@@ -9,52 +9,59 @@ function EmployerSignInForm() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const[loading,setLoading] = useState(false);
+  const [error, setError] = useState();
   const navigate = useNavigate();
-  const { currentUserDetail } = useUser();
+  const { SetUser, currentUserDetail } = useUser();
 
     //using the AuthContext's Signup function
     const { SignIn, LogOut } = useAuth();
 
-  async function handleSignIn(){
-
-    try{
-      setLoading(true);
-
-      
-      //need to do check if the signed in user is truly an employer.bcoz even for a candidate the signIn of firebase works
-
-      await SignIn(emailRef.current.value,passwordRef.current.value);
-      if (currentUserDetail.type === "employer") {
-        toast.success("Successfully Logged In", {
-          position: "top-right",
-          style: {
-            background: "#4DE318",
-            color: "#FFFFFF",
-          },
-        });
-        navigate("/find-job/c-dashboard-jobs-feed", { replace: true });
-      } else {
-        await LogOut();
-        navigate("/find-job", { replace: true });
-        toast.error("Login as a Candidate", {
+    async function handleSignIn() {
+      try {
+        setLoading(true);
+        const resObj = await SignIn(
+          emailRef.current.value,
+          passwordRef.current.value
+        );
+        console.log("response from the signIn", resObj);
+        await SetUser(resObj);
+        if (currentUserDetail.type === "employer") {
+          toast.success("Successfully Logged In", {
+            position: "top-right",
+            style: {
+              background: "#4DE318",
+              color: "#FFFFFF",
+            },
+          });
+          navigate("/post-job/e-dashboard-jobs-feed", { replace: true });
+        } else {
+          await LogOut();
+          navigate("/find-job", { replace: true });
+          toast.error("Login as a Candidate", {
+            position: "top-right",
+            style: {
+              background: "#FF3538",
+              color: "#FFFFFF",
+            },
+          });
+        }
+      } catch (error) {
+        setError("An error occured while login");
+        toast.error("Invalid Login Credentials", {
           position: "top-right",
           style: {
             background: "#FF3538",
             color: "#FFFFFF",
           },
         });
+        await LogOut();
+        console.log(error);
+      } finally {
+        setLoading(false);
       }
-    }catch(error){
-      toast.error('Invalid Login Credentials', {
-        position: 'top-right',
-        style: {
-          background: '#FF3538',
-          color: '#FFFFFF',
-        },
-      });
     }
-    setLoading(false);
-  }
+
+
     const containerStyle = {
         width: "30vw",
         // height: "80vh",
@@ -64,12 +71,24 @@ function EmployerSignInForm() {
         border: `1px  solid rgba(92,101,117,0.23)`,
         boxShadow: "0 0 21px 1px rgba(0, 0, 0, 0.12)",
       };
+
+
+
+
+        //handle error
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+//handle loading
+
       return (
         <div className="flex justify-center ">
           <div style={containerStyle} className="relative">
             <div className="flex justify-center">
               <h1 className="text-2xl font-semibold mt-4 ">Sign in</h1>
             </div>
+          
             {/* Radio Buttons */}
             {/* <fieldset className="flex  justify-around mt-6  ">
               <div className="flex gap-2 items-center ">

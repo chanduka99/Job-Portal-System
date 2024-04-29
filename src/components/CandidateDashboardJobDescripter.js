@@ -7,6 +7,7 @@ import locationIcon from "../assets/jobDesscriptor/location.png";
 import workHrsIcon from "../assets/jobDesscriptor/clock.png";
 import xpIcon from "../assets/jobDesscriptor/xp.png";
 function JobDescriptor(props) {
+  const jobId = props.jobId;
   const image = props.image;
   const companyName = props.companyName;
   const jobTitle = props.jobTitle;

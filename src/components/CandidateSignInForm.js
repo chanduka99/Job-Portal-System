@@ -9,8 +9,10 @@ function CandidateSignInForm() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState();
   const navigate = useNavigate();
-  const { currentUserDetail } = useUser();
+  // const { currentUserDetail } = useUser();
+  const { SetUser, currentUserDetail } = useUser();
 
   //using the AuthContext's Signup function
   const { SignIn, LogOut } = useAuth();
@@ -18,18 +20,31 @@ function CandidateSignInForm() {
   async function handleSignIn() {
     try {
       setLoading(true);
-
-      //need to do check if the signed in user is truly an candidate.bcoz even for a employer the signIn of firebase works
-
-      await SignIn(emailRef.current.value, passwordRef.current.value);
-      if (currentUserDetail.type === "employee") {
-        toast.success("Successfully Logged In", {
-          position: "top-right",
-          style: {
-            background: "#4DE318",
-            color: "#FFFFFF",
-          },
-        });
+      const resObj = await SignIn(
+        emailRef.current.value,
+        passwordRef.current.value
+      );
+      console.log("response from the signIn", resObj);
+      const holdUser = await SetUser(resObj);
+      if(currentUserDetail === undefined){
+        //try 3 times
+        for(let i = 0;i<3;i++){
+          if(currentUserDetail !== undefined){
+            break;
+          }else{
+            await SetUser(resObj);
+          }
+        }
+      }
+      console.log("currentUserDetail : ",currentUserDetail);
+      if (holdUser.type === "employee") {
+        // toast.success("Successfully Logged In", {
+        //   position: "top-right",
+        //   style: {
+        //     background: "#4DE318",
+        //     color: "#FFFFFF",
+        //   },
+        // });
         navigate("/find-job/c-dashboard-jobs-feed", { replace: true });
       } else {
         await LogOut();
@@ -42,7 +57,8 @@ function CandidateSignInForm() {
           },
         });
       }
-    } catch {
+    } catch (error) {
+      setError("An error occured while login");
       toast.error("Invalid Login Credentials", {
         position: "top-right",
         style: {
@@ -50,8 +66,11 @@ function CandidateSignInForm() {
           color: "#FFFFFF",
         },
       });
+      await LogOut();
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   const containerStyle = {
@@ -63,6 +82,15 @@ function CandidateSignInForm() {
     border: `1px  solid rgba(92,101,117,0.23)`,
     boxShadow: "0 0 21px 1px rgba(0, 0, 0, 0.12)",
   };
+
+
+  //handle error
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+//handle loading
+
   return (
     <div className="flex justify-center ">
       <div style={containerStyle} className="relative">
@@ -70,7 +98,7 @@ function CandidateSignInForm() {
           <h1 className="text-2xl font-semibold mt-4 ">Sign in</h1>
         </div>
         {/* Radio Buttons */}
-        <fieldset className="flex  justify-around mt-6  ">
+        {/* <fieldset className="flex  justify-around mt-6  ">
           <div className="flex gap-2 items-center ">
             <Radio id="underGraduate" value="Under Graduate"></Radio>
             <Label
@@ -90,7 +118,7 @@ function CandidateSignInForm() {
               Post Graduate
             </Label>
           </div>
-        </fieldset>
+        </fieldset> */}
 
         <div>
           <div>
