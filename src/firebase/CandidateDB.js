@@ -1,7 +1,7 @@
 import {db} from './config';
 import {storage} from './config';
 import {getDownloadURL, ref,uploadBytes } from "firebase/storage";
-import { collection, addDoc,doc, updateDoc, arrayUnion, arrayRemove,getDocs } from "firebase/firestore"; 
+import { collection, addDoc,doc, updateDoc, arrayUnion, arrayRemove,getDocs,getDoc,query, where, } from "firebase/firestore"; 
 import { v4 as uuidv4 } from 'uuid';
 
 //get all jobs
@@ -51,5 +51,52 @@ export async function ApplyForJob(companyName,emailforApplication,contactNo,cv,c
                     })
             })
           });
+
+}
+
+
+//add to favourites
+export async function AddtoFavourites(userEmail,jobId){
+    const userRef  = doc(db,"users",userEmail);
+    await updateDoc(userRef,{
+        bookmarkedJobs:arrayUnion(jobId)
+    })
+
+}
+
+export async function GetBookmarks(bookmarkIds){
+    const jobRefs = bookmarkIds.map((jobId) => doc(db, "jobs", jobId));
+    try {
+      const jobSnapshots = await Promise.all(jobRefs.map((jobRef) => getDoc(jobRef)));
+  
+      const temp = jobSnapshots
+        .filter((snapshot) => snapshot.exists())
+        .map((snapshot) => {
+        //   const jobData = snapshot.data();
+          return  snapshot.data();
+        });
+  
+      return temp;;
+    // console.log('all bookmarks',temp);
+    } catch (error) {
+      console.error("Error fetching bookmarks:", error);
+      // Handle error if necessary
+      return [];
+    }
+
+    // try{
+    //     for(const id of bookmarkIds){
+    //     const jobRef = doc(db,"jobs",id);
+    //     const jobSnap = await getDoc(jobRef);
+    //     if(jobSnap.exists()){
+    //         temp.push(jobSnap.data());            
+    //     }
+    // }
+    // return temp;
+
+    // }catch(err){
+    //     console.log(err.code);
+    // }
+    
 
 }

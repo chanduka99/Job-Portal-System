@@ -1,70 +1,85 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Cnavbar from "../components/CandidateNavbar";
 import CSidebar from "../components/CandidateSideBar";
 import Filter from "../components/CandidateDashboardFilter";
 import Search from "../components/CandidateDashboardSearch";
-import JobCard from "../components/CandidateDashboardJobCard";
 import BookmarkCard  from "../components/CandidateDashboardBookmarkCard";
+import JobCard from "../components/CandidateDashboardJobCard";
 import JobDescriptor from "../components/CandidateDashboardJobDescripter";
 import temperoryCompanyLogo from "../assets/99x.png";
 import temperoryCompanyLogo2 from "../assets/dialog.png";
+import {GetBookmarks} from "../firebase/CandidateDB";
+import { useUser } from "../contexts/UserContext";
+import Tabs from "../components/CandidateDashboardBookmarkTabs";
+
 function CandidateDashboardBookmarks() {
+  const {currentUserDetail} = useUser();
+  const[bookmarks,setBookmarks] =useState([]);
+  const [nobookmarks,setNoBookmarks] = useState(true);
+  const [jobDescriptorProps,setJobDescriptorProps] = useState(null);
+
+  useEffect(() => {
+    if (currentUserDetail && currentUserDetail.bookmarkedJobs) {
+      if(currentUserDetail.bookmarkedJobs != 0){
+        let bookmarkIds = currentUserDetail.bookmarkedJobs;
+          GetBookmarks(bookmarkIds).then(bookmarks => {
+            setBookmarks(bookmarks);
+          }).catch(error => {
+            // Handle error if necessary
+            console.error("Error fetching bookmarks:", error);
+          });
+        setNoBookmarks(false);
+      }
+    }
+  }, [currentUserDetail]); // Run effect whenever currentUserDetail changes
+  
+
+  function handleTap(job){
+    setJobDescriptorProps({
+          image:"https://99x.io/images/logo-99x-main.png",
+          companyName:job.employerName,
+          jobTitle:job.jobTitle,
+          country:job.country,
+          location:job.city,
+          workingHrs:job.jobTimeType,
+          experience:job.experienceLevel,
+          description:job.jobDescription,
+          responsibilities : job.jobResponsibilites ,
+          knowledgeAndExperience :job.knowledgeAndExperience,
+          jobId:job.id,
+          employerEmail: job.employerEmail
+    })
+  }
+
+
   return (
-    <div className="p-2 grid grid-cols-2  sm:grid-cols-3  gap-2 ">
-      {/* <div className="grid sm:cols-span-2"> */}
+<div className="md:p-2 md:grid grid-cols-3  lg:grid-cols-6  gap-2 ">
+      <div className="grid sm:cols-span-2">
         {/* <Filter /> */}
-      {/* </div> */}
-      <dig className="col-span-1 sm:col-span-2">
-        let the bookmark icon be glowing when added as a bookmark and to remove a bookmark make it such that when clicked on the bookmark icon it removes
+      </div>
+      <div className="col-span-1 sm:col-span-3 mt-10">
+        <Tabs/>
         {/* <Search /> */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 max-h-[92vh] overflow-y-auto gap-2">
-          <BookmarkCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <BookmarkCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <BookmarkCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <BookmarkCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-
-
-
-          
+        <div className=" pl-6 grid sm:grid-cols-2 sm:gap-x-6 max-h-[92vh] overflow-y-auto gap-y-6 ">
+          { bookmarks.map((bookmark)=>
+          <button onClick={()=>{handleTap(bookmark)}} className="w-min">
+              <BookmarkCard 
+                image = {"https://99x.io/images/logo-99x-main.png"}
+                companyName = {bookmark.employerName}
+                bookmarkId = {bookmark.id}
+                bookmarkTitle = {bookmark.jobTitle}
+                location = {bookmark.city}
+                employerEmail = {bookmark.employerEmail}
+              />
+          </button>
+          )}
         </div>
-      </dig>
-      <div className=" col-span-1 max-h-[92vh] overflow-y-auto w-full  ">
-        <JobDescriptor
-          image={temperoryCompanyLogo}
-          companyName="99x"
-          jobTitle="Java Developer"
-          country="Sri Lanka"
-          location="Colombo"
-          workingHrs="Full time"
-          experience="2 Year"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id tempor lectus, at vulputate risus. Integer et interdum turpis. Nunc a nunc neque. Cras fringilla posuere elit vitae tempus. Pellentesque sed sem accumsan, condimentum sapien non, fringilla lorem. "
-          responsibilities = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id tempor lectus, at vulputate risus. Integer et interdum turpis. Nunc a nunc neque. Cras fringilla posuere elit vitae tempus. Pellentesque sed sem accumsan, condimentum sapien non, fringilla lorem. "
-          knowledgeAndExperience = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id tempor lectus, at vulputate risus. Integer et interdum turpis. Nunc a nunc neque. Cras fringilla posuere elit vitae tempus. Pellentesque sed sem accumsan, condimentum sapien non, fringilla lorem. "
-        />
+      </div>
+      <div className=" sm:col-span-2 max-h-[92vh] overflow-y-auto w-full  ">
+        {!jobDescriptorProps && (<h1 className="text-secondary text-opacity-60 flex  justify-center mt-56 ">Click on a job to view the details</h1>)}
+              {jobDescriptorProps && (
+        <JobDescriptor {...jobDescriptorProps} />
+      )}
       </div>
     </div>
   );

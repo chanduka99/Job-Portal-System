@@ -32,7 +32,6 @@ function JobCard(props) {
 
   function handleApply() {
     setOpenModal(true);
-    console.log("this is from inside the jobCard : ",currentUserDetail)
   }
 
   
@@ -103,7 +102,6 @@ function JobCard(props) {
   }
 
   const containerStyle = {
-    width: "20vw",
     // height: "80vh",
     // marginTop: "30px",
     borderRadius: `8px`,
@@ -151,21 +149,21 @@ function JobCard(props) {
   };
 
   return (
-    <div className=" flex justify-evenly w-full ">
-      <div style={containerStyle} className="p-3 w-full">
+    <div className=" flex justify-evenly w-min ">
+      <div style={containerStyle} className="p-4 w-[70vw] sm:w-[30vw] lg:w-[19vw]">
         {/* badge,company name    bookmark,rating */}
-        <div className="md:flex justify-between overflow-hidden">
+        <div className="flex justify-between overflow-hidden">
           {/* badge and company name */}
-          <div className=" md:flex gap-2 place-items-center text-secondary text-opacity-80 font-medium">
+          <div className="flex gap-2 place-items-center text-secondary text-opacity-80 font-medium">
             {/* company logo */}
-            <div style={containerStyle2}>
+            <div style={containerStyle2} className="flex gap-4">
               <img
                 src={image}
                 className="flex place-items-center justify-evenly pt-1"
               />
+              {/* company name */}
+              <h1>{companyName}</h1>
             </div>
-            {/* company name */}
-            <h1>{companyName}</h1>
           </div>
           {/* bookmark and rating */}
           <div className="flex gap-2">
@@ -176,12 +174,6 @@ function JobCard(props) {
                 className="flex  justify-center w-6 h-6 mt-0.5"
               />
             </div>
-            {/* rating */}
-            {/* <div style={containerStyle3}>
-              <h1 className="mt-1.5 text-secondary text-opacity-80 text-xs ">
-                {rating}
-              </h1>
-            </div> */}
           </div>
         </div>
         {/* job title */}
@@ -189,7 +181,7 @@ function JobCard(props) {
           {jobTitle}
         </h1>
         {/* location and apply button */}
-        <div className=" md:flex justify-between">
+        <div className="flex justify-between">
           {/* location icon */}
           <div className=" flex gap-2 place-items-center">
             <img src={locationIcon} className="flex  justify-center w-5 h-4" />

@@ -3,7 +3,6 @@ import React from 'react'
 
 function CandidateDashboardSearch() {
   const containerStyle = {
-    width: "full",
     // height: "80vh",
     // marginTop: "30px",
     borderRadius: `8px`,
@@ -11,22 +10,20 @@ function CandidateDashboardSearch() {
     border: `1px  solid rgba(92,101,117,0.23)`,
     boxShadow: "0 0 21px 1px rgba(0, 0, 0, 0.18)",
     padding: `6px`,
-    marginLeft:`20px`,
-    marginRight:`20px`,
-    marginBottom: `8px`,
-    display: `flex`
   };
   return (
-    <div style={containerStyle} className='justify-around gap-2'>
-      <div className='w-[80%]'>
-      <TextInput/>
+    <div className='hidden lg:block w-full'>
+      <div style={containerStyle} className='justify-around gap-2 flex w-full'>
+        <div className='w-[90%]'>
+        <TextInput/>
+        </div>
+        <button
+                type="button"
+                className=" px-9 py-0.5 text-white  rounded-[5px] bg-[#9445FF]"
+              >
+                Search
+              </button>
       </div>
-      <button
-              type="button"
-              className=" px-9 py-0.5 text-white  rounded-[5px] bg-[#9445FF]"
-            >
-              Search
-            </button>
     </div>
   )
 }

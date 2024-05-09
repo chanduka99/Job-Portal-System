@@ -16,9 +16,11 @@ function EmployerProtectedRoute({children}) {
             navigate("/post-job/Elogin");
       }else{
         //to come to the else part means user is signed in.Therefore check if the user is a employee/Employer
-        if(currentUserDetail.type === "employee"){
-          //if the signed use is a employer.then redirect to  home page
-          navigate('/find-job/c-dashboard-jobs-feed');
+        if(currentUser && currentUserDetail){   // this if is used to avoid race conditions       
+          if(currentUserDetail.type === "employee"){
+            //if the signed use is a employer.then redirect to  home page
+            navigate('/find-job/c-dashboard-jobs-feed');
+          }
         }
       }
         setLoading(false);

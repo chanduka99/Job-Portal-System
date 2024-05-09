@@ -30,7 +30,7 @@ function CandidateSideBar() {
 
   return (
     <div className='my-1'>
-        <div className={`relative bg-gradient-to-b from-[#9345ffd5] to-[#512194] ${pressed? 'w-[26vh]': 'w-[9vh]'}  h-[92.5vh] rounded-[5px] p-2 duration-300`}>
+        <div className={`relative bg-gradient-to-b from-[#9345ffd5] to-[#512194] ${pressed? 'w-[18vh] lg:w-[26vh]': 'w-[7.5vh] lg:w-[8vh]'}  h-[92.5vh] rounded-[5px] p-2 duration-300`}>
             <div className={`p-2 rounded-[5px]  mt-1 w-12 gap-5 hover:bg-[rgba(255,255,255,0.18)] duration-300 `}>
                 <div className='w-7 h-7 justify-around'>
                     <button onClick={()=>setPressed(!pressed)}>

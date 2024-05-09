@@ -4,7 +4,7 @@ import { Radio, Label, TextInput,Checkbox } from "flowbite-react";
 import filter from "../assets/candidate/dashboard/filter.svg"
 function DahboardFilter() {
   const containerStyle = {
-    width: "15vw",
+    width: "100%",
     // height: "80vh",
     height: "92vh",
     // marginTop: "30px",
@@ -14,8 +14,8 @@ function DahboardFilter() {
     boxShadow: "0 0 21px 1px rgba(0, 0, 0, 0.12)",
   };
   return (
-    <div >
-      <div style={containerStyle} className="p-3 overflow-hidden">
+    <div className="flex justify-around m-3" >
+      <div style={containerStyle} className="p-3 overflow-hidden hidden lg:block">
         <div className="">
             <div className="flex justify-between">
                 <h1 className=" font-black my-2">Filter</h1>
