@@ -10,6 +10,7 @@
     "firebase": "^10.9.0",
     "flowbite": "^2.2.0",
     "flowbite-react": "^0.7.2",
+    "framer-motion": "^11.1.9",
     "postcss": "^8.4.32",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

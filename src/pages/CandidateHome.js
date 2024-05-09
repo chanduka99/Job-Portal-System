@@ -2,7 +2,7 @@ import React from 'react';
 import {Link } from 'react-router-dom';
 import Cnavbar from '../components/CandidateNavbar';
 import findJob from '../assets/candidate/officeBag.svg';
-
+import { delay, motion } from "framer-motion";
 
 function CandidateHome() {
   const mainQuote ='Find a job that suits your interest & skills';
@@ -13,22 +13,39 @@ function CandidateHome() {
       <div className=' flex mt-24 px-4'>
         {/* column 1 */}
         <div>
-          <p className='text-7xl font-medium'>{mainQuote}</p>
-          <p className='text-secondary text-2xl  font-bold mt-9 pr-16'>{subQuote}</p>
+          <motion.div
+          initial ={{opacity:0,y:10}}
+          animate={{opacity:1,y:0}}
+          transition={{delay:1,duration:1}} 
+          >
+            <p className='text-7xl font-medium'>{mainQuote}</p>
+            <p className='text-secondary text-2xl  font-bold mt-9 pr-16'>{subQuote}</p>
+          </motion.div>
 
-          <div className='mt-9'>
+          <motion.div className='mt-9'
+            initial ={{opacity:0,y:10}}
+            animate={{opacity:1,y:0}}
+            transition={{delay:1.5,duration:1}} 
+          >
               <Link to={"/find-job/get-started"}>
-                  <button type='button' className='text-2xl text-white font-bold w-48 h-16 bg-[#9445FF] border-r-5'>
+                  <motion.button type='button' className=' buttons text-2xl text-white font-bold w-48 h-16 bg-[#9445FF] border-r-5'
+                  whileHover={{y:-5 , backgroundColor: "rgba(129, 60, 222, 1)"}}
+                  >
                       GetStarted
-                  </button>
+                  </motion.button>
               </Link> 
-          </div>
+          </motion.div>
         </div>
 
         {/* column 2 */}
-        <div>
+        <motion.div
+         initial={{opacity:0,x:100}}
+         animate={{opacity:1,x:0}}
+         transition={{delay:0.5, duration:1.5}}
+        >
           <img src={Cpic} alt='no internet'></img>
-        </div>
+        </motion.div
+        >
       </div>
     </div>
   )
