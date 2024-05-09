@@ -46,7 +46,7 @@ function App() {
           <IsENavbar>
             <ENavbar/>
           </IsENavbar>
-          <div className="flex overflow-hidden">
+          <div className="flex overflow-hidden justify-center">
             <IsCSideBar>
               <CSideBar/>
             </IsCSideBar>
