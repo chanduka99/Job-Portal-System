@@ -18,8 +18,8 @@ function CandidateHome() {
           animate={{opacity:1,y:0}}
           transition={{delay:1,duration:1}} 
           >
-            <p className='text-7xl font-medium'>{mainQuote}</p>
-            <p className='text-secondary text-2xl  font-bold mt-9 pr-16'>{subQuote}</p>
+            <p className='lg:text-7xl lg:font-medium'>{mainQuote}</p>
+            <p className='text-lightSecondary    lg:text-xl  lg:font-bold lg:mt-9 lg:pr-16'>{subQuote}</p>
           </motion.div>
 
           <motion.div className='mt-9'

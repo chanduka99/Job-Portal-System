@@ -19,7 +19,7 @@ body {
 
 @layer components {
   .buttons {
-    @apply rounded-[8px] ;
+    @apply rounded-[4px] ;
   }
 }
 
