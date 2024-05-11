@@ -25,7 +25,7 @@ export async function GetJobs(){
 }
 
 // apply for selected job
-export async function ApplyForJob(companyName,emailforApplication,contactNo,cv,currentUserDetail,currentEmail,jobId,employerEmail){
+export async function ApplyForJob(companyName,emailforApplication,contactNo,cv,currentUserDetail,currentEmail,jobId,employerEmail,jobTitle){
         //reference to the cv
         const cvRef = ref(storage,`employeeCVs/${currentEmail+"->"+companyName+"-"+ uuidv4()}`);
         await uploadBytes(cvRef, cv).then(async(snapshot) => {
@@ -47,7 +47,7 @@ export async function ApplyForJob(companyName,emailforApplication,contactNo,cv,c
                     cv:downloadUrl,
                     contacEmail:emailforApplication,
                     contactNo: contactNo,
-
+                    jobTitle:jobTitle
                     })
             })
           });

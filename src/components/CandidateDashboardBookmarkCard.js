@@ -79,7 +79,7 @@ function BookmarkCard(props) {
             color: '#FFFFFF',
           },
         });
-        await ApplyForJob(companyName,emailRef.current.value,contactNoRef.current.value,CVUpload,currentUserDetail,currentUser.email,jobId,employerEmail);
+        await ApplyForJob(companyName,emailRef.current.value,contactNoRef.current.value,CVUpload,currentUserDetail,currentUser.email,jobId,employerEmail,jobTitle);
         toast.success('Application sent', {
           position: 'top-right',
           style: {

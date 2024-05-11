@@ -27,7 +27,7 @@ function EmployerProtectedRoute({children}) {
     },[currentUser,navigate,currentUserDetail])
 
   return (
-    <div>
+    <div className='w-full'>
       {!loading && children}
     </div>
   )

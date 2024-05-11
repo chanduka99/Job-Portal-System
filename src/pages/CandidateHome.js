@@ -3,8 +3,10 @@ import {Link } from 'react-router-dom';
 import Cnavbar from '../components/CandidateNavbar';
 import findJob from '../assets/candidate/officeBag.svg';
 import { delay, motion } from "framer-motion";
+import { useAuth } from '../contexts/AuthContext';
 
 function CandidateHome() {
+  const {currentUser } = useAuth();
   const mainQuote ='Find a job that suits your interest & skills';
   const subQuote = 'Aliquam vitae turpis in diam convallis finibus in at risus. Nullam in scelerisque leo, eget sollicitudin velit bestibulum.'
   const Cpic = findJob;
@@ -27,13 +29,29 @@ function CandidateHome() {
             animate={{opacity:1,y:0}}
             transition={{delay:1.5,duration:1}} 
           >
-              <Link to={"/find-job/get-started"}>
+            {
+              !currentUser &&  (
+                <Link to={"/find-job/get-started"}>
                   <motion.button type='button' className=' buttons text-2xl text-white font-bold w-48 h-16 bg-[#9445FF] border-r-5'
                   whileHover={{y:-5 , backgroundColor: "rgba(129, 60, 222, 1)"}}
                   >
                       GetStarted
                   </motion.button>
-              </Link> 
+              </Link>
+              )
+            }
+              {/* if logged in goto dashboard button */}
+            {   
+              currentUser &&  (
+                <Link to={"/find-job/c-dashboard-jobs-feed"}>
+                  <motion.button type='button' className=' buttons text-2xl text-white font-bold p-4 h-16 bg-[#9445FF] border-r-5'
+                  whileHover={{y:-5 , backgroundColor: "rgba(129, 60, 222, 1)"}}
+                  >
+                      Goto Dashboard
+                  </motion.button>
+              </Link>
+              )
+            }
           </motion.div>
         </div>
 

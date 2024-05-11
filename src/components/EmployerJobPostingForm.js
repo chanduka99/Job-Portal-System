@@ -28,8 +28,7 @@ function EmployerJobPostingForm() {
     function handlePost(){
       setLoading(true);
       console.log(currentUser.email);
-      try{
-        
+      try{  
         PostJob({
           employerEmail:currentUser.email,
           jobTimeType:jobTimeType,
@@ -46,21 +45,7 @@ function EmployerJobPostingForm() {
           experienceLevel:experienceLevel,
           employeeCapacity:employeeCapacity
         });
-        // PostJob({
-        //   employerEmail:currentUser.email,
-        //   jobTimeType:jobTimeType,
-        //   jobEmployeeType:jobEmployeeType,
-        //   remote:remote,
-        //   country:countryRef.current.value,
-        //   city:cityRef.current.value,
-        //   address:addressRef.current.value,
-        //   contactEmail:contactEmailRef.current.value,
-        //   jobDescription:jobDescriptionRef.current.value,
-        //   jobResponsibilites:jobResponsibilitesRef.current.value,
-        //   knowledgeAndExperience:knowledgeAndExperienceRef.current.value,
-        //   experienceLevel:experienceLevel,
-        //   employeeCapacity:employeeCapacity
-        // });
+
         toast.success('Job Posted Successfully', {
           position: 'top-right',
           style: {

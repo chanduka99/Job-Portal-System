@@ -11,6 +11,7 @@ function IsENavbar({children}) {
             case "/post-job/get-started/confirm-email/e-account-setup/e-dashboard-jobs-feed":
             case "/post-job/e-dashboard-profile":
             case "/post-job/post-a-job":
+            case "/post-job/e-dashboard-job-status":
             setShow(true);
             break;
             default:

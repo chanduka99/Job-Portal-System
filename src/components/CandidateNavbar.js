@@ -99,8 +99,8 @@ function CandidateNavbar() {
 
         </div>
           {/* popover for the avatar */}
-      { showPopOver && (<motion.div className="flex justify-end relative">
-          <div className="w-[25vh] h-[5vh] rounded-sm flex justify-center place-items-center mt-1 absolute " style={containerStyle}>
+      { showPopOver && (<motion.div className="flex justify-end ">
+          <div className="w-[25vh] h-[5vh] rounded-sm flex justify-center place-items-center mt-1  " style={containerStyle}>
             <h1>You are logged in</h1>
           </div>
         </motion.div>)}
@@ -108,7 +108,7 @@ function CandidateNavbar() {
       {/* jobs sub menu */}
       {showJobs && (
         <motion.div
-          className={`absolute mt-1 w-[99.5%] h-[91vh] bg-white rounded-[5px]`}
+          className={` mt-1 w-[99.5%] h-[91vh] bg-white rounded-[5px]`}
           initial={{ height: "0" }}
           animate={{ height: "91vh" }}
           transition={{ duration: 0.25 }}

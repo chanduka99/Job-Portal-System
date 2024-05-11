@@ -63,14 +63,14 @@ function EmployerSideBar() {
             </div>
             {/* bookmarks */}
             <div>
-                {/* <Link to={""}> */}
+                <Link to={"/post-job/e-dashboard-job-status"}>
                 <div className={`${containerStyle}`}>
                     <div className='w-8'>
                     <img src={bookmark} alt='bookmarks'/>
                 </div>
                 <h1 className={`${pressed? 'block':'hidden'}`}>Bookmarks</h1>
                 </div>
-                {/* </Link> */}
+                </Link>
             </div>
             {/* chat */}
             <div>               

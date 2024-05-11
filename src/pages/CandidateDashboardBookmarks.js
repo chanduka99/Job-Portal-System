@@ -67,7 +67,7 @@ function CandidateDashboardBookmarks() {
                 image = {"https://99x.io/images/logo-99x-main.png"}
                 companyName = {bookmark.employerName}
                 bookmarkId = {bookmark.id}
-                bookmarkTitle = {bookmark.jobTitle}
+                jobTitle = {bookmark.jobTitle}
                 location = {bookmark.city}
                 employerEmail = {bookmark.employerEmail}
               />

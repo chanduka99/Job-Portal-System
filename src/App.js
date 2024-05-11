@@ -34,6 +34,8 @@ import { AuthProvider } from "./contexts/AuthContext";
 import CandidateProtectedRoute from "./components/CandidateProtectedRoute";
 import { UserProvider } from "./contexts/UserContext";
 import EmployerProtectedRoute from "./components/EmployerProtectedRoute";
+import EDashboardJobStatus from "./pages/EmployerDashboardJobStatus";
+
 
 function App() {
   return (
@@ -76,6 +78,7 @@ function App() {
                 <Route path="/post-job/get-started/confirm-email/e-account-setup/e-dashboard-jobs-feed" element={<EmployerProtectedRoute><EDashboardJobsFeed/></EmployerProtectedRoute>}/>
                 <Route path="/post-job/e-dashboard-jobs-feed" element={<EmployerProtectedRoute><EDashboardJobsFeed/></EmployerProtectedRoute>}/>
                 <Route path="/post-job/e-dashboard-profile" element={<EmployerProtectedRoute><EDashboardProfile/></EmployerProtectedRoute>}/>
+                <Route path="/post-job/e-dashboard-job-status" element={<EmployerProtectedRoute><EDashboardJobStatus/></EmployerProtectedRoute>}/>
               </Routes>
             </div>
             <Toaster/>

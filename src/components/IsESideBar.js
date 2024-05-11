@@ -11,6 +11,7 @@ function IsESideBar({ children }) {
       case "/post-job/get-started/confirm-email/e-account-setup/e-dashboard-jobs-feed":
       case "/post-job/e-dashboard-profile":
       case "/post-job/post-a-job":
+      case "/post-job/e-dashboard-job-status":
     //   case "/post-job/e-dashboard-bookmarks":
     //   case "/post-job/e-dashboard-chat":
     //   case "/post-job/e-dashboard-reviews":
