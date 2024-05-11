@@ -1,18 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaHome, FaSuitcase, FaWindowClose } from "react-icons/fa";
 import { LiaWindowClose } from "react-icons/lia";
 import pilot from "../assets/landing/main/JobPilot.svg";
 import { delay, motion } from "framer-motion";
+import { useUser } from "../contexts/UserContext";
+import { useAuth } from "../contexts/AuthContext";
 
 function CandidateNavbar() {
   const [showJobs, setShowJobs] = useState(false);
   const [jobsImage, setJobsImage] = useState();
+  const [showPopOver,setShowPopOver] = useState(false);
+  const [avatar,setAvatar] = useState(false);
   const navigate = useNavigate();
+  const {currentUser} = useAuth();
+  const {currentUserDetail} = useUser();
+
+  useEffect(()=>{
+    if(currentUser && currentUserDetail){
+      // change the getStarted button to avatar-setAvatar as the profile picture
+      setAvatar(currentUserDetail.profilePic)
+  }
+  },[currentUser,currentUserDetail])
 
 
   const jobImages = [pilot, pilot, pilot, pilot];
   //TODO: add seperate images for the job types,animate the job menu
+
+
+  //for the popover near the avater
+  const containerStyle = {
+
+    // height: "80vh",
+    // marginTop: "30px",
+    borderRadius: `8px`,
+    // border: `1px  solid rgba(67,73,85,0.23)`,
+    border: `1px  solid rgba(92,101,117,0.23)`,
+    boxShadow: "0 0 21px 1px rgba(0, 0, 0, 0.12)",
+  };
 
   return (
     <div>
@@ -20,7 +45,7 @@ function CandidateNavbar() {
       <div className=" p-2 flex bg-gradient-to-r from-[#9345ffd5] to-[#512194] h-[7vh] text-white   justify-between text-lg  rounded-[5px] place-items-center ">
         <div className=" hover:text-white">
           <Link to={"/"}>
-            <div className="rounded-full bg-white w-[60px] h-[60px] place-content-center flex ">
+            <div className="rounded-full bg-white w-[8vh] h-[8vh] place-content-center flex ">
               <img src={pilot} className=" w-[50px] "></img>
             </div>
           </Link>
@@ -49,18 +74,36 @@ function CandidateNavbar() {
             className={`block max-w-0 group-hover:max-w-full transition-all bg-white h-[0.2vh] duration-500 `}
           />
         </div>
-
-        <div>
-          <Link to={"/find-job/get-started"}>
-            <button
-              type="button"
-              className="text-lg  text-white px-2 h-[4vh] rounded-[4px] bg-[#9445FF]"
+          {/* avatar or get Started button */}
+          {!avatar && (     
+                <div>
+                <Link to={"/find-job/get-started"}>
+                  <button
+                    type="button"
+                    className="text-lg  text-white px-2 h-[4vh] rounded-[4px] bg-[#9445FF]"
+                  >
+                    Get Started
+                  </button>
+                </Link>
+              </div>
+          )}
+  
+          {avatar && (
+            <div className="rounded-full bg-white w-[8vh] h-[8vh] flex justify-center place-items-center"
+              onMouseEnter={()=>setShowPopOver(true)}
+              onMouseLeave={()=>setShowPopOver(false)}
             >
-              Get Started
-            </button>
-          </Link>
+                <img className="max-w-[7vh] max-h-[7vh]" src={avatar}/>
+            </div>
+          )}
+
         </div>
-      </div>
+          {/* popover for the avatar */}
+      { showPopOver && (<motion.div className="flex justify-end relative">
+          <div className="w-[25vh] h-[5vh] rounded-sm flex justify-center place-items-center mt-1 absolute " style={containerStyle}>
+            <h1>You are logged in</h1>
+          </div>
+        </motion.div>)}
 
       {/* jobs sub menu */}
       {showJobs && (

@@ -177,13 +177,13 @@ function JobCard(props) {
           </div>
           {/* apply button */}
           <div>
-            <button
+            {/* <button
               type="button"
               className="text-xs px-4 py-0.5 text-white  rounded-[5px] bg-[#9445FF] opacity-40"
               disabled = {true}
             >
               Apply
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

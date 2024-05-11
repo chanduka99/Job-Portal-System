@@ -48,5 +48,10 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.3.6"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    }
   }
 }

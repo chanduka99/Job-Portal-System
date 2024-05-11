@@ -74,7 +74,7 @@ function JobDescriptor(props) {
 
   return (
     <div className="sm:flex lg:block justify-around hidden md:block ">
-      <div style={containerStyle} className="p-4 sm:w-full lg:w-[31.5vw] ">
+      <div style={containerStyle} className="p-4 sm:w-full lg:w-[31.5vw] sm:max-h-[80.5vh]  overflow-y-auto">
         {/* badge,company name    bookmark,rating */}
         <div className="flex justify-between overflow-hidden">
           {/* badge and company name */}
@@ -112,7 +112,7 @@ function JobDescriptor(props) {
         </div>
         {/* apply and add to favourites buttons*/}
         <div className="sm:flex justify-around gap-2 mt-8 mb-10">
-          <button
+          {/* <button
               type="button"
               className=" block text-xs px-4 py-2 text-white  rounded-[5px] bg-[#9445FF] w-1/2 mt-1 md:mt-0 opacity-40"
               disabled = {true}
@@ -125,7 +125,7 @@ function JobDescriptor(props) {
               disabled = {true}
             >
               Add to Favourites
-            </button>
+            </button> */}
 
         </div>
         {/* Description */}

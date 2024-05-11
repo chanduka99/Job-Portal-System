@@ -7,6 +7,7 @@ import JobCard from "../components/CandidateDashboardJobCard";
 import JobDescriptor from "../components/CandidateDashboardJobDescripter";
 import SMFilterSearch from "../components/SMFilterSearch";
 import { GetJobs } from "../firebase/CandidateDB";
+import { delay, motion } from "framer-motion";
 
 function CandidateDashboardJobFeed() {
 
@@ -56,7 +57,8 @@ function CandidateDashboardJobFeed() {
           {/*only in the mid screens jobcard part get 2 columns and job descrptor gets 3 columns */}
           <div className=" grid grid-cols-1 max-h-[90vh] overflow-auto sm:col-span-2 lg:col-span-4 lg:grid lg:grid-cols-2 md:max-h-[80vh] md:overflow-auto">
             {jobs.map((job) => (
-              <button
+              <motion.button
+                whileHover ={{scale:1.07}}
                 onClick={() => {
                   handleTap(job);
                 }}
@@ -70,17 +72,17 @@ function CandidateDashboardJobFeed() {
                   location={job.city}
                   employerEmail={job.employerEmail}
                 />
-              </button>
+              </motion.button>
             ))}
           </div>
           {/* jobDescriptor container hide in mobile screens */}
-          <div className="sm:col-span-3 lg:col-span-3 lg:w-[32vw] lg:mx-2">
+          <div className="sm:col-span-3 lg:col-span-3 lg:w-[31vw] lg:mx-2 sm:max-h-[80vh] sm:overflow-y-auto">
             {!jobDescriptorProps && (
               <h1 className="text-secondary text-opacity-60 flex  justify-center mt-56 ">
                 Click on a job to view the details
               </h1>
             )}
-            {jobDescriptorProps && <JobDescriptor {...jobDescriptorProps} />}
+            {jobDescriptorProps && <motion.div initial={{x:150}} animate={{x:0}} transition={{duration:0.3}}><JobDescriptor {...jobDescriptorProps} /></motion.div>}
           </div>
         </div>
       </div>

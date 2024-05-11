@@ -24,16 +24,26 @@ function EmployerSignInForm() {
           passwordRef.current.value
         );
         console.log("response from the signIn", resObj);
-        await SetUser(resObj);
-        if (currentUserDetail.type === "employer") {
-          toast.success("Successfully Logged In", {
-            position: "top-right",
+        const holdUser = await SetUser(resObj);
+          if(currentUserDetail === undefined){
+            //try 3 times
+            for(let i = 0;i<3;i++){
+              if(currentUserDetail !== undefined){
+                break;
+              }else{
+                await SetUser(resObj);
+              }
+            }
+          }
+        if (holdUser.type === "employer") {
+          toast.success('Logged in Successfully', {
+            position: 'top-right',
             style: {
-              background: "#4DE318",
-              color: "#FFFFFF",
-            },
-          });
-          navigate("/post-job/e-dashboard-jobs-feed", { replace: true });
+              background: '#4DE318',
+              color: '#FFFFFF',
+            }});
+            console.log("toast missed")
+            navigate("/post-job/e-dashboard-jobs-feed", { replace: true });
         } else {
           await LogOut();
           navigate("/find-job", { replace: true });
@@ -83,7 +93,7 @@ function EmployerSignInForm() {
 //handle loading
 
       return (
-        <div className="flex justify-center ">
+        <div  data-testid="ESignin" className="flex justify-center ">
           <div style={containerStyle} className="relative">
             <div className="flex justify-center">
               <h1 className="text-2xl font-semibold mt-4 ">Sign in</h1>

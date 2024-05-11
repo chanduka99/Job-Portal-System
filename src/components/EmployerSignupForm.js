@@ -31,7 +31,7 @@ function EmployerSignupForm() {
         await SignUp(emailRef.current.value,passwordRef.current.value);
         //creating a user with employerName,and employerStatus in the users collection
         SignUpUserSetup(emailRef.current.value,companyNameRef.current.value,employerStatus); 
-        toast.success('Successfully SignedUp', {
+        toast.error('Successfully SignedUp', {
           position: 'top-right',
           style: {
             background: '#4DE318',

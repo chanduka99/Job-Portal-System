@@ -13,7 +13,7 @@ import { useAuth } from '../contexts/AuthContext';
 import {auth} from '../firebase/config';
 
 function EmployerSideBar() {
-    const containerStyle = "p-2 rounded-[5px] mt-[4vh] flex place-items-center gap-5 hover:bg-[rgba(255,255,255,0.18)] duration-300  text-white text-opacity-60 text-base tracking-wider hover:text-white"
+    const containerStyle = "p-2 rounded-[5px] mt-[4vh] flex place-items-center gap-5 hover:bg-[rgba(255,255,255,0.18)] duration-300  text-white  text-base tracking-wider hover:text-white"
     const [pressed, setPressed] = useState(false);
     const navigate = useNavigate();
     const {LogOut} = useAuth();
@@ -22,6 +22,7 @@ function EmployerSideBar() {
         try{
             LogOut();
             navigate("/post-job")
+            window.location.reload(true);
         }catch(error){
             console.log(error);
             navigate("/post-job")
@@ -29,8 +30,8 @@ function EmployerSideBar() {
     }
 
   return (
-    <div className='my-1'>
-        <div className={`relative bg-gradient-to-b from-[#9345ffd5] to-[#512194] ${pressed? 'w-[18vh] lg:w-[26vh]': 'w-[7.5vh] lg:w-[8vh]'}  h-[92.5vh] rounded-[5px] p-2 duration-300`}>
+    <div className='mb-1 mt-3'>
+        <div className={`relative bg-gradient-to-b from-[#9345ffd5] to-[#512194] ${pressed? 'w-[18vh] lg:w-[26vh]': 'w-[7.5vh] lg:w-[8vh]'}  h-[90vh] rounded-[5px] p-2 duration-300`}>
             <div className={`p-2 rounded-[5px]  mt-1 w-12 gap-5 hover:bg-[rgba(255,255,255,0.18)] duration-300 `}>
                 <div className='w-7 h-7 justify-around'>
                     <button onClick={()=>setPressed(!pressed)}>
@@ -62,47 +63,41 @@ function EmployerSideBar() {
             </div>
             {/* bookmarks */}
             <div>
-                <Link to={""}>
+                {/* <Link to={""}> */}
                 <div className={`${containerStyle}`}>
                     <div className='w-8'>
                     <img src={bookmark} alt='bookmarks'/>
                 </div>
                 <h1 className={`${pressed? 'block':'hidden'}`}>Bookmarks</h1>
                 </div>
-                </Link>
+                {/* </Link> */}
             </div>
             {/* chat */}
-            <div>
-                <Link to={""}>
+            <div>               
                 <div className={`${containerStyle}`}>
                     <div className='w-8'>
                     <img src={chat} alt='chat'/>
                 </div>
                 <h1 className={`${pressed? 'block':'hidden'}`}>Chat</h1>
                 </div>
-                </Link>
             </div>
             {/* reviews/blog */}
             <div>
-                <Link to={""}>
                 <div className={`${containerStyle}`}>
                     <div className='w-8'>
                     <img src={review} alt='reviews'/>
                 </div>
                 <h1 className={`${pressed? 'block':'hidden'}`}>Reviews</h1>
                 </div>
-                </Link>
             </div>
             {/* settings */}
             <div>
-                <Link to={""}>
                 <div className={`${containerStyle}`}>
                     <div className='w-8'>
                     <img src={settings} alt='settings'/>
                     </div>
                     <h1 className={`${pressed? 'block':'hidden'}`}>Settings</h1>
                 </div>
-                </Link>
             </div>
 
             <div className='absolute bottom-4'>

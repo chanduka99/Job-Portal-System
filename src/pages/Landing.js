@@ -6,9 +6,6 @@ import pilot from '../assets/landing/main/JobPilot.svg'
 import { delay, motion } from "framer-motion";
 
 function Landing() {
-  const buttonStyle ={
-
-  };
   return (
 
         
@@ -31,7 +28,7 @@ function Landing() {
           animate = {{opacity:1 , y:0}}
           transition={{ delay:0.3 , duration : 1.2}}
         >
-          <img src={pilot} className=' w-[300px]' ></img>
+          <img src={pilot} className=' w-[300px]' alt='Job Pilot' ></img>
         </motion.div>
 
         {/* buttons */}

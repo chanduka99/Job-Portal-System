@@ -1,17 +1,44 @@
-import React from 'react';
-import { TextInput,Datepicker,Textarea, Label, Badge,Button ,Modal,Checkbox } from 'flowbite-react';
-import { useState } from 'react';
+import React,{useState,useEffect} from 'react';
+import { TextInput,Datepicker,Textarea, Label, Badge ,Modal,Spinner} from 'flowbite-react';
 import { Link } from 'react-router-dom';
 import profilpic from '../assets/Registration/profilepic.svg'
+import { useUser } from "../contexts/UserContext";
+import { useAuth } from "../contexts/AuthContext";
+import { delay, motion } from "framer-motion";
+import { RxAvatar } from "react-icons/rx";
 
 function EmployerProfileCard() {
-    const aboutMe = "Since 1999"
-    const companyName = "Dialog";
-    const contactNum = "+9407234234234";
-    const  Cordinator = "Perera A.B.C";
-    const country = "Sri Lanka";
-    const city = "Galle";
-    const jobPreferences = ["Java Developer","Back-End Developer","Front-End Developer"];
+    const {currentUser} = useAuth();
+    const {currentUserDetail} = useUser();
+    const [imgUploadLoading,setImgUploadLoading] = useState(false);
+    const [imgUpload,setImgUpload] = useState(null);
+  
+    let aboutMe = " "
+    let companyName = " ";
+    let contactNum = " ";
+    let  cordinator = " ";
+    let country = " ";
+    let city =''
+    let jobPreferences=''
+  
+  
+    useEffect(()=>{
+      if(currentUser && currentUserDetail){
+        // change the getStarted button to avatar-setAvatar as the profile picture
+        setImgUpload(currentUserDetail.profilpic);
+
+        //set the other details
+
+         aboutMe =currentUserDetail.aboutMe;
+         companyName =currentUserDetail.employerName;
+         contactNum = currentUserDetail.contactNumber;
+            cordinator =currentUserDetail.cordinatorName;
+         country = currentUserDetail.country; 
+         city =currentUserDetail.city;
+         jobPreferences=''
+        console.log(currentUserDetail.profilePic);
+    }
+    },[currentUser,currentUserDetail])
 
     const containerStyle1 = {
         // maxwidth:"70vw",
@@ -29,6 +56,11 @@ function EmployerProfileCard() {
         boxShadow:"0 0 21px 1px rgba(0,0,0,0.12)",
       };
 
+      const profilePicConatinerStyle = {
+        border:"1px solid rgba(92,101,117,0.23)",
+        boxShadow:"0 0 21px 1px rgba(0,0,0,0.12)",
+      };
+
       const [openModal, setOpenModal] = useState(false);
     
       function onCloseModal() {
@@ -40,7 +72,15 @@ function EmployerProfileCard() {
     <div className=' flex justify-center mb-6'>
         <div style={containerStyle1} className='p-8 max-w-[70vh] '>
             <div className='md:grid grid-cols-2 my-6 gap-12 text-primary'>
-                <img src={profilpic} className='w-48'/>
+            <motion.button className='w-[20vh] h-[20vh]  rounded-full mt-[4vh] flex justify-center place-items-center' style={profilePicConatinerStyle}
+                        onClick={()=>setOpenModal(true)}
+                        whileHover={{scale:1.1}}
+                    >   
+                        {!imgUpload &&   (<RxAvatar className='text-9xl text-lightSecondary opacity-30' />)}
+                        {/* set loading image for profilpic */}
+                        {imgUploadLoading && imgUpload && (<Spinner className='fill-[white] text-[#9345ffd5]'/>)}
+                        {!imgUploadLoading && (<img className='max-W-[17vh] max-h-[17vh]' src={imgUpload}/>)}
+                    </motion.button>
                 {/* About me */}
                 <div
                 id='aboutMe'
@@ -57,7 +97,7 @@ function EmployerProfileCard() {
                     {/* cordinator */}
                     <div className='mt-6'
                     id='cordinator'
-                    >{"Cordinator : " +Cordinator}</div>
+                    >{"Cordinator : " +cordinator}</div>
 
                     {/* Country */}
                     <div className='mt-6'
@@ -79,7 +119,7 @@ function EmployerProfileCard() {
             {/* Job Preferneces */}
             <div className=' mt-12'>
                 <h1 className='text-xl font-black'>Job Preferneces</h1>
-                {jobPreferences.map((elm)=><Badge className='text-base w-1/2 mt-6 bg-[#F2F5F8] text-secondary text-opacity-80'>{elm}</Badge>)}
+                {/* {jobPreferences.map((elm)=><Badge className='text-base w-1/2 mt-6 bg-[#F2F5F8] text-secondary text-opacity-80'>{elm}</Badge>)} */}
 
                 {/* Edit button */}
                 <div className=" flex justify-end  ">

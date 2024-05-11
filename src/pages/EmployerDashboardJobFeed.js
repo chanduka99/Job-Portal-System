@@ -7,6 +7,7 @@ import EJobCard from "../components/EmployerDashboardJobCard";
 import EJobDescriptor from "../components/EmployerDashboardJobDescriptor";
 import SMFilterSearch from "../components/SMFilterSearch";
 import { GetJobs } from "../firebase/CandidateDB";
+import { delay, motion } from "framer-motion";
 
 function EmployerDashboardJobFeed() {
   //need to fetch the data  from the database HERE I JUST HARD CODED IT. fetcht the data from the database and putinsid this array with useState hook
@@ -57,7 +58,8 @@ function EmployerDashboardJobFeed() {
           {/*only in the mid screens jobcard part get 2 columns and job descrptor gets 3 columns */}
           <div className=" grid grid-cols-1 max-h-[90vh] overflow-auto sm:ml-3 sm:col-span-2 lg:col-span-4 lg:grid lg:grid-cols-2 md:max-h-[80vh] md:overflow-auto">
             {jobs.map((job) => (
-              <button
+              <motion.button
+              whileHover ={{scale:1.07}}
                 onClick={() => {
                   handleTap(job);
                 }}
@@ -71,7 +73,7 @@ function EmployerDashboardJobFeed() {
                   location={job.city}
                   employerEmail={job.employerEmail}
                 />
-              </button>
+              </motion.button>
             ))}
           </div>
           {/* jobDescriptor container hide in mobile screens */}

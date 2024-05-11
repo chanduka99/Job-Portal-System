@@ -37,7 +37,6 @@ import EmployerProtectedRoute from "./components/EmployerProtectedRoute";
 
 function App() {
   return (
-    <BrowserRouter >
         <AuthProvider>
           <UserProvider>
           <IsCNavbar>
@@ -53,7 +52,7 @@ function App() {
             <IsESideBar>
               <ESideBar/>
             </IsESideBar>
-            {/* <div className="flex-row justify-center"> */}
+            <div className="flex justify-center w-full">
               <Routes>
                 <Route path="/" element={<Landing/>}/>
                 <Route path="/find-job" element={<CHome/>}/>
@@ -78,14 +77,11 @@ function App() {
                 <Route path="/post-job/e-dashboard-jobs-feed" element={<EmployerProtectedRoute><EDashboardJobsFeed/></EmployerProtectedRoute>}/>
                 <Route path="/post-job/e-dashboard-profile" element={<EmployerProtectedRoute><EDashboardProfile/></EmployerProtectedRoute>}/>
               </Routes>
-            {/* </div> */}
+            </div>
             <Toaster/>
           </div>
           </UserProvider>
         </AuthProvider>
-
-    </BrowserRouter> 
-
   );
 }
 

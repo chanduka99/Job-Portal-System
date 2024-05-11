@@ -19,9 +19,11 @@ function CandidateProtectedRoute({children}) {
               navigate("/find-job/Clogin");
         }else{
           //to come to the else part means user is signed in.Therefore check if the user is a employee/candidate
-          if(currentUserDetail.type === "employer"){
-            //if the signed use is a employer.then redirect to  home page
-            navigate('/post-job/e-dashboard-jobs-feed');
+          if(currentUser && currentUserDetail){
+              if(currentUserDetail.type === "employer"){
+                //if the signed use is a employer.then redirect to  home page
+                navigate('/post-job/e-dashboard-jobs-feed');
+              }
           }
         }
       } catch (error) {
@@ -30,7 +32,7 @@ function CandidateProtectedRoute({children}) {
       }finally{
         setLoading(false);
       }    
-    },[navigate])
+    },[currentUser,navigate,currentUserDetail])
 
 
 //handle error page

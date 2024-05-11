@@ -187,7 +187,7 @@ function JobDescriptor(props) {
 
   return (
     <div className="sm:flex lg:block justify-around hidden md:block ">
-      <div style={containerStyle} className="p-4 sm:w-full lg:w-[31.5vw] ">
+      <div style={containerStyle} className="p-4 sm:w-full lg:w-[30vw] ">
         {/* badge,company name    bookmark,rating */}
         <div className="flex justify-between overflow-hidden">
           {/* badge and company name */}

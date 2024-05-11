@@ -6,7 +6,7 @@ function DahboardFilter() {
   const containerStyle = {
     width: "100%",
     // height: "80vh",
-    height: "92vh",
+    height: "90vh",
     // marginTop: "30px",
     borderRadius: `5px`,
     // border: `1px  solid rgba(67,73,85,0.23)`,
