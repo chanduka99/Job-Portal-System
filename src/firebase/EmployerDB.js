@@ -1,5 +1,8 @@
 import {db} from './config';
-import { collection, addDoc,doc, updateDoc, arrayUnion, arrayRemove, getDoc , setDoc  } from "firebase/firestore"; 
+import {storage} from './config';
+import {getDownloadURL, ref,uploadBytes } from "firebase/storage";
+import { collection, addDoc,doc, updateDoc, arrayUnion, arrayRemove, getDoc , setDoc  } from "firebase/firestore";
+import { v4 as uuidv4 } from 'uuid'; 
 
 export async function PostJob(jobObj){
     try{
@@ -35,10 +38,6 @@ export async function PostJob(jobObj){
           console.log(jobRef.id);
           //adding the newly added job under the postedJobs field of the employer
           const userRef = doc(db, "users", jobObj.employerEmail);
-        //   let temp = [userRef.postedJobs];
-        //   console.log("temp first :",temp)
-        //    temp = temp.concat(["12312414"]);
-        //    console.log("temp next :",temp);
           await updateDoc(userRef, {
             postedJobs:arrayUnion(jobRef.id)
           });
@@ -55,4 +54,23 @@ export async function SignUpUserSetup(email,name,status){
     type:"employer",
     employerStatus:status
   });
+}
+
+//this function is called inside the employer Account setup form
+export async function UploadProfileImg(email,img){
+  let downloadUrl;
+  const imgRef = ref(storage,`employeeProfilePics/${email+"->"+ uuidv4()}`);
+  await uploadBytes(imgRef, img).then(async(snapshot) => {
+    console.log('Uploaded a blob or file!');
+    console.log(snapshot.metadata);
+    // retriving back the url
+      downloadUrl = await getDownloadURL(ref(storage,`employeeProfilePics/${snapshot.metadata.name}`))
+    //add the profile pic as profile pic under the employer user data
+    const userRef = doc(db,"users", email);
+    await updateDoc(userRef,{
+        profilePic: downloadUrl
+      });
+      
+    });
+    return downloadUrl;
 }

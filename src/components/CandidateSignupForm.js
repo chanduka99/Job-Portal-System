@@ -34,24 +34,31 @@ function UndergraduateSignupForm() {
       });
     }else{
       try{
-        await SignUp(emailRef.current.value,passwordRef.current.value);
-        //creating a users collection and storing info of the signUp
-        await setDoc(doc(db, "users", currentUser.email), {
-          type:"employee",
-          employeeStatus:employeeStatus,
-          firstName:firstNameRef.current.value,
-          lastName:lastNameRef.current.value,
-          indedNo:indedNoRef.current.value,
-          faculty:facultyRef.current.value,
-          department:departmentRef.current.value
-        });
-        toast.success('Successfully SignedUp', {
-          position: 'top-right',
-          style: {
-            background: '#4DE318',
-            color: '#FFFFFF',
-          }});
+
+        await Promise.all([
+          await SignUp(emailRef.current.value,passwordRef.current.value),
+          await setDoc(doc(db, "users", currentUser.email), {
+            type:"employee",
+            employeeStatus:employeeStatus,
+            firstName:firstNameRef.current.value,
+            lastName:lastNameRef.current.value,
+            indedNo:indedNoRef.current.value,
+            faculty:facultyRef.current.value,
+            department:departmentRef.current.value,
+            appliedJobs:[],
+            bookmarkedJobs:[]
+          })
+        ]).then(()=>{
+          toast.success('Successfully SignedUp', {
+            position: 'top-right',
+            style: {
+              background: '#4DE318',
+              color: '#FFFFFF',
+            }});
+        }).then(()=>{
           navigate("/find-job/get-started/confirm-email",{replaced:true});
+        })
+        //creating a users collection and storing info of the signUp
       }catch(error){
         toast.error('Error Occured', {
           position: 'top-right',
@@ -60,6 +67,7 @@ function UndergraduateSignupForm() {
             color: '#FFFFFF',
           },
         });
+        console.log(error);
       }
     }
 

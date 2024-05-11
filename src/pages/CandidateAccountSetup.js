@@ -6,7 +6,9 @@ function CandidateAccountSetup() {
   return (
     <div>
         <AuthStatBar/>
-        <CAccountSetup/>
+        <div className='max-h-[92vh] overflow-auto'>
+          <CAccountSetup/>
+        </div>
     </div>
   )
 }

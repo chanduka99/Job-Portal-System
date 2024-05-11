@@ -32,6 +32,7 @@ module.exports = {
       'primary': '#5E6670',
       'white':'#FFFFFF',
       'secondary': '#434955',
+      'lightSecondary' : '#5E6778'
 
     }
   },

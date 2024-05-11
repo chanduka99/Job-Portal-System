@@ -5,30 +5,16 @@ import Filter from "../components/CandidateDashboardFilter";
 import Search from "../components/CandidateDashboardSearch";
 import JobCard from "../components/CandidateDashboardJobCard";
 import JobDescriptor from "../components/CandidateDashboardJobDescripter";
+import SMFilterSearch from "../components/SMFilterSearch";
 import { GetJobs } from "../firebase/CandidateDB";
+import { delay, motion } from "framer-motion";
+
 function CandidateDashboardJobFeed() {
 
 
   //need to fetch the data  from the database HERE I JUST HARD CODED IT. fetcht the data from the database and putinsid this array with useState hook
-  const [jobs,setJobs] = useState([
-    // {image: "https://99x.io/images/logo-99x-main.png",companyName: "99x" , rating: "4.2", jobTitle: "Java Developer" , location: "Colombo"},
-    // {image: "https://99x.io/images/logo-99x-main.png",companyName: "99x" , rating: "4.2", jobTitle: "Java Developer" , location: "Colombo"},
-    // {image: "https://99x.io/images/logo-99x-main.png",companyName: "99x" , rating: "4.2", jobTitle: "Java Developer" , location: "Colombo"},
-    // {image: "https://99x.io/images/logo-99x-main.png",companyName: "99x" , rating: "4.2", jobTitle: "Java Developer" , location: "Colombo"},
-    // {image: "https://99x.io/images/logo-99x-main.png",companyName: "99x" , rating: "4.2", jobTitle: "Java Developer" , location: "Colombo"},
-    // {image: "https://99x.io/images/logo-99x-main.png",companyName: "99x" , rating: "4.2", jobTitle: "Java Developer" , location: "Colombo"},
-    // {image: "https://99x.io/images/logo-99x-main.png",companyName: "99x" , rating: "4.2", jobTitle: "Java Developer" , location: "Colombo"},
-    // {image: "https://99x.io/images/logo-99x-main.png",companyName: "99x" , rating: "4.2", jobTitle: "Java Developer" , location: "Colombo"},
-    // {image: "https://99x.io/images/logo-99x-main.png",companyName: "99x" , rating: "4.2", jobTitle: "Java Developer" , location: "Colombo"},
-    // {image: "https://e7.pngegg.com/pngimages/514/56/png-clipart-dialog-axiata-axiata-group-xl-axiata-colombo-dialog-broadband-networks-dialog-axiata-angle-rectangle.png",companyName: "Dialog" , rating: "4.2", jobTitle: "Java Developer" , location: "Galle"},
-    // {image: "https://e7.pngegg.com/pngimages/514/56/png-clipart-dialog-axiata-axiata-group-xl-axiata-colombo-dialog-broadband-networks-dialog-axiata-angle-rectangle.png",companyName: "Dialog" , rating: "4.2", jobTitle: "Java Developer" , location: "Galle"},
-    // {image: "https://e7.pngegg.com/pngimages/514/56/png-clipart-dialog-axiata-axiata-group-xl-axiata-colombo-dialog-broadband-networks-dialog-axiata-angle-rectangle.png",companyName: "Dialog" , rating: "4.2", jobTitle: "Java Developer" , location: "Galle"},
-    // {image: "https://e7.pngegg.com/pngimages/514/56/png-clipart-dialog-axiata-axiata-group-xl-axiata-colombo-dialog-broadband-networks-dialog-axiata-angle-rectangle.png",companyName: "Dialog" , rating: "4.2", jobTitle: "Java Developer" , location: "Galle"},
-    // {image: "https://e7.pngegg.com/pngimages/514/56/png-clipart-dialog-axiata-axiata-group-xl-axiata-colombo-dialog-broadband-networks-dialog-axiata-angle-rectangle.png",companyName: "Dialog" , rating: "4.2", jobTitle: "Java Developer" , location: "Galle"},
-    // {image: "https://e7.pngegg.com/pngimages/514/56/png-clipart-dialog-axiata-axiata-group-xl-axiata-colombo-dialog-broadband-networks-dialog-axiata-angle-rectangle.png",companyName: "Dialog" , rating: "4.2", jobTitle: "Java Developer" , location: "Galle"},
-    // {image: "https://e7.pngegg.com/pngimages/514/56/png-clipart-dialog-axiata-axiata-group-xl-axiata-colombo-dialog-broadband-networks-dialog-axiata-angle-rectangle.png",companyName: "Dialog" , rating: "4.2", jobTitle: "Java Developer" , location: "Galle"},
+  const [jobs,setJobs] = useState([]);
 
-  ]);
   const [jobDescriptorProps,setJobDescriptorProps] = useState(null);
 
   useEffect(()=>{
@@ -41,54 +27,64 @@ function CandidateDashboardJobFeed() {
     setJobDescriptorProps({
           image:"https://99x.io/images/logo-99x-main.png",
           companyName:job.employerName,
-          jobTitle:"Java Developer",
+          jobTitle:job.jobTitle,
           country:job.country,
           location:job.city,
           workingHrs:job.jobTimeType,
           experience:job.experienceLevel,
           description:job.jobDescription,
           responsibilities : job.jobResponsibilites ,
-          knowledgeAndExperience :job.knowledgeAndExperience
+          knowledgeAndExperience :job.knowledgeAndExperience,
+          jobId:job.id,
+          employerEmail: job.employerEmail
     })
   }
 
   return (
-    <div className="p-2 grid grid-cols-1  sm:grid-cols-6  gap-2 ">
-      <div className="grid sm:cols-span-2">
+    //mainContainer
+    <div className="lg:grid lg:grid-cols-10">
+      {/* filter container  hide in mobile screens*/}
+      <div className="lg:col-span-2 lg:justify-around">
         <Filter />
+        <SMFilterSearch />
       </div>
-      <div className="col-span-1 sm:col-span-3">
+      {/* search container + jobcard container */}
+      <div className="lg:col-span-8 lg:mt-3 lg:mr-3 w-full ">
+        {/* search bar should be hidden in mobile screen */}
         <Search />
-        <div className="grid grid-cols-1 sm:grid-cols-2 max-h-[92vh] overflow-y-auto gap-y-2">
-          {jobs.map((job)=>
-          <button onClick={()=>{handleTap(job)}}>
-              <JobCard 
-                image = {"https://99x.io/images/logo-99x-main.png"}
-                companyName = {job.employerName}
-                rating = {job.rating}
-                jobTitle = {job.jobTitle}
-                location = {job.city}
-              />
-          </button>
-          )}
+        {/* this is only for the mid Screens */}
+        <div className="sm:grid sm:grid-cols-5 lg:mt-3 lg:grid lg:grid-cols-7">
+          {/*only in the mid screens jobcard part get 2 columns and job descrptor gets 3 columns */}
+          <div className=" grid grid-cols-1 max-h-[90vh] overflow-auto sm:col-span-2 lg:col-span-4 lg:grid lg:grid-cols-2 md:max-h-[80vh] md:overflow-auto">
+            {jobs.map((job) => (
+              <motion.button
+                whileHover ={{scale:1.07}}
+                onClick={() => {
+                  handleTap(job);
+                }}
+                className="w-[80vw] sm:w-[35vw] md:w-[20vw] flex justify-around mt-3 mx-2 "
+              >
+                <JobCard
+                  image={"https://99x.io/images/logo-99x-main.png"}
+                  companyName={job.employerName}
+                  jobId={job.id}
+                  jobTitle={job.jobTitle}
+                  location={job.city}
+                  employerEmail={job.employerEmail}
+                />
+              </motion.button>
+            ))}
+          </div>
+          {/* jobDescriptor container hide in mobile screens */}
+          <div className="sm:col-span-3 lg:col-span-3 lg:w-[31vw] lg:mx-2 sm:max-h-[80vh] sm:overflow-y-auto">
+            {!jobDescriptorProps && (
+              <h1 className="text-secondary text-opacity-60 flex  justify-center mt-56 ">
+                Click on a job to view the details
+              </h1>
+            )}
+            {jobDescriptorProps && <motion.div initial={{x:150}} animate={{x:0}} transition={{duration:0.3}}><JobDescriptor {...jobDescriptorProps} /></motion.div>}
+          </div>
         </div>
-      </div>
-      <div className=" sm:col-span-2 max-h-[92vh] overflow-y-auto w-full  ">
-        {/* <JobDescriptor
-          image="https://99x.io/images/logo-99x-main.png"
-          companyName="99x"
-          jobTitle="Java Developer"
-          country="Sri Lanka"
-          location="Colombo"
-          workingHrs="Full time"
-          experience="2 Year"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id tempor lectus, at vulputate risus. Integer et interdum turpis. Nunc a nunc neque. Cras fringilla posuere elit vitae tempus. Pellentesque sed sem accumsan, condimentum sapien non, fringilla lorem. "
-          responsibilities = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id tempor lectus, at vulputate risus. Integer et interdum turpis. Nunc a nunc neque. Cras fringilla posuere elit vitae tempus. Pellentesque sed sem accumsan, condimentum sapien non, fringilla lorem. "
-          knowledgeAndExperience = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id tempor lectus, at vulputate risus. Integer et interdum turpis. Nunc a nunc neque. Cras fringilla posuere elit vitae tempus. Pellentesque sed sem accumsan, condimentum sapien non, fringilla lorem. "
-        /> */}
-              {jobDescriptorProps && (
-        <JobDescriptor {...jobDescriptorProps} />
-      )}
       </div>
     </div>
   );

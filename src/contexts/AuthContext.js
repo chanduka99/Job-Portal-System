@@ -48,20 +48,21 @@ export function AuthProvider({children}) {
 
 
 useEffect(()=>{
+  setLoading(true);
   const unsubscribe = auth.onAuthStateChanged(user=>{
     user?console.log(user.uid): console.log(user);
     setCurrentUser(user);
     setLoading(false);
   })
-
+  
   console.log("i am inside AuthContext");
   
-
+  
   //onAuthStateChange is a listner,listening to the state change of the user auhtentication.
   //onAuthStateChange returns a function. If we call that function onAuthStateChange listner will stop listening to the state change 
   return ()=>{unsubscribe();}
 
-})
+},[])
 
   const value = {
     currentUser,

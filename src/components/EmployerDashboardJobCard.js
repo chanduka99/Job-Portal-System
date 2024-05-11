@@ -9,16 +9,14 @@ import locationIcon from "../assets/jobcard/location.png";
 import { ApplyForJob } from "../firebase/CandidateDB";
 import { useAuth } from "../contexts/AuthContext";
 import { useUser } from "../contexts/UserContext";
-import { HiPencil ,HiTrash } from "react-icons/hi";
 
-function BookmarkCard(props) {
+function JobCard(props) {
   const jobId = props.jobId;
   const image = props.image;
   const companyName = props.companyName;
   const employerEmail = props.employerEmail;
   const jobTitle = props.jobTitle;
   const location = props.location;
-  const [openModal, setOpenModal] = useState(false);
   const [CVUpload,setCVUpload] = useState(null);
   const [loading,setLoading] = useState(false);
 
@@ -27,13 +25,7 @@ function BookmarkCard(props) {
   const {currentUserDetail} = useUser();
   const {currentUser} = useAuth();
 
-  function onCloseModal() {
-    setOpenModal(false);
-  }
 
-  function handleApply() {
-    setOpenModal(true);
-  }
 
   
   async function handleSubmit(){
@@ -79,7 +71,7 @@ function BookmarkCard(props) {
             color: '#FFFFFF',
           },
         });
-        await ApplyForJob(companyName,emailRef.current.value,contactNoRef.current.value,CVUpload,currentUserDetail,currentUser.email,jobId,employerEmail,jobTitle);
+        await ApplyForJob(companyName,emailRef.current.value,contactNoRef.current.value,CVUpload,currentUserDetail,currentUser.email,jobId,employerEmail);
         toast.success('Application sent', {
           position: 'top-right',
           style: {
@@ -151,7 +143,7 @@ function BookmarkCard(props) {
 
   return (
     <div className=" flex justify-evenly w-min ">
-      <div style={containerStyle} className="p-4 lg:w-[20vw] md:w-[35vw] w-[80vw]">
+      <div style={containerStyle} className="p-4 w-[70vw] sm:w-[30vw] lg:w-[19vw]">
         {/* badge,company name    bookmark,rating */}
         <div className="flex justify-between overflow-hidden">
           {/* badge and company name */}
@@ -168,16 +160,6 @@ function BookmarkCard(props) {
           </div>
           {/* bookmark and rating */}
           <div className="flex gap-2">
-            {/* bookmark icon */}
-            <button>
-              <HiTrash />
-            </button>
-            {/* rating */}
-            {/* <div style={containerStyle3}>
-              <h1 className="mt-1.5 text-secondary text-opacity-80 text-xs ">
-                {rating}
-              </h1>
-            </div> */}
           </div>
         </div>
         {/* job title */}
@@ -195,72 +177,18 @@ function BookmarkCard(props) {
           </div>
           {/* apply button */}
           <div>
-            <button
+            {/* <button
               type="button"
-              className="text-xs px-4 py-0.5 text-white  rounded-[5px] bg-[#9445FF]"
-              onClick={handleApply}
+              className="text-xs px-4 py-0.5 text-white  rounded-[5px] bg-[#9445FF] opacity-40"
+              disabled = {true}
             >
               Apply
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
-
-      <Modal show={openModal} onClose={onCloseModal} popup>
-        <Modal.Header />
-        <Modal.Body>
-          <div className="max-h-[60vh] overflow-y-auto max-w-[70vw]">
-            <div className=" flex justify-center mb-6">
-              <div style={containerStyle4} className="p-8">
-                <div>
-                  <h1 className="font-black text-xl">Apply for {companyName}</h1>
-                </div>
-                <div >
-                  {/* <img src={profilpic} className='w-48'/> */}
-                  {/* About me */}
-                  <div>
-                    {/* email */}
-                    <TextInput
-                      className="mt-6"
-                      id="applicantEmail"
-                      placeholder="Email"
-                      ref={emailRef}
-                    />
-                    {/* contact number */}
-                    <TextInput
-                      className="mt-6"
-                      id="contactNo"
-                      placeholder="Contact Number ( with country code )"
-                      ref={contactNoRef}
-                    />
-
-                  </div>
-                  
-                </div>
-
-                {/* CV upload */}
-                <div className=" mt-12">
-                  <input type="file" className="bg-[#9445FF] text-white" onChange={(event)=>setCVUpload(event.target.files[0])} />
-                  <label className=" text-secondary text-opacity-80 ">   Max size 1 MB</label>
-                  {/* Submit button */}
-                  <div className=" flex justify-end  ">
-                    <button
-                      type="button"
-                      className=" mt-9 text-xl  text-white text- w-32 h-10 rounded-[5px] bg-[#9445FF]"
-                      onClick={handleSubmit}
-                      disabled= {loading}
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Modal.Body>
-      </Modal>
     </div>
   );
 }
 
-export default BookmarkCard;
+export default JobCard;

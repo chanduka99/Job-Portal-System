@@ -1,148 +1,91 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Cnavbar from "../components/CandidateNavbar";
 import CSidebar from "../components/CandidateSideBar";
 import Filter from "../components/CandidateDashboardFilter";
 import Search from "../components/CandidateDashboardSearch";
-import JobCard from "../components/CandidateDashboardJobCard";
-import JobDescriptor from "../components/CandidateDashboardJobDescripter";
-import temperoryCompanyLogo from "../assets/99x.png";
-import temperoryCompanyLogo2 from "../assets/dialog.png";
+import EJobCard from "../components/EmployerDashboardJobCard";
+import EJobDescriptor from "../components/EmployerDashboardJobDescriptor";
+import SMFilterSearch from "../components/SMFilterSearch";
+import { GetJobs } from "../firebase/CandidateDB";
+import { delay, motion } from "framer-motion";
+
 function EmployerDashboardJobFeed() {
+  //need to fetch the data  from the database HERE I JUST HARD CODED IT. fetcht the data from the database and putinsid this array with useState hook
+  const [jobs, setJobs] = useState([]);
+
+  const [jobDescriptorProps, setJobDescriptorProps] = useState(null);
+
+  useEffect(() => {
+    var ReturnOfjobsPromise = GetJobs();
+    console.log(
+      ReturnOfjobsPromise.then((jobs) => {
+        setJobs(jobs);
+      })
+    );
+  }, []);
+
+  function handleTap(job) {
+    setJobDescriptorProps({
+      image: "https://99x.io/images/logo-99x-main.png",
+      companyName: job.employerName,
+      jobTitle: job.jobTitle,
+      country: job.country,
+      location: job.city,
+      workingHrs: job.jobTimeType,
+      experience: job.experienceLevel,
+      description: job.jobDescription,
+      responsibilities: job.jobResponsibilites,
+      knowledgeAndExperience: job.knowledgeAndExperience,
+      jobId: job.id,
+      employerEmail: job.employerEmail,
+    });
+  }
+
   return (
-    <div className="p-2 grid grid-cols-1  sm:grid-cols-6  gap-2 ">
-      <div className="grid sm:cols-span-2">
+    //mainContainer
+    <div className="lg:grid lg:grid-cols-10">
+      {/* filter container  hide in mobile screens*/}
+      <div className="lg:col-span-2 lg:justify-around">
         <Filter />
+        <SMFilterSearch />
       </div>
-      <dig className="col-span-1 sm:col-span-3">
+      {/* search container + jobcard container */}
+      <div className="lg:col-span-8 lg:mt-3 lg:mr-3 w-full ">
+        {/* search bar should be hidden in mobile screen */}
         <Search />
-        <div className="grid grid-cols-1 sm:grid-cols-2 max-h-[92vh] overflow-y-auto gap-y-2">
-          <JobCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo2}
-            companyName="Dialog"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo2}
-            companyName="Dialog"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo2}
-            companyName="Dialog"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo2}
-            companyName="Dialog"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo2}
-            companyName="Dialog"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo2}
-            companyName="Dialog"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo2}
-            companyName="Dialog"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
-          <JobCard
-            image={temperoryCompanyLogo}
-            companyName="99x"
-            rating="4.2"
-            jobTitle="Java Developer"
-            location="Colombo"
-          />
+        {/* this is only for the mid Screens */}
+        <div className="sm:grid sm:grid-cols-5 lg:mt-3 lg:grid lg:grid-cols-7">
+          {/*only in the mid screens jobcard part get 2 columns and job descrptor gets 3 columns */}
+          <div className=" grid grid-cols-1 max-h-[90vh] overflow-auto sm:ml-3 sm:col-span-2 lg:col-span-4 lg:grid lg:grid-cols-2 md:max-h-[80vh] md:overflow-auto">
+            {jobs.map((job) => (
+              <motion.button
+              whileHover ={{scale:1.07}}
+                onClick={() => {
+                  handleTap(job);
+                }}
+                className="w-[80vw] sm:w-[35vw] md:w-[20vw] flex justify-around mt-3 mr-2  "
+              >
+                <EJobCard
+                  image={"https://99x.io/images/logo-99x-main.png"}
+                  companyName={job.employerName}
+                  jobId={job.id}
+                  jobTitle={job.jobTitle}
+                  location={job.city}
+                  employerEmail={job.employerEmail}
+                />
+              </motion.button>
+            ))}
+          </div>
+          {/* jobDescriptor container hide in mobile screens */}
+          <div className="sm:col-span-3 lg:col-span-3 lg:w-[32vw] lg:mx-2">
+            {!jobDescriptorProps && (
+              <h1 className="text-secondary text-opacity-60 flex  justify-center mt-56 ">
+                Click on a job to view the details
+              </h1>
+            )}
+            {jobDescriptorProps && <EJobDescriptor {...jobDescriptorProps} />}
+          </div>
         </div>
-      </dig>
-      <div className=" sm:col-span-2 max-h-[92vh] overflow-y-auto w-full  ">
-        <JobDescriptor
-          image={temperoryCompanyLogo}
-          companyName="99x"
-          jobTitle="Java Developer"
-          country="Sri Lanka"
-          location="Colombo"
-          workingHrs="Full time"
-          experience="2 Year"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id tempor lectus, at vulputate risus. Integer et interdum turpis. Nunc a nunc neque. Cras fringilla posuere elit vitae tempus. Pellentesque sed sem accumsan, condimentum sapien non, fringilla lorem. "
-          responsibilities = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id tempor lectus, at vulputate risus. Integer et interdum turpis. Nunc a nunc neque. Cras fringilla posuere elit vitae tempus. Pellentesque sed sem accumsan, condimentum sapien non, fringilla lorem. "
-          knowledgeAndExperience = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id tempor lectus, at vulputate risus. Integer et interdum turpis. Nunc a nunc neque. Cras fringilla posuere elit vitae tempus. Pellentesque sed sem accumsan, condimentum sapien non, fringilla lorem. "
-        />
       </div>
     </div>
   );

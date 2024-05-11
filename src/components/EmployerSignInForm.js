@@ -1,40 +1,77 @@
 import React ,{useState,useRef}from 'react';
-import {Radio,Label,TextInput} from 'flowbite-react';
+import {TextInput} from 'flowbite-react';
 import {Link,useNavigate} from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import {toast} from 'sonner';
+import { useUser } from "../contexts/UserContext";
 
 function EmployerSignInForm() {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const{loading,setLoading} = useState(false);
-  const {SignIn} =useAuth();
+  const[loading,setLoading] = useState(false);
+  const [error, setError] = useState();
   const navigate = useNavigate();
+  const { SetUser, currentUserDetail } = useUser();
 
-  async function handleSignIn(){
+    //using the AuthContext's Signup function
+    const { SignIn, LogOut } = useAuth();
 
-    try{
-      await SignIn(emailRef.current.value,passwordRef.current.value);
-
-      //need to do check if the signed in user is truly an employer.bcoz even for a candidate the signIn of firebase works
-      
-      toast.success('Successfully Logged In', {
-        position: 'top-right',
-        style: {
-          background: '#4DE318',
-          color: '#FFFFFF',
-        }});
-        navigate('/post-job/e-dashboard-jobs-feed');
-    }catch(error){
-      toast.error('Invalid Login Credentials', {
-        position: 'top-right',
-        style: {
-          background: '#FF3538',
-          color: '#FFFFFF',
-        },
-      });
+    async function handleSignIn() {
+      try {
+        setLoading(true);
+        const resObj = await SignIn(
+          emailRef.current.value,
+          passwordRef.current.value
+        );
+        console.log("response from the signIn", resObj);
+        const holdUser = await SetUser(resObj);
+          if(currentUserDetail === undefined){
+            //try 3 times
+            for(let i = 0;i<3;i++){
+              if(currentUserDetail !== undefined){
+                break;
+              }else{
+                await SetUser(resObj);
+              }
+            }
+          }
+        if (holdUser.type === "employer") {
+          toast.success('Logged in Successfully', {
+            position: 'top-right',
+            style: {
+              background: '#4DE318',
+              color: '#FFFFFF',
+            }});
+            console.log("toast missed")
+            navigate("/post-job/e-dashboard-jobs-feed", { replace: true });
+        } else {
+          await LogOut();
+          navigate("/find-job", { replace: true });
+          toast.error("Login as a Candidate", {
+            position: "top-right",
+            style: {
+              background: "#FF3538",
+              color: "#FFFFFF",
+            },
+          });
+        }
+      } catch (error) {
+        setError("An error occured while login");
+        toast.error("Invalid Login Credentials", {
+          position: "top-right",
+          style: {
+            background: "#FF3538",
+            color: "#FFFFFF",
+          },
+        });
+        await LogOut();
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
     }
-  }
+
+
     const containerStyle = {
         width: "30vw",
         // height: "80vh",
@@ -44,22 +81,34 @@ function EmployerSignInForm() {
         border: `1px  solid rgba(92,101,117,0.23)`,
         boxShadow: "0 0 21px 1px rgba(0, 0, 0, 0.12)",
       };
+
+
+
+
+        //handle error
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+//handle loading
+
       return (
-        <div className="flex justify-center ">
+        <div  data-testid="ESignin" className="flex justify-center ">
           <div style={containerStyle} className="relative">
             <div className="flex justify-center">
               <h1 className="text-2xl font-semibold mt-4 ">Sign in</h1>
             </div>
+          
             {/* Radio Buttons */}
             {/* <fieldset className="flex  justify-around mt-6  ">
               <div className="flex gap-2 items-center ">
                 <Radio id="company" value="Company"></Radio>
-                <Label htmlfor="underGraduate" className="text-secondary text-opacity-80">Company</Label>
+                <Label htmlFor="underGraduate" className="text-secondary text-opacity-80">Company</Label>
               </div>
     
               <div className="flex gap-2 items-center ">
                 <Radio id="singleEmployer" value="Single Employer"></Radio>
-                <Label htmlfor="postGraduate" className="text-secondary text-opacity-80">Single Employer</Label>
+                <Label htmlFor="postGraduate" className="text-secondary text-opacity-80">Single Employer</Label>
               </div>
             </fieldset> */}
     
@@ -87,7 +136,7 @@ function EmployerSignInForm() {
                 />
               </div>
             </div>
-            {/* Register Button */}
+            {/* SignIn Button */}
             <div className="px-8">
               {/* <Link to={"/post-job/e-dashboard-jobs-feed"}> */}
                 <button
