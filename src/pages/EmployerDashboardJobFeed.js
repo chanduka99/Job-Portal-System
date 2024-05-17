@@ -26,7 +26,6 @@ function EmployerDashboardJobFeed() {
 
   function handleTap(job) {
     setJobDescriptorProps({
-      image: "https://99x.io/images/logo-99x-main.png",
       companyName: job.employerName,
       jobTitle: job.jobTitle,
       country: job.country,
@@ -38,6 +37,7 @@ function EmployerDashboardJobFeed() {
       knowledgeAndExperience: job.knowledgeAndExperience,
       jobId: job.id,
       employerEmail: job.employerEmail,
+      profilePic : job.employerPic,
     });
   }
 
@@ -66,12 +66,12 @@ function EmployerDashboardJobFeed() {
                 className="w-[80vw] sm:w-[35vw] md:w-[20vw] flex justify-around mt-3 mr-2  "
               >
                 <EJobCard
-                  image={"https://99x.io/images/logo-99x-main.png"}
                   companyName={job.employerName}
                   jobId={job.id}
                   jobTitle={job.jobTitle}
                   location={job.city}
                   employerEmail={job.employerEmail}
+                  profilePic = {job.employerPic}
                 />
               </motion.button>
             ))}

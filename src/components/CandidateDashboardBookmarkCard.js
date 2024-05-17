@@ -9,11 +9,12 @@ import locationIcon from "../assets/jobcard/location.png";
 import { ApplyForJob } from "../firebase/CandidateDB";
 import { useAuth } from "../contexts/AuthContext";
 import { useUser } from "../contexts/UserContext";
-import { HiPencil ,HiTrash } from "react-icons/hi";
+import { HiTrash } from "react-icons/hi";
+import { motion } from "framer-motion";
 
 function BookmarkCard(props) {
   const jobId = props.jobId;
-  const image = props.image;
+  const image = props.profilePic;
   const companyName = props.companyName;
   const employerEmail = props.employerEmail;
   const jobTitle = props.jobTitle;
@@ -195,13 +196,14 @@ function BookmarkCard(props) {
           </div>
           {/* apply button */}
           <div>
-            <button
+            <motion.button
               type="button"
               className="text-xs px-4 py-0.5 text-white  rounded-[5px] bg-[#9445FF]"
               onClick={handleApply}
+              whileHover={{y:-5 , backgroundColor: "rgba(129, 60, 222, 1)"}}
             >
               Apply
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>

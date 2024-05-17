@@ -1,9 +1,10 @@
 import React, { useRef, useState } from "react";
-import { Radio, Label, TextInput } from "flowbite-react";
+import { TextInput,Spinner } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { toast } from "sonner";
 import { useUser } from "../contexts/UserContext";
+import { motion } from "framer-motion";
 
 function CandidateSignInForm() {
   const emailRef = useRef();
@@ -92,34 +93,12 @@ function CandidateSignInForm() {
 //handle loading
 
   return (
-    <div className="flex justify-center ">
-      <div style={containerStyle} className="relative">
+    <div className="flex justify-center place-items-center w-full h-[99vh]">
+      {loading && (<div className="flex justify-center place-items-center "><Spinner size="xl" className='fill-[white] text-[#9345ffd5]'></Spinner></div>)}
+      {!loading && (<div style={containerStyle} className="relative">
         <div className="flex justify-center">
           <h1 className="text-2xl font-semibold mt-4 ">Sign in</h1>
         </div>
-        {/* Radio Buttons */}
-        {/* <fieldset className="flex  justify-around mt-6  ">
-          <div className="flex gap-2 items-center ">
-            <Radio id="underGraduate" value="Under Graduate"></Radio>
-            <Label
-              htmlFor="underGraduate"
-              className="text-secondary text-opacity-80"
-            >
-              Under Graduate
-            </Label>
-          </div>
-
-          <div className="flex gap-2 items-center ">
-            <Radio id="postGraduate" value="Post Graduate"></Radio>
-            <Label
-              htmlFor="postGraduate"
-              className="text-secondary text-opacity-80"
-            >
-              Post Graduate
-            </Label>
-          </div>
-        </fieldset> */}
-
         <div>
           <div>
             {/* Email and Password */}
@@ -146,14 +125,15 @@ function CandidateSignInForm() {
         </div>
         {/* Sign in Button */}
         <div className="px-8">
-          <button
+          <motion.button
             type="button"
             className=" mt-9 text-2xl text-white text- w-full h-12 rounded-[5px] bg-[#9445FF]"
             onClick={handleSignIn}
             disabled={loading}
+            whileHover={{y:-5 , backgroundColor: "rgba(129, 60, 222, 1)"}}
           >
             Sign in
-          </button>
+          </motion.button>
         </div>
         {/* User Agreement */}
         <div className="justify-center text-center px-8 pt-5">
@@ -173,7 +153,7 @@ function CandidateSignInForm() {
             </div>
           </div>
         </div>
-      </div>
+      </div>)}
     </div>
   );
 }

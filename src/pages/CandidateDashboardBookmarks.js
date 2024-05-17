@@ -11,6 +11,7 @@ import temperoryCompanyLogo2 from "../assets/dialog.png";
 import {GetBookmarks} from "../firebase/CandidateDB";
 import { useUser } from "../contexts/UserContext";
 import Tabs from "../components/CandidateDashboardBookmarkTabs";
+import { motion } from "framer-motion";
 
 function CandidateDashboardBookmarks() {
   const {currentUserDetail} = useUser();
@@ -62,7 +63,10 @@ function CandidateDashboardBookmarks() {
         {/* <Search /> */}
         <div className=" pl-6 grid sm:grid-cols-2 sm:gap-x-6 max-h-[92vh] overflow-y-auto gap-y-6 ">
           { bookmarks.map((bookmark)=>
-          <button onClick={()=>{handleTap(bookmark)}} className="w-min">
+          <motion.button onClick={()=>{handleTap(bookmark)}}
+           className="w-min"
+           whileHover ={{scale:1.07}}
+           >
               <BookmarkCard 
                 image = {"https://99x.io/images/logo-99x-main.png"}
                 companyName = {bookmark.employerName}
@@ -70,8 +74,9 @@ function CandidateDashboardBookmarks() {
                 jobTitle = {bookmark.jobTitle}
                 location = {bookmark.city}
                 employerEmail = {bookmark.employerEmail}
+                profilePic ={bookmark.employerPic}
               />
-          </button>
+          </motion.button>
           )}
         </div>
       </div>

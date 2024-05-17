@@ -3,7 +3,7 @@ import ESignin from '../components/EmployerSignInForm';
 
 function EmployerSignIn() {
   return (
-    <div className='w-screen'>
+    <div className='w-screen flex justify-center place-items-center'>
       <ESignin/>
     </div>
   )

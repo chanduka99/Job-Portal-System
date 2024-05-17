@@ -8,9 +8,10 @@ import JobDescriptor from "../components/CandidateDashboardJobDescripter";
 import SMFilterSearch from "../components/SMFilterSearch";
 import { GetJobs } from "../firebase/CandidateDB";
 import { delay, motion } from "framer-motion";
+import { Spinner } from "flowbite-react";
 
 function CandidateDashboardJobFeed() {
-
+  const [loading,setLoading] = useState(false);
 
   //need to fetch the data  from the database HERE I JUST HARD CODED IT. fetcht the data from the database and putinsid this array with useState hook
   const [jobs,setJobs] = useState([]);
@@ -18,14 +19,19 @@ function CandidateDashboardJobFeed() {
   const [jobDescriptorProps,setJobDescriptorProps] = useState(null);
 
   useEffect(()=>{
-    var ReturnOfjobsPromise = GetJobs();
+    setLoading(true);
+  try{var ReturnOfjobsPromise = GetJobs();
     console.log(ReturnOfjobsPromise.then((jobs)=>{setJobs(jobs)}));
+  }catch(error){
+    console.log(error);
+  }finally{
+    setLoading(false);
+  }
 
   },[])
 
   function handleTap(job){
     setJobDescriptorProps({
-          image:"https://99x.io/images/logo-99x-main.png",
           companyName:job.employerName,
           jobTitle:job.jobTitle,
           country:job.country,
@@ -36,7 +42,8 @@ function CandidateDashboardJobFeed() {
           responsibilities : job.jobResponsibilites ,
           knowledgeAndExperience :job.knowledgeAndExperience,
           jobId:job.id,
-          employerEmail: job.employerEmail
+          employerEmail: job.employerEmail,
+          profilePic : job.employerPic
     })
   }
 
@@ -56,7 +63,8 @@ function CandidateDashboardJobFeed() {
         <div className="sm:grid sm:grid-cols-5 lg:mt-3 lg:grid lg:grid-cols-7">
           {/*only in the mid screens jobcard part get 2 columns and job descrptor gets 3 columns */}
           <div className=" grid grid-cols-1 max-h-[90vh] overflow-auto sm:col-span-2 lg:col-span-4 lg:grid lg:grid-cols-2 md:max-h-[80vh] md:overflow-auto">
-            {jobs.map((job) => (
+          {loading && (<div className="flex justify-center place-items-center "><Spinner size="lg" className='fill-[white] text-[#9345ffd5]'></Spinner></div>)}
+          {jobs && jobs.map((job) => (
               <motion.button
                 whileHover ={{scale:1.07}}
                 onClick={() => {
@@ -65,12 +73,12 @@ function CandidateDashboardJobFeed() {
                 className="w-[80vw] sm:w-[35vw] md:w-[20vw] flex justify-around mt-3 mx-2 "
               >
                 <JobCard
-                  image={"https://99x.io/images/logo-99x-main.png"}
                   companyName={job.employerName}
                   jobId={job.id}
                   jobTitle={job.jobTitle}
                   location={job.city}
                   employerEmail={job.employerEmail}
+                  profilePic = {job.employerPic}
                 />
               </motion.button>
             ))}

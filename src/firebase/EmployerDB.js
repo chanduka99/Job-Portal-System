@@ -33,7 +33,8 @@ export async function PostJob(jobObj){
             jobResponsibilites:jobObj.jobResponsibilites,
             knowledgeAndExperience:jobObj.knowledgeAndExperience,
             experienceLevel:jobObj.experienceLevel,
-            employeeCapacity:jobObj.employeeCapacity
+            employeeCapacity:jobObj.employeeCapacity,
+            employerPic:jobObj.employerPic
           });
           console.log(jobRef.id);
           //adding the newly added job under the postedJobs field of the employer

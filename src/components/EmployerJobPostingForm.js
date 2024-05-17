@@ -4,6 +4,7 @@ import { Radio, Label, TextInput, Checkbox } from "flowbite-react";
 import { toast } from 'sonner';
 import { PostJob } from '../firebase/EmployerDB';
 import { useAuth } from '../contexts/AuthContext';
+import { useUser } from '../contexts/UserContext';
 
 function EmployerJobPostingForm() {
     const [jobTimeType,setJobTimeType] = useState('Full Time');
@@ -22,43 +23,56 @@ function EmployerJobPostingForm() {
     const jobTitleRef = useRef();
     const navigate = useNavigate();
     const {currentUser} = useAuth();
+    const {currentUserDetail} = useUser();
 
 
 
     function handlePost(){
       setLoading(true);
-      console.log(currentUser.email);
-      try{  
-        PostJob({
-          employerEmail:currentUser.email,
-          jobTimeType:jobTimeType,
-          jobEmployeeType:jobEmployeeType,
-          remote:remote,
-          country:countryRef.current.value,
-          city:cityRef.current.value,
-          address:addressRef.current.value,
-          contactEmail:contactEmailRef.current.value,
-          jobTitle:jobTitleRef.current.value,
-          jobDescription:jobDescriptionRef.current.value,
-          jobResponsibilites:jobResponsibilitesRef.current.value,
-          knowledgeAndExperience:knowledgeAndExperienceRef.current.value,
-          experienceLevel:experienceLevel,
-          employeeCapacity:employeeCapacity
-        });
+      if(currentUser && currentUserDetail){
 
-        toast.success('Job Posted Successfully', {
+        try{  
+          PostJob({
+            employerEmail:currentUser.email,
+            jobTimeType:jobTimeType,
+            jobEmployeeType:jobEmployeeType,
+            remote:remote,
+            country:countryRef.current.value,
+            city:cityRef.current.value,
+            address:addressRef.current.value,
+            contactEmail:contactEmailRef.current.value,
+            jobTitle:jobTitleRef.current.value,
+            jobDescription:jobDescriptionRef.current.value,
+            jobResponsibilites:jobResponsibilitesRef.current.value,
+            knowledgeAndExperience:knowledgeAndExperienceRef.current.value,
+            experienceLevel:experienceLevel,
+            employeeCapacity:employeeCapacity,
+            employerPic:currentUserDetail.profilePic
+          });
+  
+          toast.success('Job Posted Successfully', {
+            position: 'top-right',
+            style: {
+              background: '#4DE318',
+              color: '#FFFFFF',
+            }});
+            navigate('/post-job/e-dashboard-jobs-feed');
+        }catch(error){
+          console.log(error);
+          toast.error('Failed to Post Job', {
+            position: 'top-right',
+            style: {
+              background: '#FF3538',
+              color: '#FFFFFF',
+            },
+          });
+        }
+
+      }else{
+        toast.warning('Please reload the page and try again', {
           position: 'top-right',
           style: {
-            background: '#4DE318',
-            color: '#FFFFFF',
-          }});
-          navigate('/post-job/e-dashboard-jobs-feed');
-      }catch(error){
-        console.log(error);
-        toast.error('Failed to Post Job', {
-          position: 'top-right',
-          style: {
-            background: '#FF3538',
+            background: '#FFB800',
             color: '#FFFFFF',
           },
         });

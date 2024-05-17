@@ -6,12 +6,17 @@ import pilot from "../assets/landing/main/JobPilot.svg";
 import { delay, motion } from "framer-motion";
 import { useUser } from "../contexts/UserContext";
 import { useAuth } from "../contexts/AuthContext";
+import internship from '../assets/candidate/menu/intern.png';
+import graduted from '../assets/candidate/menu/postGraduate.png';
+import partTime from '../assets/candidate/menu/PartTime.svg';
+import remote from '../assets/candidate/menu/Remote.jpg';
 
 function CandidateNavbar() {
   const [showJobs, setShowJobs] = useState(false);
   const [jobsImage, setJobsImage] = useState();
   const [showPopOver,setShowPopOver] = useState(false);
   const [avatar,setAvatar] = useState(false);
+  const [avatarName,setAvatarName] = useState('');
   const navigate = useNavigate();
   const {currentUser} = useAuth();
   const {currentUserDetail} = useUser();
@@ -20,11 +25,12 @@ function CandidateNavbar() {
     if(currentUser && currentUserDetail){
       // change the getStarted button to avatar-setAvatar as the profile picture
       setAvatar(currentUserDetail.profilePic)
+      setAvatarName(currentUserDetail.firstName)
   }
   },[currentUser,currentUserDetail])
 
 
-  const jobImages = [pilot, pilot, pilot, pilot];
+  const jobImages = [internship, graduted, partTime, remote];
   //TODO: add seperate images for the job types,animate the job menu
 
 
@@ -89,12 +95,18 @@ function CandidateNavbar() {
           )}
   
           {avatar && (
-            <div className="rounded-full bg-white w-[8vh] h-[8vh] flex justify-center place-items-center"
+            <div className="flex place-items-center">
+              <div className="text-sm py-1 px-3 ">
+                {avatarName}
+              </div>
+              <div className="rounded-full bg-white w-[8vh] h-[8vh] flex justify-center place-items-center"
               onMouseEnter={()=>setShowPopOver(true)}
               onMouseLeave={()=>setShowPopOver(false)}
             >
                 <img className="max-w-[7vh] max-h-[7vh]" src={avatar}/>
             </div>
+            </div>
+
           )}
 
         </div>
@@ -187,7 +199,7 @@ function CandidateNavbar() {
             </div>
             {/* third columng for the image*/}
             <div className="flex justify-center place-items-center col-start-3 col-span-1">
-              <img src={jobsImage} />
+              <img src={jobsImage}  />
             </div>
           </motion.div>
         </motion.div>
