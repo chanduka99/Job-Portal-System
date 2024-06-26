@@ -7,7 +7,7 @@ import pilot from '../assets/landing/main/JobPilot.svg'
 import { delay, motion } from "framer-motion";
 
 // import findJob from '../assets/landing/main/findJob.svg'
-// import postJob from '../assets/landing/main/postJob.svg'
+import postJob from '../assets/landing/main/postJob.svg'
 import pilot from '../assets/landing/main/JobPilot.svg'
 import { delay, motion } from "framer-motion";
 

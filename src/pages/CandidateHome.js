@@ -78,7 +78,7 @@ function CandidateHome() {
         </motion.div
         >
               {/* counting animations */}
-        <motion.div className=' absolute bottom-0 flex gap-48 pl-40  w-screen'
+        <motion.div className=' absolute bottom-0 flex gap-48 pl-24  w-screen'
                       initial ={{opacity:0,y:10}}
                       animate={{opacity:1,y:0}}
                       transition={{delay:2,duration:1}} 
