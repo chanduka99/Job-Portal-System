@@ -3,8 +3,11 @@ import { render } from '@testing-library/react';
 import Landing from './Landing';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import pilot from '../assets/landing/main/JobPilot.svg'
+import { delay, motion } from "framer-motion";
+
 // import findJob from '../assets/landing/main/findJob.svg'
-// import postJob from '../assets/landing/main/postJob.svg'
+import postJob from '../assets/landing/main/postJob.svg'
 import pilot from '../assets/landing/main/JobPilot.svg'
 import { delay, motion } from "framer-motion";
 

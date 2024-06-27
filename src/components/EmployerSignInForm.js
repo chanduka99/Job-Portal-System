@@ -1,5 +1,5 @@
 import React ,{useState,useRef}from 'react';
-import {TextInput} from 'flowbite-react';
+import {TextInput,Spinner} from 'flowbite-react';
 import {Link,useNavigate} from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import {toast} from 'sonner';
@@ -93,25 +93,13 @@ function EmployerSignInForm() {
 //handle loading
 
       return (
-        <div  data-testid="ESignin" className="flex justify-center ">
-          <div style={containerStyle} className="relative">
+        <div  data-testid="ESignin" className="flex justify-center place-items-center w-full h-[99vh]">
+          {loading && (<div className="flex justify-center place-items-center "><Spinner size="xl" className='fill-[white] text-[#9345ffd5]'></Spinner></div>)}
+          {!loading && (
+            <div style={containerStyle} className="relative">
             <div className="flex justify-center">
               <h1 className="text-2xl font-semibold mt-4 ">Sign in</h1>
-            </div>
-          
-            {/* Radio Buttons */}
-            {/* <fieldset className="flex  justify-around mt-6  ">
-              <div className="flex gap-2 items-center ">
-                <Radio id="company" value="Company"></Radio>
-                <Label htmlFor="underGraduate" className="text-secondary text-opacity-80">Company</Label>
-              </div>
-    
-              <div className="flex gap-2 items-center ">
-                <Radio id="singleEmployer" value="Single Employer"></Radio>
-                <Label htmlFor="postGraduate" className="text-secondary text-opacity-80">Single Employer</Label>
-              </div>
-            </fieldset> */}
-    
+            </div>          
             <div >
               <div >
                 {/* Email and Password */}
@@ -163,6 +151,8 @@ function EmployerSignInForm() {
               </p>
             </div>
           </div>
+          )}
+          
         </div>
       )
 }

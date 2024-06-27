@@ -9,14 +9,16 @@ import locationIcon from "../assets/jobcard/location.png";
 import { ApplyForJob } from "../firebase/CandidateDB";
 import { useAuth } from "../contexts/AuthContext";
 import { useUser } from "../contexts/UserContext";
+import { motion } from "framer-motion";
+import { FaRegBookmark} from "react-icons/fa";
 
 function JobCard(props) {
   const jobId = props.jobId;
-  const image = props.image;
   const companyName = props.companyName;
   const employerEmail = props.employerEmail;
   const jobTitle = props.jobTitle;
   const location = props.location;
+  const image = props.profilePic;
   const [openModal, setOpenModal] = useState(false);
   const [CVUpload,setCVUpload] = useState(null);
   const [loading,setLoading] = useState(false);
@@ -168,12 +170,7 @@ function JobCard(props) {
           {/* bookmark and rating */}
           <div className="flex gap-2">
             {/* bookmark icon */}
-            <div style={containerStyle3}>
-              <img
-                src={bookmarkIcon}
-                className="flex  justify-center w-6 h-6 mt-0.5"
-              />
-            </div>
+              < FaRegBookmark className="text-lightSecondary opacity-60 text-lg hover:text-[#9445FF]"/>
           </div>
         </div>
         {/* job title */}
@@ -191,13 +188,14 @@ function JobCard(props) {
           </div>
           {/* apply button */}
           <div>
-            <button
+            <motion.button
               type="button"
               className="text-xs px-4 py-0.5 text-white  rounded-[5px] bg-[#9445FF]"
               onClick={handleApply}
+              whileHover={{y:-5 , backgroundColor: "rgba(129, 60, 222, 1)"}}
             >
               Apply
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>

@@ -1,19 +1,49 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TextInput,Datepicker,Textarea, Label, Badge,Button ,Modal,Checkbox } from 'flowbite-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import profilpic from '../assets/Registration/profilepic.svg'
+import profilpic from '../assets/Registration/profilepic.svg';
+import { useUser } from '../contexts/UserContext';
+import {toast} from 'sonner';
+
 
 function CandidateProfileCard() {
+    const {currentUserDetail} = useUser();
+
+
     const aboutMe = "3rd Year Undergradute Faculty of Engineering."
-    const firstName = "Kaveesha";
-    const lastName = "Chanduka";
-    const contactNum = "+9407234234234";
-    const  faculty = "Faculty of Engineering";
-    const graduatingYear = "31 Aug 2026";
-    const country = "Sri Lanka";
-    const city = "Galle";
-    const jobPreferences = ["Java Developer","Back-End Developer","Front-End Developer"];
+            let profilpic = '';
+            let firstName = '';
+            let lastName = '';
+            let contactNum = '';
+            let  faculty = '';
+            let graduatingYear = '';
+            let country = '';
+            let city ='';
+            let jobPreferences = ["Java Developer","Back-End Developer","Front-End Developer"];
+
+    useEffect(()=>{
+        if(currentUserDetail){
+            profilpic = currentUserDetail.profilePic;
+            firstName = currentUserDetail.firstName;
+            lastName = currentUserDetail.lastName;
+            contactNum = currentUserDetail.contactNum;
+            faculty = currentUserDetail.faculty;
+            graduatingYear = currentUserDetail.graduatingYear;
+            country = currentUserDetail.country;
+            city = currentUserDetail.city;
+            jobPreferences = ["Java Developer","Back-End Developer","Front-End Developer"];
+        }else{
+            toast.warning('Failed load data please reload the page', {
+                position: 'top-right',
+                style: {
+                  background: '#FFB800',
+                  color: '#FFFFFF',
+                },
+              });
+        }
+
+    },[])
 
     const containerStyle1 = {
         // maxwidth:"70vw",
@@ -42,7 +72,7 @@ function CandidateProfileCard() {
     <div className=' flex justify-center mb-6'>
         <div style={containerStyle1} className='p-8'>
             <div className='md:grid grid-cols-2 my-6 gap-12 text-primary'>
-                <img src={profilpic} className='w-48'/>
+                <img src={profilpic} />
                 {/* About me */}
                 <div
                 id='aboutMe'

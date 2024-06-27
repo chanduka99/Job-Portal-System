@@ -12,11 +12,11 @@ import { useUser } from "../contexts/UserContext";
 
 function JobCard(props) {
   const jobId = props.jobId;
-  const image = props.image;
   const companyName = props.companyName;
   const employerEmail = props.employerEmail;
   const jobTitle = props.jobTitle;
   const location = props.location;
+  const image = props.profilePic;
   const [CVUpload,setCVUpload] = useState(null);
   const [loading,setLoading] = useState(false);
 

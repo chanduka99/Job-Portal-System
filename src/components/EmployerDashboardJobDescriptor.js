@@ -10,7 +10,7 @@ import { ApplyForJob,AddtoFavourites } from "../firebase/CandidateDB";
 
 function JobDescriptor(props) {
   const jobId = props.jobId;
-  const image = props.image;
+  const image = props.profilePic;
   const companyName = props.companyName;
   const employerEmail = props.employerEmail;
   const jobTitle = props.jobTitle;
