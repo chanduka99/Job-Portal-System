@@ -15,7 +15,7 @@ function Landing() {
           animate ={{opacity:1}}
           transition={{delay:1.5 , duration: 1.5}}
         >
-          <p className='flex justify-center font-black text-7xl mt-10'> Pilot</p>
+          <p className='flex justify-center font-black text-7xl mt-10'> Pilot123</p>
           <h1 className='hidden sm:block  justify-center text-2xl text-center font-medium text-primary pt-10 px-36'>Welcome to the Gateway of Opportunities: Connecting the aspirations of University of Ruhuna students with the dynamic landscape of employment.
           </h1>
           <h1 className='hidden md:block  justify-center text-2xl text-center font-medium text-primary  px-36'> Explore, Connect, and Ignite your future career on our dedicated platform where students and professionals converge for mutual growth and success.
